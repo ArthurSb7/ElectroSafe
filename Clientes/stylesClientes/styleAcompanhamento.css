@@ -1,0 +1,51 @@
+.locais {
+    background-color: rgb(236, 185, 74);
+}
+h1 {
+    color: white;
+}
+
+h2 {
+    color: white;
+}
+
+h3 {
+    color: white;
+}
+body {
+    background-color: black;
+}
+.corpo {
+    background-color: rgb(111, 10, 228);
+}
+.botao {
+    background-color: rgb(236, 185, 74);
+    border-radius: 9px;
+}
+.botoes {
+    background-color: rgb(230, 154, 219);
+    border-radius: 9px;
+}
+.aberto{
+    background-color: rgb(61, 3, 138);
+    border-radius: 10px;
+}
+.andamento {
+    background-color: rgb(206, 134, 41);
+    border-radius: 10px;
+}
+.entregue {
+    background-color: rgb(61, 32, 194);
+    border-radius: 10px;
+}
+.quadrado > h2,h3 {
+    color: black;
+}
+.quadrado{
+    background-color: white;
+    border-radius: 10px;
+
+    
+}
+
+
