@@ -1,0 +1,154 @@
+.chakra-petch-light {
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.chakra-petch-regular {
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.chakra-petch-medium {
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.chakra-petch-semibold {
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.chakra-petch-bold {
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.chakra-petch-light-italic {
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.chakra-petch-regular-italic {
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.chakra-petch-medium-italic {
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.chakra-petch-semibold-italic {
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.chakra-petch-bold-italic {
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+     background-color: rgb(111, 10, 228);
+    font-family: "Chakra Petch", sans-serif;
+    color: white;
+    padding: 40px;
+}
+
+h1 {
+    text-align: center;
+    color: #f8f8f8;
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+h2 {
+    color: #ebebeb;
+    text-align: center;
+    margin-top: 35px;
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+
+form {
+    background-color: #1b1e24;
+    max-width: 500px;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #383d45;
+    border-left: 4px solid #f5c400;
+    border-radius: 8px;
+    box-shadow: 0px 5px 20px #00000070;
+}
+
+form input[type="checkbox"] {
+    accent-color: #f5c400;
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+form {
+    line-height: 1.8;
+    font-size: 17px;
+    font-weight: 400;
+}
+
+button {
+    background-color: #f5c400;
+    color: #101216;
+    border: none;
+    padding: 13px 25px;
+    font-family: "Chakra Petch", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: rgb(111, 10, 228); 
+    transform: translateY(-3px);
+    box-shadow: 0px 0px 15px #f5c40070;
+}
+
+p {
+    background-color: #1b1e24;
+    border: 1px solid #383d45;
+    border-left: 4px solid rgb(111, 10, 228);
+    max-width: 500px;
+    margin: 10px auto;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input[type="checkbox"]:hover {
+    transform: scale(1.15);
+}
