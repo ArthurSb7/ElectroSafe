@@ -1,104 +1,179 @@
-<?php
-
-// require_once __DIR__ . "/index.php";
-?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ElectroSafe - Acompanhamento</title>
     <link rel="stylesheet" href="stylesClientes/styleAcompanhamento.css">
 </head>
-<nav div class="menu">
-    <button><a href="index.php"></a>🏠 Início</button>
-    <button><a href="acompanhamento.php"></a> 📃 Acompanhamento</button>
-    <button><a href="analise.php"></a> 🔎 Análise Técnica/Inspeções</button>
-    <button><a href="checklist.php"></a>✔️ Checklist</button>
-    <button><a href="indicacao.php"></a>🫵 Indicação</button>
-    <button><a href="registro.php"></a>🗂️ Registro de não confirmidades</button>
-    </div>
-</nav>
-<img src="Logo" alt="">
-<img src="Imagem" alt="">
-<div class="corpo">
 <body>
-    <h1>Olá, (nome do usuario). Aqui você verá o status de seus pedidos. </h1>
 
-    <button class="botao">Histórico</button>
-    <button class="botao">Novo Pedido</button>
-<hr>
-</div>
-<div class="aberto">
-    <h2>Em Aberto</h2>
-    <div class="quadrado">
+    <div class="main-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i></i>
+                <div class="logo">
+                    <i></i>
+                    <span>Electro<strong>Safe</strong></span>
+                </div>
+            </div>
 
-    <h2>Pedido 01</h2> <h3>Há 7 minutos</h3>
-    <h2>Thiago Oliveira Navarro</h2>
-    <h2>Condomínio</h2>
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <i></i>
+                    <span>Início</span>
+                </a>
+                <a href="registro.html" class="nav-item">
+                    <i></i>
+                    <span>Registro de não conformidades</span>
+                </a>
+                <a href="analise.html" class="nav-item">
+                    <i></i>
+                    <span>Análise e inspeção</span>
+                </a>
+                <a href="checklist.html" class="nav-item">
+                    <i></i>
+                    <span>Checklist</span>
+                </a>
+                <a href="acompanhamento.html" class="nav-item active">
+                    <i></i>
+                    <span>Acompanhamento</span>
+                </a>
+                <a href="indicacao.html" class="nav-item">
+                    <i></i>
+                    <span>Indicação</span>
+                </a>
+            </nav>
+        </aside>
 
-    <button class="botoes">Aceitar</button>
-    <button class="botoes">Recusar</button>
-    <button class="botoes">Ver Detalhes</button>
-</div>
-<br>
-<div class="quadrado">
+        <main class="content">
+            <header class="topbar">
+                <h1>Olá, Thiago. Aqui você verá o status de seus pedidos.</h1>
+                <div class="header-buttons">
+                    <a href="historico.html" class="btn btn-warning">Histórico</a>
+                    <a href="novo_pedido.html" class="btn btn-warning">Novo Pedido</a>
+                </div>
+            </header>
 
-    <h2>Pedido 02</h2> <h3>Há 43 minutos</h3>
-    <h2>Thiago Oliveira Navarro</h2>
-    <h2>Condomínio</h2>
+            <section class="kanban-board">
+                
+                <div class="kanban-column col-aberto">
+                    <h2>Em Aberto</h2>
+                    <div class="cards-list">
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="pedido-id">Pedido 01</span>
+                                <span class="pedido-time">Há 7 minutos</span>
+                            </div>
+                            <div class="card-body">
+                                <p class="cliente-nome">Thiago Navarro</p>
+                                <p class="local-nome">Condomínio</p>
+                            </div>
+                            <div class="card-actions">
+                                <button type="button" class="badge-btn">Aceitar</button>
+                                <button type="button" class="badge-btn">Recusar</button>
+                                <a href="detalhes.html" class="badge-btn">Ver Detalhes</a>
+                            </div>
+                        </div>
 
-    <button class="botoes">Aceitar</button>
-    <button class="botoes">Recusar</button>
-    <button class="botoes">Ver Detalhes</button>
-</div>
-<br>
-<div class="quadrado">
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="pedido-id">Pedido 01</span>
+                                <span class="pedido-time">Há 43 minutos</span>
+                            </div>
+                            <div class="card-body">
+                                <p class="cliente-nome">Thiago Navarro</p>
+                                <p class="local-nome">Casa</p>
+                            </div>
+                            <div class="card-actions">
+                                <button type="button" class="badge-btn">Aceitar</button>
+                                <button type="button" class="badge-btn">Recusar</button>
+                                <a href="detalhes.html" class="badge-btn">Ver Detalhes</a>
+                            </div>
+                        </div>
 
-    <h2>Pedido 03</h2> <h3>Há 2 horas</h3>
-    <h2>Thiago Oliveira Navarro</h2>
-    <h2>Condomínio</h2>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="pedido-id">Pedido 01</span>
+                                <span class="pedido-time">Há 2 horas</span>
+                            </div>
+                            <div class="card-body">
+                                <p class="cliente-nome">Thiago Navarro</p>
+                                <p class="local-nome">Posto de Gasolina</p>
+                            </div>
+                            <div class="card-actions">
+                                <button type="button" class="badge-btn">Aceitar</button>
+                                <button type="button" class="badge-btn">Recusar</button>
+                                <a href="detalhes.html" class="badge-btn">Ver Detalhes</a>
+                            </div>
+                        </div>
 
-    <button class="botoes">Aceitar</button>
-    <button class="botoes">Recusar</button>
-    <button class="botoes">Ver Detalhes</button>
-</div>
-</div>
-<div class="andamento">
-    <h2>Em Andamento</h2>
-    <div class="quadrado">
+                    </div>
+                </div>
 
-    <h2>Pedido 04</h2> <h3>Há 9 horas</h3>
-    <h2>Thiago Oliveira Navarro</h2>
-    <h2>Condomínio</h2>
+                <div class="kanban-column col-andamento">
+                    <h2>Em Andamento</h2>
+                    <div class="cards-list">
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="pedido-id">Pedido 02</span>
+                                <span class="pedido-time">Há 9 horas</span>
+                            </div>
+                            <div class="card-body">
+                                <p class="cliente-nome">Thiago Oliveira</p>
+                                <p class="local-nome">Galpão Fabril</p>
+                            </div>
+                            <div class="card-actions">
+                                <button type="button" class="badge-btn">Colocar em Entregue</button>
+                                <a href="detalhes.html" class="badge-btn">Ver Detalhes</a>
+                            </div>
+                        </div>
 
-    <button class="botoes">Colocar em Entregue</button>
-    <button class="botoes">Ver Detalhes</button>
-</div>
-<br>
-<div class="quadrado">
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="pedido-id">Pedido 02</span>
+                                <span class="pedido-time">Há 9 horas</span>
+                            </div>
+                            <div class="card-body">
+                                <p class="cliente-nome">Thiago Oliveira</p>
+                                <p class="local-nome">Igreja</p>
+                            </div>
+                            <div class="card-actions">
+                                <button type="button" class="badge-btn">Colocar em Entregue</button>
+                                <a href="detalhes.html" class="badge-btn">Ver Detalhes</a>
+                            </div>
+                        </div>
 
-    <h2>Pedido 05</h2> <h3>Há 9 horas</h3>
-    <h2>Thiago Oliveira Navarro</h2>
-    <h2>Condomínio</h2>
+                    </div>
+                </div>
 
-    <button class="botoes">Colocar em Entregue</button>
-    <button class="botoes">Ver Detalhes</button>
-</div>
-</div>
+                <div class="kanban-column col-entregue">
+                    <h2>Entregue</h2>
+                    <div class="cards-list">
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="pedido-id">Pedido 01</span>
+                                <span class="pedido-time">Há 1 dia</span>
+                            </div>
+                            <div class="card-body">
+                                <p class="cliente-nome">Thiago Oliveira Navarro</p>
+                                <p class="local-nome">Shopping</p>
+                            </div>
+                            <div class="card-actions">
+                                <span class="badge-btn highlight">Aguardando Confirmação</span>
+                                <a href="detalhes.html" class="badge-btn">Ver Detalhes</a>
+                            </div>
+                        </div>
 
-<div class="entregue">
-    <h2>Entregue</h2>
-    <div class="quadrado">
+                    </div>
+                </div>
 
-    <h2>Pedido 06</h2> <h3>Há 1 dia</h3>
-    <h2>Thiago Oliveira Navarro</h2>
-    <h2>Shopping</h2>
+            </section>
+        </main>
+    </div>
 
-    <button class="botoes">Aguardando Confirmação</button>
-    <button class="botoes">Ver Detalhes</button>
-</div>
-</div>
 </body>
 </html>
