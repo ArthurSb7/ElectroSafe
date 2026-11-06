@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Chakra Petch";
 }
 
 body {
@@ -11,32 +11,26 @@ body {
     min-height: 100vh;
 }
 
-.main-layout {
+.layout-principal {
     display: flex;
     min-height: 100vh;
 }
 
-.sidebar {
+.barra-menu {
     width: 250px;
-    background-color: #1a023f;
+    background-color: #190538;
     display: flex;
     flex-direction: column;
     padding: 20px 10px;
     flex-shrink: 0;
 }
 
-.sidebar-header {
+.barra-menu-cabeça {
     display: flex;
     align-items: center;
     gap: 15px;
     margin-bottom: 35px;
     padding-left: 10px;
-}
-
-.menu-icon {
-    font-size: 24px;
-    color: #ffb703;
-    cursor: pointer;
 }
 
 .logo {
@@ -47,18 +41,10 @@ body {
     color: #ffffff;
 }
 
-.logo-icon {
-    background-color: #ffb703;
-    color: #1a023f;
-    padding: 6px;
-    border-radius: 50%;
-    font-size: 14px;
-}
-
-.sidebar-nav {
+.nav {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 15px;
 }
 
 .nav-item {
@@ -84,18 +70,18 @@ body {
 
 .nav-item i {
     font-size: 18px;
-    width: 22px;
+    width: 20px;
     text-align: center;
 }
 
-.content {
+.espaço {
     flex: 1;
     display: flex;
     flex-direction: column;
     background-color: #000000;
 }
 
-.topbar {
+.barra-principal {
     background-color: #5c00e6;
     padding: 25px 40px;
     display: flex;
@@ -103,20 +89,7 @@ body {
     align-items: center;
 }
 
-.topbar h1 {
-    font-size: 26px;
-    font-weight: 600;
-    color: #ffffff;
-    max-width: 650px;
-    line-height: 1.3;
-}
-
-.header-buttons {
-    display: flex;
-    gap: 15px;
-}
-
-.btn-warning {
+.botao-de-fora {
     background-color: #ffb703;
     color: #000000;
     text-decoration: none;
@@ -127,7 +100,7 @@ body {
     transition: background 0.2s;
 }
 
-.btn-warning:hover {
+.botao-de-fora:hover {
     background-color: #ffa000;
 }
 
@@ -166,7 +139,7 @@ body {
     color: #ffffff;
 }
 
-.cards-list {
+.cards-espaço {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -192,35 +165,17 @@ body {
     color: #1a1a1a;
 }
 
-.pedido-time {
-    color: #666666;
-    font-size: 12px;
-}
-
 .card-body {
     margin-bottom: 15px;
 }
 
-.cliente-nome {
-    font-size: 15px;
-    font-weight: 400;
-    color: #222222;
-    margin-bottom: 3px;
-}
-
-.local-nome {
-    font-size: 15px;
-    font-weight: 400;
-    color: #222222;
-}
-
-.card-actions {
+.espaçamento-card {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
 }
 
-.badge-btn {
+.detalhes {
     background-color: #e8d7ff;
     color: #330066;
     border: none;
@@ -232,13 +187,4 @@ body {
     text-decoration: none;
     display: inline-block;
     transition: background 0.2s;
-}
-
-.badge-btn:hover {
-    background-color: #d1b3ff;
-}
-
-.badge-btn.highlight {
-    background-color: #e8d7ff;
-    color: #5c00e6;
 }

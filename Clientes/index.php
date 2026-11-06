@@ -8,14 +8,15 @@ require_once __DIR__ . "/index.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ElectroSafe</title>
     <link rel="stylesheet" href="stylesClientes/styleIndex.css">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Imagem da Logo é nessa linha, tem que por dps que criar a pasta de imagens -->
 </head>
 <body>
 
-    <div class="menu">
+    <div class="layout-principal">
     
-        <aside class="barralateral">
-            <div class="cabecabarra">
+        <aside class="barra-menu">
+            <div class="barra-menu-cabeça">
                 <i></i>
                 <div class="logo">
                     <span>Electro<strong>Safe</strong></span>
@@ -60,6 +61,7 @@ require_once __DIR__ . "/index.php";
                 <br>    
                 
                 <h1 class="main-title">Praticidade e segurança na Palma da sua mão!</h1>
+                <br>
                 <hr class="linha">
                 
                 <p class="texto-menor">
