@@ -1,27 +1,32 @@
 <?php
-// Lógica PHP para salvar os dados sem recarregar a página
+// Mensagem de status pós-envio
+$mensagem = '';
+$sucesso = false;
+
+// 1. Lógica PHP para processar e salvar os dados do formulário (POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'salvar_local') {
-    header('Content-Type: application/json; charset=utf-8');
-    
     $ambiente    = filter_input(INPUT_POST, 'ambiente', FILTER_SANITIZE_SPECIAL_CHARS);
     $responsavel = filter_input(INPUT_POST, 'responsavel', FILTER_SANITIZE_SPECIAL_CHARS);
     $contato     = filter_input(INPUT_POST, 'contato', FILTER_SANITIZE_SPECIAL_CHARS);
     $descricao   = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_SPECIAL_CHARS);
 
-    if (!empty($ambiente) && !empty($responsavel)) {
+    if (!empty($ambiente) && !empty($responsavel) && !empty($contato)) {
+        /*
+         * AQUI ENTRA O SALVAMENTO NO SEU BANCO DE DADOS (PDO/MySQL):
+         * $stmt = $pdo->prepare("INSERT INTO chamados (ambiente, responsavel, contato, descricao) VALUES (?, ?, ?, ?)");
+         * $stmt->execute([$ambiente, $responsavel, $contato, $descricao]);
+        */
 
-        echo json_encode([
-            'sucesso' => true,
-            'mensagem' => 'Informações registradas com sucesso!'
-        ]);
+        $mensagem = "Informações registradas com sucesso para: " . htmlspecialchars($ambiente);
+        $sucesso = true;
     } else {
-        echo json_encode([
-            'sucesso' => false,
-            'mensagem' => 'Preencha os campos obrigatórios.'
-        ]);
+        $mensagem = "Preencha todos os campos obrigatórios.";
     }
-    exit;
 }
+
+// 2. Leitura da URL (GET) para saber qual ambiente foi clicado
+$ambiente_selecionado = filter_input(INPUT_GET, 'abrir_form', FILTER_SANITIZE_SPECIAL_CHARS);
+$exibir_formulario = !empty($ambiente_selecionado);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -80,77 +85,93 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 </p>
                 <br><br>    
                 
-                <h1 class="main-title">Praticidade e segurança na Palma da sua mão!</h1>
+                <h1 class="main-title">Praticidade e segurança na palma da sua mão!</h1>
                 <br>
                 <hr class="linha">
                 
                 <p class="texto-menor">
-                    Adicione os locais que exigem melhorias em sua estrutura elétrica, de acordo com o ambiente selecionado.
+                    Adicione os locais que exigem melhorias em sua estrutura elétrica, de acordo com os ambientes abaixo.
                 </p>
+
+                <!-- Feedback do PHP após envio -->
+                <?php if (!empty($mensagem)): ?>
+                    <div class="mensagem-status <?= $sucesso ? 'sucesso' : 'erro' ?>">
+                        <?= $mensagem ?>
+                    </div>
+                <?php endif; ?>
             </section>
 
-            <!-- Quadros de Seleção de Ambiente -->
+            <!-- Quadros de Seleção de Ambiente (Links em PHP) -->
             <section class="cards-section">
                 <div class="cards-container">
                     
-                    <button type="button" class="card-button" data-ambiente="Edifícios residenciais e condomínios">
+                    <a href="index.php?abrir_form=Edifícios+residenciais+e+condomínios" class="card-button">
                         <span>Edifícios residenciais e condomínios</span>
                         <i class="seta-inferior"></i>
-                    </button>
+                    </a>
 
-                    <button type="button" class="card-button" data-ambiente="Indústrias e galpões fabris">
+                    <a href="index.php?abrir_form=Indústrias+e+galpões+fabris" class="card-button">
                         <span>Indústrias e galpões fabris</span>
                         <i class="seta-inferior"></i>
-                    </button>
+                    </a>
 
-                    <button type="button" class="card-button" data-ambiente="Locais de grande circulação de público">
+                    <a href="index.php?abrir_form=Locais+de+grande+circulação+de+público" class="card-button">
                         <span>Locais de grande circulação de público</span>
                         <i class="seta-inferior"></i>
-                    </button>
+                    </a>
 
-                    <button type="button" class="card-button" data-ambiente="Áreas classificadas com atmosferas explosivas">
+                    <a href="index.php?abrir_form=Áreas+classificadas+com+atmosferas+explosivas" class="card-button">
                         <span>Áreas classificadas com atmosferas explosivas</span>
                         <i class="seta-inferior"></i>
-                    </button>
+                    </a>
+
                 </div>
             </section>
 
         </main>
     </div>
-    <div class="overlay" id="overlay"></div>
-    <div class="form-drawer" id="formDrawer">
-        <div class="form-drawer-content">
-            <button type="button" class="btn-fechar" id="btnFechar">&times;</button>
 
-            <div class="form-cabecalho">
-                <h3 id="tituloAmbiente">Novo Registro</h3>
-                <p>Preencha os detalhes da estrutura elétrica abaixo:</p>
+    <!-- 3. Condicional PHP para renderizar o Formulário apenas quando houver um clique -->
+    <?php if ($exibir_formulario): ?>
+        
+        <!-- Fundo de sobreposição com link PHP para fechar -->
+        <a href="index.php" class="overlay ativo"></a>
+
+        <div class="form-drawer ativo">
+            <div class="form-drawer-content">
+                <!-- Botão de Fechar rodando via link PHP -->
+                <a href="index.php" class="btn-fechar">&times;</a>
+
+                <div class="form-cabecalho">
+                    <h3>Novo Registro: <?= htmlspecialchars($ambiente_selecionado) ?></h3>
+                    <p>Preencha os detalhes da estrutura elétrica abaixo:</p>
+                </div>
+
+                <form action="index.php" method="POST">
+                    <input type="hidden" name="action" value="salvar_local">
+                    <input type="hidden" name="ambiente" value="<?= htmlspecialchars($ambiente_selecionado) ?>">
+
+                    <div class="campo-grupo">
+                        <label for="responsavel">Nome do Solicitante / Responsável:</label>
+                        <input type="text" id="responsavel" name="responsavel" placeholder="Ex: Thiago Navarro" required>
+                    </div>
+
+                    <div class="campo-grupo">
+                        <label for="contato">Telefone / WhatsApp:</label>
+                        <input type="text" id="contato" name="contato" placeholder="(11) 12345-6789" required>
+                    </div>
+
+                    <div class="campo-grupo">
+                        <label for="descricao">Descrição da necessidade de melhoria:</label>
+                        <textarea id="descricao" name="descricao" rows="3" placeholder="Descreva o problema ou ajuste elétrico necessário..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-enviar">Salvar Informações</button>
+                </form>
             </div>
-
-            <form id="formSalvarLocal">
-                <input type="hidden" name="action" value="salvar_local">
-                <input type="hidden" name="ambiente" id="inputAmbiente">
-
-                <div class="campo-grupo">
-                    <label for="responsavel">Nome do Solicitante / Responsável:</label>
-                    <input type="text" id="responsavel" name="responsavel" placeholder="Ex: João da Silva" required>
-                </div>
-
-                <div class="campo-grupo">
-                    <label for="contato">Telefone / WhatsApp:</label>
-                    <input type="text" id="contato" name="contato" placeholder="(00) 00000-0000" required>
-                </div>
-
-                <div class="campo-grupo">
-                    <label for="descricao">Descrição da necessidade de melhoria:</label>
-                    <textarea id="descricao" name="descricao" rows="3" placeholder="Descreva o problema ou ajuste elétrico necessário..." required></textarea>
-                </div>
-
-                <button type="submit" class="btn-enviar">Salvar Informações</button>
-
-                <div id="mensagemFeedback" class="mensagem-feedback"></div>
-            </form>
         </div>
-    </div>
+
+    <?php endif; ?>
+
 </body>
 </html>
