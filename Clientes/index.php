@@ -42,10 +42,11 @@ $exibir_formulario = !empty($ambiente_selecionado);
     <div class="layout-principal">
     
         <aside class="barra-menu">
+           <img src="imagens/logo.png" alt="Logo">
             <div class="barra-menu-cabeça">
                 <i></i>
                 <div class="logo">
-                    <span>Electro<strong>Safe</strong></span>
+                    <span><span class="corElectro">Electro</span><strong><span class="corSafe">Safe</span></strong></span>
                 </div>
             </div>
 
@@ -78,11 +79,11 @@ $exibir_formulario = !empty($ambiente_selecionado);
         </aside>
 
         <main class="content">
-
+<img class="imagem1"src="imagens/imagem1.png" alt="Imagem">
             <section class="info-section">
-                <p>
+                <h2>
                     Através dos recursos de fácil acesso e usabilidade, sua segurança é tratada com cuidados especiais pela nossa equipe, garantindo o bom lazer e conforto aos consumidores.
-                </p>
+</h2>
                 <br><br>    
                 
                 <h1 class="main-title">Praticidade e segurança na palma da sua mão!</h1>

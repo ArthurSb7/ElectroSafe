@@ -27,10 +27,11 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
     <div class="layout-principal">
         <aside class="barra-menu">
+               <img src="imagens/logo.png" alt="Logo">
             <div class="barra-menu-cabeça">
                 <i></i>
                 <div class="logo">
-                    <span>Electro<strong>Safe</strong></span>
+                      <span><span class="corElectro">Electro</span><strong><span class="corSafe">Safe</span></strong></span>
                 </div>
             </div>
 
