@@ -10,6 +10,7 @@ body {
     color: #ffffff;
     min-height: 100vh;
     overflow: hidden;
+    font-size: 22px;
 }
 
 .layout-principal {
@@ -102,7 +103,7 @@ body {
     padding: 10px 24px;
     border-radius: 20px;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 28px;
     transition: background 0.2s;
 }
 
@@ -139,7 +140,7 @@ body {
 
 .kanban-column h2 {
     text-align: center;
-    font-size: 18px;
+    font-size: 35px;
     font-weight: 600;
     margin-bottom: 20px;
     color: #ffffff;
@@ -163,7 +164,7 @@ body {
     display: flex;
     justify-content: space-between;
     margin-bottom: 12px;
-    font-size: 13px;
+    font-size: 18px;
 }
 
 .pedido-id {
@@ -172,12 +173,12 @@ body {
 }
 
 .card-body {
-    margin-bottom: 15px;
+    margin-bottom: 16px;
 }
 
 .espaçamento-card {
     display: flex;
-    gap: 8px;
+    gap: 18px;
     flex-wrap: wrap;
 }
 
@@ -187,7 +188,7 @@ body {
     border: none;
     padding: 6px 12px;
     border-radius: 12px;
-    font-size: 11px;
+    font-size: 16px;
     font-weight: 500;
     cursor: pointer;
     text-decoration: none;
@@ -195,7 +196,6 @@ body {
     transition: background 0.2s;
 }
 
-/* Modais e Janelas de Sobreposição (Puro CSS e PHP) */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -242,7 +242,6 @@ body {
     color: #ffb703;
 }
 
-/* Lista do Histórico */
 .lista-historico {
     display: flex;
     flex-direction: column;
@@ -267,14 +266,13 @@ body {
 }
 
 .item-historico small {
-    font-size: 11px;
+    font-size: 20px;
     color: #a097b6;
 }
 
-/* Detalhes do Pedido */
 .detalhes-conteudo p {
     margin-bottom: 10px;
-    font-size: 14px;
+    font-size: 22px;
     color: #d1c4e9;
 }
 
@@ -285,13 +283,13 @@ body {
 .badge-status {
     padding: 3px 8px;
     border-radius: 6px;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: bold;
 }
 
 .status-aberto { background-color: #23085c; color: #fff; }
 .status-andamento { background-color: #b87b14; color: #fff; }
-.status-entregue { background-color: #5c00e6; color: #fff; }
+.status-entregue { background-color: #1be600a9; color: #fff; }
 
 .divisor {
     border: 0;
@@ -320,9 +318,8 @@ body {
     border-radius: 8px;
     text-decoration: none;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 18px;
 }
-
 
 .corElectro {
     color: #5c00e6;
@@ -330,4 +327,8 @@ body {
 
 .corSafe {
     color: #ffb703;
+}
+img {
+   width: 250px;
+   display: block;
 }

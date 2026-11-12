@@ -1,5 +1,5 @@
 <?php
-// Simulação do Banco de Dados de Pedidos
+
 $pedidos = [
     1 => ['id' => 'Pedido 01', 'cliente' => 'Thiago Navarro', 'local' => 'Condomínio', 'status' => 'aberto', 'tempo' => 'Há 7 minutos', 'detalhes' => 'Vistoria no quadro geral de distribuição do bloco A.'],
     2 => ['id' => 'Pedido 01', 'cliente' => 'Thiago Navarro', 'local' => 'Casa', 'status' => 'aberto', 'tempo' => 'Há 43 minutos', 'detalhes' => 'Análise de sobrecarga nas tomadas da cozinha.'],
@@ -10,7 +10,6 @@ $pedidos = [
     7 => ['id' => 'Pedido 03', 'cliente' => 'Thiago Oliveira Navarro', 'local' => 'Supermercado', 'status' => 'entregue', 'tempo' => 'Há 3 dias', 'detalhes' => 'Inspeção termográfica e relatório final entregue com sucesso.']
 ];
 
-// Captura a ação vinda do clique via GET
 $view = filter_input(INPUT_GET, 'view', FILTER_SANITIZE_SPECIAL_CHARS);
 $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 ?>
@@ -27,7 +26,9 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
     <div class="layout-principal">
         <aside class="barra-menu">
-               <img src="imagens/logo.png" alt="Logo">
+            <a href="index.php"  style="display: inline-block;">
+               <img src="imagens/logo.png" alt="Logo" >
+               </a>
             <div class="barra-menu-cabeça">
                 <i></i>
                 <div class="logo">
@@ -67,7 +68,6 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
             <header class="barra-principal">
                 <h1>Olá Thiago, aqui você verá o status de seus pedidos.</h1>
                 <div class="header-buttons">
-                    <!-- Ação em PHP via URL GET -->
                     <a href="acompanhamento.php?view=historico" class="botao-de-fora">Histórico</a>
                     <a href="novo_pedido.php" class="botao-de-fora">Novo Pedido</a>
                 </div>
@@ -75,7 +75,6 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
             <section class="kanban-board">
                 
-                <!-- Coluna: Em Aberto -->
                 <div class="kanban-column col-aberto">
                     <h2>Em Aberto</h2>
                     <div class="cards-espaço">
@@ -100,7 +99,6 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
                     </div>
                 </div>
 
-                <!-- Coluna: Em Andamento -->
                 <div class="kanban-column col-andamento">
                     <h2>Em Andamento</h2>
                     <div class="cards-espaço">
@@ -125,7 +123,6 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
                     </div>
                 </div>
 
-                <!-- Coluna: Entregue -->
                 <div class="kanban-column col-entregue">
                     <h2>Entregue</h2>
                     <div class="cards-espaço">
@@ -154,7 +151,6 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         </main>
     </div>
 
-    <!-- Lógica PHP: Exibe o formulário de Histórico -->
     <?php if ($view === 'historico'): ?>
         <div class="modal-overlay">
             <div class="modal-box">
@@ -189,7 +185,6 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         </div>
     <?php endif; ?>
 
-    <!-- Lógica PHP: Exibe os Detalhes do Pedido Selecionado -->
     <?php if ($view === 'detalhes' && isset($pedidos[$id_detalhe])): 
         $item = $pedidos[$id_detalhe];
     ?>

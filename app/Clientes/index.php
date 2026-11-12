@@ -1,9 +1,8 @@
 <?php
-// Mensagem de status pós-envio
+
 $mensagem = '';
 $sucesso = false;
 
-// 1. Lógica PHP para processar e salvar os dados do formulário (POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'salvar_local') {
     $ambiente    = filter_input(INPUT_POST, 'ambiente', FILTER_SANITIZE_SPECIAL_CHARS);
     $responsavel = filter_input(INPUT_POST, 'responsavel', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -11,12 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $descricao   = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_SPECIAL_CHARS);
 
     if (!empty($ambiente) && !empty($responsavel) && !empty($contato)) {
-        /*
-         * AQUI ENTRA O SALVAMENTO NO SEU BANCO DE DADOS (PDO/MySQL):
-         * $stmt = $pdo->prepare("INSERT INTO chamados (ambiente, responsavel, contato, descricao) VALUES (?, ?, ?, ?)");
-         * $stmt->execute([$ambiente, $responsavel, $contato, $descricao]);
-        */
-
         $mensagem = "Informações registradas com sucesso para: " . htmlspecialchars($ambiente);
         $sucesso = true;
     } else {
@@ -24,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     }
 }
 
-// 2. Leitura da URL (GET) para saber qual ambiente foi clicado
 $ambiente_selecionado = filter_input(INPUT_GET, 'abrir_form', FILTER_SANITIZE_SPECIAL_CHARS);
 $exibir_formulario = !empty($ambiente_selecionado);
 ?>
@@ -42,11 +34,14 @@ $exibir_formulario = !empty($ambiente_selecionado);
     <div class="layout-principal">
     
         <aside class="barra-menu">
-           <img src="imagens/logo.png" alt="Logo">
+            <a href="index.php"  style="display: inline-block;">
+               <img src="imagens/logo.png" alt="Logo" >
+               </a>
             <div class="barra-menu-cabeça">
                 <i></i>
                 <div class="logo">
-                    <span><span class="corElectro">Electro</span><strong><span class="corSafe">Safe</span></strong></span>
+                    <span>
+                        <span class="corElectro">Electro</span><strong><span class="corSafe">Safe</span></strong></span>
                 </div>
             </div>
 
@@ -83,7 +78,7 @@ $exibir_formulario = !empty($ambiente_selecionado);
             <section class="info-section">
                 <h2>
                     Através dos recursos de fácil acesso e usabilidade, sua segurança é tratada com cuidados especiais pela nossa equipe, garantindo o bom lazer e conforto aos consumidores.
-</h2>
+                </h2>
                 <br><br>    
                 
                 <h1 class="main-title">Praticidade e segurança na palma da sua mão!</h1>
@@ -94,7 +89,6 @@ $exibir_formulario = !empty($ambiente_selecionado);
                     Adicione os locais que exigem melhorias em sua estrutura elétrica, de acordo com os ambientes abaixo.
                 </p>
 
-                <!-- Feedback do PHP após envio -->
                 <?php if (!empty($mensagem)): ?>
                     <div class="mensagem-status <?= $sucesso ? 'sucesso' : 'erro' ?>">
                         <?= $mensagem ?>
@@ -102,7 +96,6 @@ $exibir_formulario = !empty($ambiente_selecionado);
                 <?php endif; ?>
             </section>
 
-            <!-- Quadros de Seleção de Ambiente (Links em PHP) -->
             <section class="cards-section">
                 <div class="cards-container">
                     
@@ -132,15 +125,12 @@ $exibir_formulario = !empty($ambiente_selecionado);
         </main>
     </div>
 
-    <!-- 3. Condicional PHP para renderizar o Formulário apenas quando houver um clique -->
     <?php if ($exibir_formulario): ?>
         
-        <!-- Fundo de sobreposição com link PHP para fechar -->
         <a href="index.php" class="overlay ativo"></a>
 
         <div class="form-drawer ativo">
             <div class="form-drawer-content">
-                <!-- Botão de Fechar rodando via link PHP -->
                 <a href="index.php" class="btn-fechar">&times;</a>
 
                 <div class="form-cabecalho">
@@ -171,8 +161,6 @@ $exibir_formulario = !empty($ambiente_selecionado);
                 </form>
             </div>
         </div>
-
     <?php endif; ?>
-
 </body>
 </html>
