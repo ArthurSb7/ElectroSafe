@@ -12,9 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-     <div class="layout-principal">
-    
-        <aside class="barra-menu">
+     <aside class="barra-menu">
+           <img src="imagens/logo.png" alt="Logo">
             <div class="barra-menu-cabeça">
                 <i></i>
                 <div class="logo">

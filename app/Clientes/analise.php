@@ -1,5 +1,38 @@
 <?php
+$mensagem = "";
+$estadoBotao = "";
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $acesso_disjuntor = $_POST['acesso_disjuntor'] ?? null;
+    $fumo_agua = $_POST['fumo_agua'] ?? null;
+
+    if ($acesso_disjuntor === "nao" || $fumo_agua === "sim") {
+        $mensagem = "
+        <div id='fundo'>
+            <div id='perigo'>
+                <h2> ATENÇÃO: RISCO ELEVADO DETETADO</h2>
+                <p>Por motivos de segurança, este problema não pode ser orientado à distância.</p>
+                <p>Recomendamos desligar a chave geral e contactar um profissional presencial.</p>
+                <br>
+                <a href='indicacao.php' id='btn-fechar-alerta'>Voltar</a>
+            </div>
+        </div>";
+
+        $estadoBotao = "disabled";
+    } 
+    elseif ($acesso_disjuntor === "sim" && $fumo_agua === "nao") {
+        $mensagem = "
+        <div id='fundo'>
+            <div id='sucesso'>
+                <h2>ENVIADO COM SUCESSO!</h2>
+                <p>SEU FORMULÁRIO FOI MANDADO PARA A GENTE, AGUARDE POR ALGUNS INSTANTES.</p>
+                <br>
+                <a href='checklist.php' id='btn-sucesso'>Ok</a>
+            </div>
+        </div>";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -13,9 +46,8 @@
 
 </head>
 <body>
-    <div class="layout-principal">
-    
-        <aside class="barra-menu">
+    <aside class="barra-menu">
+           <img src="imagens/logo.png" alt="Logo">
             <div class="barra-menu-cabeça">
                 <i></i>
                 <div class="logo">
@@ -61,8 +93,10 @@
             </header>
             
 
+
             <div id="formulario">
-            <form action="">
+                <?php echo $mensagem; ?>
+            <form action="" method="POST" id="formAnalise">
                     <!-- PASSO UM DO FORMULARIO-->
                 <h2>PASSO 1: <br>
                 O SEU PROBLEMA E CONTATO</h2>
@@ -85,7 +119,6 @@
                 ></textarea>
                 <br>
 
-
                     <!-- PASSO DOIS DO FORMULARIO-->
                 <h2>PASSO 2:<br> 
                 CHECAGEM RÁPIDA DE SEGURANÇA</h2>
@@ -93,69 +126,66 @@
                     <!-- PRIMEIRA PERGUNTA DO PASSO 2-->
                 <h3 class="perguntas">Você tem acesso livre ao disjuntor / chave geral para desligar a energia?</h3>
                 <input type="radio" 
-                id="#"
-                name="#" 
-                value="#" 
-                class="escolha">
-                <label for="#" 
-                class="resp">Sim, consigo desligar o local com segurança</label>
+                id="disjuntor_sim"
+                name="acesso_disjuntor" 
+                value="sim" 
+                class="escolha" required>
+                <label for="disjuntor_sim" class="resp">Sim, consigo desligar o local com segurança</label>
                 <br>
 
                 <input type="radio" 
-                id="#"
-                name="#" 
-                value="#" 
-                class="escolha">
-                <label for="#" 
-                class="resp">Não sei onde fica / Não tenho acesso</label>
+                id="disjuntor_nao"
+                name="acesso_disjuntor" 
+                value="nao" 
+                class="escolha" required>
+                <label for="disjuntor_nao" class="resp">Não sei onde fica / Não tenho acesso</label>
 
                     <!-- SEGUNDA PERGUNTA DO PASSO 2-->
 
                 <h3 class="perguntas">Existe fumo, faíscas visíveis ou água em contacto com a fiação no local?</h3>
                 <input type="radio" 
-                id="#"
-                name="#" 
-                value="#" 
-                class="escolha">
-                <label for="#" class="resp">Sim, há fumo, faíscas ou humidade/água no local</label>
+                id="fumo_sim"
+                name="fumo_agua" 
+                value="sim" 
+                class="escolha" required>
+                <label for="fumo_sim" class="resp">Sim, há fumo, faíscas ou humidade/água no local</label>
                 <br>
 
                 <input type="radio" 
-                id="#"
-                name="#" 
-                value="#" 
-                class="escolha">
-                <label for="#" class="resp">Não, o local está seco e sem sinais de fogo/faíscas</label>
+                id="fumo_nao"
+                name="fumo_agua" 
+                value="nao" 
+                class="escolha" required>
+                <label for="fumo_nao" class="resp">Não, o local está seco e sem sinais de fogo/faíscas</label>
 
                 <!-- TERCEIRA PERGUNTA DO PASSO 2-->
 
                 <h3 class="perguntas">Tens ferramentas básicas ou equipamento de proteção?</h3>
                 <input type="radio" 
-                id="#"
-                name="#" 
-                value="#" 
-                class="escolha">
-                <label for="#" class="resp">Chaves manuais ou de teste</label>
+                id="ferramenta_chaves"
+                name="ferramentas" 
+                value="chaves" 
+                class="escolha" required>
+                <label for="ferramenta_chaves" class="resp">Chaves manuais ou de teste</label>
                 <br>
 
                 <input type="radio" 
-                id="#"
-                name="#" 
-                value="#" 
-                class="escolha">
-                <label for="#" class="resp">Calçado de borracha e luvas</label> 
+                id="ferramenta_epi"
+                name="ferramentas" 
+                value="epi" 
+                class="escolha" required>
+                <label for="ferramenta_epi" class="resp">Calçado de borracha e luvas</label> 
                 <br>
 
                 <input type="radio" 
-                id="#"
-                name="#" 
-                value="#" 
-                class="escolha">
-                <label for="#" class="resp">Nenhuma ferramenta</label>
+                id="ferramenta_nenhuma"
+                name="ferramentas" 
+                value="nenhuma" 
+                class="escolha" required>
+                <label for="ferramenta_nenhuma" class="resp">Nenhuma ferramenta</label>
                 <br>
-
                 <!-- BOTAO-->
-                <button type="submit">Enviar</button>
+                <button type="submit" <?php echo $estadoBotao; ?>>Enviar</button>
             </form>
         </main>
     </div>
