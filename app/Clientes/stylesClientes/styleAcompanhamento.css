@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Chakra Petch";
+    font-family: "Sem Serifa (Sans-Serif)";
 }
 
 body {
@@ -102,7 +102,7 @@ body {
     padding: 10px 24px;
     border-radius: 20px;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 20px;
     transition: background 0.2s;
 }
 
@@ -123,6 +123,7 @@ body {
     padding: 20px 15px;
     display: flex;
     flex-direction: column;
+    font-size: 20px;
 }
 
 .col-aberto {
@@ -139,7 +140,7 @@ body {
 
 .kanban-column h2 {
     text-align: center;
-    font-size: 18px;
+    font-size: 26px;
     font-weight: 600;
     margin-bottom: 20px;
     color: #ffffff;
@@ -163,7 +164,7 @@ body {
     display: flex;
     justify-content: space-between;
     margin-bottom: 12px;
-    font-size: 13px;
+    font-size: 18x;
 }
 
 .pedido-id {
@@ -187,7 +188,7 @@ body {
     border: none;
     padding: 6px 12px;
     border-radius: 12px;
-    font-size: 11px;
+    font-size: 17px;
     font-weight: 500;
     cursor: pointer;
     text-decoration: none;
@@ -224,7 +225,7 @@ body {
 
 .modal-box h2 {
     color: #ffb703;
-    font-size: 20px;
+    font-size: 22px;
     margin-bottom: 20px;
 }
 
@@ -233,7 +234,7 @@ body {
     top: 15px;
     right: 20px;
     color: #d1c4e9;
-    font-size: 26px;
+    font-size: 30px;
     text-decoration: none;
     font-weight: bold;
 }
@@ -261,20 +262,20 @@ body {
 }
 
 .item-historico p {
-    font-size: 13px;
+    font-size: 18px;
     color: #d1c4e9;
     margin-top: 3px;
 }
 
 .item-historico small {
-    font-size: 11px;
+    font-size: 18px;
     color: #a097b6;
 }
 
 /* Detalhes do Pedido */
 .detalhes-conteudo p {
     margin-bottom: 10px;
-    font-size: 14px;
+    font-size: 18px;
     color: #d1c4e9;
 }
 
@@ -285,7 +286,7 @@ body {
 .badge-status {
     padding: 3px 8px;
     border-radius: 6px;
-    font-size: 11px;
+    font-size: 14px;
     font-weight: bold;
 }
 
@@ -306,6 +307,7 @@ body {
     border-radius: 8px;
     border: 1px solid #2e086b;
     line-height: 1.4;
+    font-size: 14px;
 }
 
 .modal-rodape {
@@ -320,7 +322,7 @@ body {
     border-radius: 8px;
     text-decoration: none;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 18px;
 }
 
 
