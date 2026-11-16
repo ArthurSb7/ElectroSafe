@@ -1,5 +1,5 @@
 <?php
-
+// Simulação do Banco de Dados de Pedidos
 $pedidos = [
     1 => ['id' => 'Pedido 01', 'cliente' => 'Thiago Navarro', 'local' => 'Condomínio', 'status' => 'aberto', 'tempo' => 'Há 7 minutos', 'detalhes' => 'Vistoria no quadro geral de distribuição do bloco A.'],
     2 => ['id' => 'Pedido 01', 'cliente' => 'Thiago Navarro', 'local' => 'Casa', 'status' => 'aberto', 'tempo' => 'Há 43 minutos', 'detalhes' => 'Análise de sobrecarga nas tomadas da cozinha.'],
@@ -10,6 +10,7 @@ $pedidos = [
     7 => ['id' => 'Pedido 03', 'cliente' => 'Thiago Oliveira Navarro', 'local' => 'Supermercado', 'status' => 'entregue', 'tempo' => 'Há 3 dias', 'detalhes' => 'Inspeção termográfica e relatório final entregue com sucesso.']
 ];
 
+// Captura a ação vinda do clique via GET
 $view = filter_input(INPUT_GET, 'view', FILTER_SANITIZE_SPECIAL_CHARS);
 $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 ?>
@@ -20,24 +21,17 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ElectroSafe - Acompanhamento</title>
     <link rel="stylesheet" href="stylesClientes/styleAcompanhamento.css">
-<link rel="preconnect" href="https://googleapis.com">
-<link rel="preconnect" href="https://gstatic.com" crossorigin>
-<link href="https://googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="layout-principal">
         <aside class="barra-menu">
-<<<<<<< HEAD
-            <a href="index.php"  style="display: inline-block;">
-               <img src="imagens/logo.png" alt="Logo" >
-               </a>
-=======
-            <a href="index.html" class="logo">
+               <a href="index.php" class="logo.png" title="Ir para a página inicial">
             <img src="imagens/logo.png" alt="Logo ElectroSafe">
              </a>
->>>>>>> 9c6c008fe3bd5bde8efa57472e1a143e0d263f8d
             <div class="barra-menu-cabeça">
                 <i></i>
                 <div class="logo">
@@ -75,7 +69,7 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
         <main class="espaço">
             <header class="barra-principal">
-                <h1>Olá Thiago, aqui você verá o status de seus pedidos!</h1>
+                <h1>Olá Thiago, aqui você verá o status de seus pedidos.</h1>
                 <div class="header-buttons">
                     <a href="acompanhamento.php?view=historico" class="botao-de-fora">Histórico</a>
                     <a href="novo_pedido.php" class="botao-de-fora">Novo Pedido</a>
@@ -107,7 +101,6 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
                         <?php endforeach; ?>
                     </div>
                 </div>
-
                 <div class="kanban-column col-andamento">
                     <h2>Em Andamento</h2>
                     <div class="cards-espaço">
@@ -131,7 +124,6 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
                         <?php endforeach; ?>
                     </div>
                 </div>
-
                 <div class="kanban-column col-entregue">
                     <h2>Entregue</h2>
                     <div class="cards-espaço">
@@ -160,6 +152,7 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         </main>
     </div>
 
+    <!-- Lógica PHP: Exibe o formulário de Histórico -->
     <?php if ($view === 'historico'): ?>
         <div class="modal-overlay">
             <div class="modal-box">
@@ -176,10 +169,7 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
                         <div class="item-historico">
                             <div>
                                 <strong><?= htmlspecialchars($p['id']) ?> - <?= htmlspecialchars($p['local']) ?></strong>
-                                <br>
-                                <br>
                                 <p>Cliente: <?= htmlspecialchars($p['cliente']) ?></p>
-                                <br>
                                 <small>Concluído <?= htmlspecialchars($p['tempo']) ?></small>
                             </div>
                             <a href="acompanhamento.php?view=detalhes&id=<?= $id ?>" class="detalhes">Ver Detalhes</a>
@@ -197,6 +187,7 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         </div>
     <?php endif; ?>
 
+    <!-- Lógica PHP: Exibe os Detalhes do Pedido Selecionado -->
     <?php if ($view === 'detalhes' && isset($pedidos[$id_detalhe])): 
         $item = $pedidos[$id_detalhe];
     ?>
