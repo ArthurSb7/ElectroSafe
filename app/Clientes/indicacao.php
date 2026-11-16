@@ -1,3 +1,6 @@
+indicação nova
+
+
 <?php
 
 ?>
@@ -62,48 +65,60 @@
             <div class="areas">
                 <h2>Eletricistas Residenciais disponiveis</h2>
                 <div class="info-ele">
-                    <p>AAAA</p>
-                    <p>AAAAA</p>
-                    <p>AAAAAA</p>
-                    <img src="" alt="">
+                    <div class="texto-ele">
+                        <p>AAAA</p>
+                        <p>AAAAA</p>
+                        <p>AAAAAA</p>
+                    </div>
+                    <img src="imagens/foto-ele1.png" alt="" class="foto-ele">
                 </div>
                     <hr>
                 <div class="info-ele">
-                    <p>AAAA</p>
-                    <p>AAAAA</p>
-                    <p>AAAAAA</p>
-                    <img src="" alt="">
+                    <div class="texto-ele">
+                        <p>AAAA</p>
+                        <p>AAAAA</p>
+                        <p>AAAAAA</p>
+                    </div>
+                    <img src="imagens/foto-ele2.png" alt="" class="foto-ele">
                 </div>  
                     <hr>
                 <div class="info-ele">
-                    <p>AAAA</p>
-                    <p>AAAAA</p>
-                    <p>AAAAAA</p>
-                    <img src="" alt="">
+                    <div class="texto-ele">
+                        <p>AAAA</p>
+                        <p>AAAAA</p>
+                        <p>AAAAAA</p>
+                    </div>
+                    <img src="imagens/foto-ele3.png" alt="" class="foto-ele">
                 </div>
             </div>
 
              <div class="areas">
                 <h2>Eletricistas Comerciais disponiveis</h2>
                 <div class="info-ele">
-                    <p>AAAA</p>
-                    <p>AAAAA</p>
-                    <p>AAAAAA</p>
-                    <img src="" alt="">
+                    <div class="texto-ele">
+                        <p>AAAA</p>
+                        <p>AAAAA</p>
+                        <p>AAAAAA</p>
+                    </div>
+                    <img src="imagens/foto-ele4.png" alt="" class="foto-ele">
                 </div>
                     <hr>
                 <div class="info-ele">
-                    <p>AAAA</p>
-                    <p>AAAAA</p>
-                    <p>AAAAAA</p>
-                    <img src="" alt="">
+                    <div class="texto-ele">
+                        <p>AAAA</p>
+                        <p>AAAAA</p>
+                        <p>AAAAAA</p>
+                    </div>
+                    <img src="imagens/foto-ele5.png" alt="" class="foto-ele">
                 </div>  
                     <hr>
                 <div class="info-ele">
-                    <p>AAAA</p>
-                    <p>AAAAA</p>
-                    <p>AAAAAA</p>
-                    <img src="" alt="">
+                    <div class="texto-ele">
+                        <p>AAAA</p>
+                        <p>AAAAA</p>
+                        <p>AAAAAA</p>
+                    </div>
+                    <img src="imagens/foto-ele6.png" alt="" class="foto-ele">
                 </div>
             </div>
 
@@ -111,24 +126,30 @@
              <div class="areas">
                 <h2>Eletricistas Industriais disponiveis</h2>
                 <div class="info-ele">
-                    <p>AAAA</p>
-                    <p>AAAAA</p>
-                    <p>AAAAAA</p>
-                    <img src="" alt="">
+                    <div class="texto-ele">
+                        <p>AAAA</p>
+                        <p>AAAAA</p>
+                        <p>AAAAAA</p>
+                    </div>
+                    <img src="imagens/foto-ele7.png" alt="" class="foto-ele">
                 </div>
                     <hr>
                 <div class="info-ele">
-                    <p>AAAA</p>
-                    <p>AAAAA</p>
-                    <p>AAAAAA</p>
-                    <img src="" alt="">
+                    <div class="texto-ele">
+                        <p>AAAA</p>
+                        <p>AAAAA</p>
+                        <p>AAAAAA</p>
+                    </div>
+                    <img src="imagens/foto-ele8.png" alt="" class="foto-ele">
                 </div>  
                     <hr>
                 <div class="info-ele">
-                    <p>AAAA</p>
-                    <p>AAAAA</p>
-                    <p>AAAAAA</p>
-                    <img src="" alt="">
+                    <div class="texto-ele">
+                        <p>AAAA</p>
+                        <p>AAAAA</p>
+                        <p>AAAAAA</p>
+                    </div>
+                    <img src="imagens/foto-ele9.png" alt="" class="foto-ele">
                 </div>
             </div>
         </div>  
