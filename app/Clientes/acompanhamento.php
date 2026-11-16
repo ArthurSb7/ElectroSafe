@@ -20,15 +20,24 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ElectroSafe - Acompanhamento</title>
     <link rel="stylesheet" href="stylesClientes/styleAcompanhamento.css">
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://googleapis.com">
+<link rel="preconnect" href="https://gstatic.com" crossorigin>
+<link href="https://googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
     <div class="layout-principal">
         <aside class="barra-menu">
+<<<<<<< HEAD
             <a href="index.php"  style="display: inline-block;">
                <img src="imagens/logo.png" alt="Logo" >
                </a>
+=======
+            <a href="index.html" class="logo">
+            <img src="imagens/logo.png" alt="Logo ElectroSafe">
+             </a>
+>>>>>>> 9c6c008fe3bd5bde8efa57472e1a143e0d263f8d
             <div class="barra-menu-cabeça">
                 <i></i>
                 <div class="logo">
@@ -66,7 +75,7 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
         <main class="espaço">
             <header class="barra-principal">
-                <h1>Olá Thiago, aqui você verá o status de seus pedidos.</h1>
+                <h1>Olá Thiago, aqui você verá o status de seus pedidos!</h1>
                 <div class="header-buttons">
                     <a href="acompanhamento.php?view=historico" class="botao-de-fora">Histórico</a>
                     <a href="novo_pedido.php" class="botao-de-fora">Novo Pedido</a>
@@ -167,7 +176,10 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
                         <div class="item-historico">
                             <div>
                                 <strong><?= htmlspecialchars($p['id']) ?> - <?= htmlspecialchars($p['local']) ?></strong>
+                                <br>
+                                <br>
                                 <p>Cliente: <?= htmlspecialchars($p['cliente']) ?></p>
+                                <br>
                                 <small>Concluído <?= htmlspecialchars($p['tempo']) ?></small>
                             </div>
                             <a href="acompanhamento.php?view=detalhes&id=<?= $id ?>" class="detalhes">Ver Detalhes</a>
