@@ -1,5 +1,25 @@
 <?php
 
+    require_once __DIR__ . "/app/init.php";
+
+    $emailInserido = '';
+    $senhaInserida = '';
+
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        $emailInserido = [$_POST['email']];
+        $senhaInserida = [$_POST['senha']];
+
+        if ( $emailInserido == readAll($pdo, 'usuarios', $params['email']) && $senhaInserida == readAll($pdo, 'usuarios', $params['senha']) ){
+        
+            header('location: app/Clientes/index.php');
+
+        }else {
+            echo "Tente novamente, E-mail ou Senha incorretos.";
+        }
+    }
+
+        
 
 ?>
 
