@@ -30,7 +30,6 @@
     <title>Cadastro - ElectroSafe</title>
 </head>
 <body>
-    
     <div>
         <form action="" method="POST">
 
@@ -78,7 +77,6 @@
             <button type="submit">Cadastrar</button>
 
         </form>
-</div>
-
+  </div>
 </body>
 </html>
