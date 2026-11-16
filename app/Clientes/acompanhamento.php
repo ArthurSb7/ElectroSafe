@@ -21,16 +21,15 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ElectroSafe - Acompanhamento</title>
     <link rel="stylesheet" href="stylesClientes/styleAcompanhamento.css">
-<link rel="preconnect" href="https://googleapis.com">
-<link rel="preconnect" href="https://gstatic.com" crossorigin>
-<link href="https://googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="layout-principal">
         <aside class="barra-menu">
-            <a href="index.html" class="logo">
+               <a href="index.php" class="logo.png" title="Ir para a página inicial">
             <img src="imagens/logo.png" alt="Logo ElectroSafe">
              </a>
             <div class="barra-menu-cabeça">
@@ -70,9 +69,8 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
         <main class="espaço">
             <header class="barra-principal">
-                <h1>Olá Thiago, aqui você verá o status de seus pedidos!</h1>
+                <h1>Olá Thiago, aqui você verá o status de seus pedidos.</h1>
                 <div class="header-buttons">
-                    <!-- Ação em PHP via URL GET -->
                     <a href="acompanhamento.php?view=historico" class="botao-de-fora">Histórico</a>
                     <a href="novo_pedido.php" class="botao-de-fora">Novo Pedido</a>
                 </div>
@@ -80,7 +78,6 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
             <section class="kanban-board">
                 
-                <!-- Coluna: Em Aberto -->
                 <div class="kanban-column col-aberto">
                     <h2>Em Aberto</h2>
                     <div class="cards-espaço">
@@ -104,8 +101,6 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
                         <?php endforeach; ?>
                     </div>
                 </div>
-
-                <!-- Coluna: Em Andamento -->
                 <div class="kanban-column col-andamento">
                     <h2>Em Andamento</h2>
                     <div class="cards-espaço">
@@ -129,8 +124,6 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
                         <?php endforeach; ?>
                     </div>
                 </div>
-
-                <!-- Coluna: Entregue -->
                 <div class="kanban-column col-entregue">
                     <h2>Entregue</h2>
                     <div class="cards-espaço">
@@ -176,10 +169,7 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
                         <div class="item-historico">
                             <div>
                                 <strong><?= htmlspecialchars($p['id']) ?> - <?= htmlspecialchars($p['local']) ?></strong>
-                                <br>
-                                <br>
                                 <p>Cliente: <?= htmlspecialchars($p['cliente']) ?></p>
-                                <br>
                                 <small>Concluído <?= htmlspecialchars($p['tempo']) ?></small>
                             </div>
                             <a href="acompanhamento.php?view=detalhes&id=<?= $id ?>" class="detalhes">Ver Detalhes</a>

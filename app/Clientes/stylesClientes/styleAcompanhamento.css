@@ -1,8 +1,12 @@
+/* =========================================================
+   ElectroSafe
+   ========================================================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Tinos', serif;
+    font-family: "Roboto Condensed", sans-serif;
 }
 
 body {
@@ -12,19 +16,16 @@ body {
     overflow: hidden;
 }
 
-/* ---------------------------------------------------------
-   LAYOUT — menu lateral à esquerda, conteúdo à direita
-   --------------------------------------------------------- */
-.layout-principal {
-    display: flex;
-    min-height: 100vh;
-}
 
 /* ---------------------------------------------------------
    MENU LATERAL
    --------------------------------------------------------- */
 
-/* ---------- Caixa do menu ---------- */
+.layout-principal {
+    display: flex;
+    min-height: 100vh;
+}
+
 .barra-menu {
     width: 260px;
     background-color: #190538;
@@ -34,7 +35,6 @@ body {
     flex-shrink: 0;
 }
 
-/* ---------- Cabeçalho (texto ElectroSafe) ---------- */
 .barra-menu-cabeça {
     display: flex;
     align-items: center;
@@ -42,7 +42,6 @@ body {
     padding: 37px;
 }
 
-/* ---------- Logo (imagem) ---------- */
 img {
     width: 260px;
     height: auto;
@@ -51,12 +50,17 @@ img {
 .logo {
     display: flex;
     align-items: center;
-    gap: 17px; 
-    font-size: 38px;
+    font-size: 41px;
     color: #ffffff;
 }
+.corElectro {
+    color: #5c00e6;
+}
 
-/* ---------- Lista de navegação ---------- */
+.corSafe {
+    color: #ffb703;
+}
+
 .nav {
     display: flex;
     flex-direction: column;
@@ -77,7 +81,6 @@ img {
     width: 100%;
 }
 
-/* ---------- Item em hover e item da página atual ---------- */
 .nav-item:hover, 
 .nav-item.active {
     background-color: #2e086b;
@@ -89,7 +92,6 @@ img {
     padding-left: 6px; 
 }
 
-/* ---------- Ícone do item (espaço de 28px antes do texto) ---------- */
 .nav-item i {
     font-size: 22px;
     width: 28px; 
@@ -100,7 +102,7 @@ img {
 }
 
 /* ---------------------------------------------------------
-   CONTEÚDO PRINCIPAL — área à direita do menu
+   CONTEÚDO PRINCIPAL 
    --------------------------------------------------------- */
 .espaço {
     flex: 1;
@@ -109,16 +111,12 @@ img {
     background-color: #000000;
 }
 
-/* ---------------------------------------------------------
-   BARRA SUPERIOR — título e botões (Histórico / Novo Pedido)
-   --------------------------------------------------------- */
 .barra-principal {
     background-color: #5c00e6;
     padding: 25px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 22px;
 }
 
 .botao-de-fora {
@@ -128,7 +126,7 @@ img {
     padding: 10px 24px;
     border-radius: 20px;
     font-weight: 600;
-    font-size: 26px;
+    font-size: 20px;
     transition: background 0.2s;
 }
 
@@ -137,10 +135,9 @@ img {
 }
 
 /* ---------------------------------------------------------
-   QUADRO KANBAN — três colunas de status
+   QUADRO KANBAN
    --------------------------------------------------------- */
 
-/* ---------- Quadro e colunas ---------- */
 .kanban-board {
     display: flex;
     gap: 20px;
@@ -154,10 +151,9 @@ img {
     padding: 20px 15px;
     display: flex;
     flex-direction: column;
-    font-size: 24px;
+    font-size: 20px;
 }
 
-/* ---------- Cor de cada coluna ---------- */
 .col-aberto {
     background-color: #23085c;
 }
@@ -170,27 +166,20 @@ img {
     background-color: #5c00e6;
 }
 
-/* ---------- Título da coluna ---------- */
 .kanban-column h2 {
     text-align: center;
-    font-size: 33px;
+    font-size: 26px;
     font-weight: 600;
     margin-bottom: 20px;
     color: #ffffff;
 }
 
-/* ---------------------------------------------------------
-   CARDS DOS PEDIDOS
-   --------------------------------------------------------- */
-
-/* ---------- Lista de cards dentro da coluna ---------- */
 .cards-espaço {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-/* ---------- Card ---------- */
 .card {
     background-color: #ffffff;
     color: #000000;
@@ -203,7 +192,7 @@ img {
     display: flex;
     justify-content: space-between;
     margin-bottom: 12px;
-    font-size: 25px;
+    font-size: 18x;
 }
 
 .pedido-id {
@@ -215,7 +204,6 @@ img {
     margin-bottom: 15px;
 }
 
-/* ---------- Rodapé do card e botão "Ver Detalhes" ---------- */
 .espaçamento-card {
     display: flex;
     gap: 8px;
@@ -228,7 +216,7 @@ img {
     border: none;
     padding: 6px 12px;
     border-radius: 12px;
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 500;
     cursor: pointer;
     text-decoration: none;
@@ -236,11 +224,6 @@ img {
     transition: background 0.2s;
 }
 
-/* ---------------------------------------------------------
-   MODAIS E JANELAS DE SOBREPOSIÇÃO (puro CSS e PHP)
-   --------------------------------------------------------- */
-
-/* ---------- Fundo escurecido ---------- */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -255,7 +238,6 @@ img {
     z-index: 1000;
 }
 
-/* ---------- Caixa da janela ---------- */
 .modal-box {
     background-color: #190538;
     border: 2px solid #5c00e6;
@@ -270,17 +252,16 @@ img {
 
 .modal-box h2 {
     color: #ffb703;
-    font-size: 28px;
+    font-size: 22px;
     margin-bottom: 20px;
 }
 
-/* ---------- Botão de fechar (×) ---------- */
 .btn-fechar {
     position: absolute;
     top: 15px;
     right: 20px;
     color: #d1c4e9;
-    font-size: 32px;
+    font-size: 30px;
     text-decoration: none;
     font-weight: bold;
 }
@@ -290,7 +271,7 @@ img {
 }
 
 /* ---------------------------------------------------------
-   MODAL: HISTÓRICO DE PEDIDOS ENTREGUES
+   HISTÓRICO DE PEDIDOS ENTREGUES
    --------------------------------------------------------- */
 .lista-historico {
     display: flex;
@@ -310,21 +291,16 @@ img {
 }
 
 .item-historico p {
-    font-size: 20px;
+    font-size: 18px;
     color: #d1c4e9;
     margin-top: 3px;
 }
 
 .item-historico small {
-    font-size: 20px;
+    font-size: 18px;
     color: #a097b6;
 }
 
-/* ---------------------------------------------------------
-   MODAL: DETALHES DO PEDIDO
-   --------------------------------------------------------- */
-
-/* ---------- Textos da janela ---------- */
 .detalhes-conteudo p {
     margin-bottom: 10px;
     font-size: 18px;
@@ -335,7 +311,6 @@ img {
     color: #ffffff;
 }
 
-/* ---------- Selo de status (aberto / andamento / entregue) ---------- */
 .badge-status {
     padding: 3px 8px;
     border-radius: 6px;
@@ -347,7 +322,6 @@ img {
 .status-andamento { background-color: #b87b14; color: #fff; }
 .status-entregue { background-color: #5c00e6; color: #fff; }
 
-/* ---------- Divisor e descrição ---------- */
 .divisor {
     border: 0;
     height: 1px;
@@ -364,7 +338,6 @@ img {
     font-size: 14px;
 }
 
-/* ---------- Rodapé da janela e botão Fechar ---------- */
 .modal-rodape {
     margin-top: 20px;
     text-align: right;
@@ -380,13 +353,3 @@ img {
     font-size: 18px;
 }
 
-/* ---------------------------------------------------------
-   CORES DA MARCA — "Electro" e "Safe" no logo
-   --------------------------------------------------------- */
-.corElectro {
-    color: #5c00e6;
-}
-
-.corSafe {
-    color: #ffb703;
-}
