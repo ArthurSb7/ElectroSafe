@@ -1,175 +1,224 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registro de não conformidade | ELECTROSAFE</title>
 
-    <title>ElectroSafe - Registro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700&family=Saira+Condensed:wght@600;700&display=swap" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="registro.css">
-
+  <link rel="stylesheet" href="stylesClientes/styleRegistro.css">
 </head>
-
 <body>
+<aside class="barralateral">
 
-    <aside class="barralateral">
+<div class="cabecabarra">
+    <div class="logo">
+        <span>Electro<strong>Safe</strong></span>
+    </div>
+</div>
 
-        <div class="cabecabarra">
-            <div class="logo">
-                <span>Electro<strong>Safe</strong></span>
-            </div>
+<nav class="nav">
+
+    <a href="index.php" class="nav-item">
+        <i></i>
+        <span>Início</span>
+    </a>
+
+    <a href="registro.html" class="nav-item">
+        <i></i>
+        <span>Registro de não conformidades</span>
+    </a>
+
+    <a href="analise.php" class="nav-item">
+        <i></i>
+        <span>Análise técnica e inspeção</span>
+    </a>
+
+<a href="index.html" class="nav-item active">
+        <i></i>
+        <span>Checklist</span>
+    </a>
+
+<a href="acompanhamento.php" class="nav-item">
+        <i></i>
+        <span>Acompanhamento</span>
+    </a>
+
+<a href="indicacao.php" class="nav-item">
+        <i></i>
+        <span>Indicação</span>
+    </a>
+
+</nav>
+
+</aside>
+
+  <header class="topo">
+    <div class="topo__marca">
+      <h1 class="logo">ELECTROSAFE</h1>
+      <p class="topo__sub">Sistema de inspeção elétrica</p>
+    </div>
+    <div class="topo__registro">
+      <span class="topo__registro-rotulo">Registro nº</span>
+      <span class="topo__registro-valor">Gerado ao salvar</span>
+    </div>
+  </header>
+
+  <main class="conteudo">
+
+    <section class="titulo-pagina">
+      <h2>Registro de não conformidade</h2>
+      <p>Preencha as informações abaixo para registrar uma ocorrência. Campos com <span class="obrigatorio" aria-hidden="true">*</span> são obrigatórios.</p>
+    </section>
+
+    <form class="formulario" action="registrar.php" method="post" enctype="multipart/form-data">
+
+      <!-- Identificação -->
+      <fieldset class="bloco">
+        <legend>Identificação</legend>
+
+        <div class="campo">
+          <label for="data_ocorrencia">Data da ocorrência <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <input type="date" id="data_ocorrencia" name="data_ocorrencia" required>
         </div>
 
-        <nav class="nav">
+        <div class="campo">
+          <label for="hora_ocorrencia">Hora aproximada</label>
+          <input type="time" id="hora_ocorrencia" name="hora_ocorrencia">
+        </div>
 
-            <a href="index.php" class="nav-item">
-                <i></i>
-                <span>Início</span>
-            </a>
+        <div class="campo campo--largo">
+          <label for="responsavel">Responsável pelo registro <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <input type="text" id="responsavel" name="responsavel" placeholder="Nome completo" autocomplete="name" required>
+        </div>
+      </fieldset>
 
-            <a href="registro.php" class="nav-item active">
-                <i></i>
-                <span>Registro de não conformidades</span>
-            </a>
+      <!-- Localização -->
+      <fieldset class="bloco">
+        <legend>Local e equipamento</legend>
 
-            <a href="analise.php" class="nav-item">
-                <i></i>
-                <span>Análise técnica e inspeção</span>
-            </a>
+        <div class="campo">
+          <label for="local">Local da ocorrência <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <input type="text" id="local" name="local" placeholder="Ex.: Sala de máquinas, 2º andar" required>
+        </div>
 
-            <a href="checklist.php" class="nav-item">
-                <i></i>
-                <span>Checklist</span>
-            </a>
+        <div class="campo">
+          <label for="equipamento">Equipamento ou instalação <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <input type="text" id="equipamento" name="equipamento" placeholder="Ex.: Quadro elétrico QD-03" required>
+        </div>
+      </fieldset>
 
-            <a href="acompanhamento.php" class="nav-item">
-                <i></i>
-                <span>Acompanhamento</span>
-            </a>
+      <!-- Classificação -->
+      <fieldset class="bloco">
+        <legend>Classificação</legend>
 
-            <a href="indicacao.php" class="nav-item">
-                <i></i>
-                <span>Indicação</span>
-            </a>
+        <div class="campo">
+          <label for="tipo">Tipo de não conformidade <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <select id="tipo" name="tipo" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="aterramento">Aterramento e equipotencialização</option>
+            <option value="condutores">Condutores e cabeamento</option>
+            <option value="protecao">Dispositivos de proteção (disjuntores, DR, DPS)</option>
+            <option value="quadro">Quadro de distribuição</option>
+            <option value="conexoes">Conexões e terminais</option>
+            <option value="sobrecarga">Sobrecarga ou aquecimento</option>
+            <option value="iluminacao">Iluminação e tomadas</option>
+            <option value="sinalizacao">Sinalização e identificação</option>
+            <option value="epi">EPI, EPC e procedimentos de segurança</option>
+            <option value="documentacao">Documentação e laudos</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
 
-        </nav>
+        <div class="campo">
+          <label for="requisito">Norma ou requisito violado</label>
+          <input type="text" id="requisito" name="requisito" placeholder="Ex.: ABNT NBR 5410, NR-10">
+        </div>
 
-    </aside>
+        <fieldset class="campo campo--cheio grupo-risco">
+          <legend>Nível de risco <span class="obrigatorio" aria-hidden="true">*</span></legend>
+          <div class="opcoes-risco">
+            <input type="radio" id="risco_baixo" name="risco" value="baixo" required>
+            <label for="risco_baixo" class="chip chip--baixo">Baixo</label>
 
+            <input type="radio" id="risco_medio" name="risco" value="medio">
+            <label for="risco_medio" class="chip chip--medio">Médio</label>
 
-    <div class="conteudo">
+            <input type="radio" id="risco_alto" name="risco" value="alto">
+            <label for="risco_alto" class="chip chip--alto">Alto</label>
 
-        <header>
-            <h1>ELECTROSAFE</h1>
-            <p>SISTEMA DE INSPEÇÃO ELÉTRICA</p>
-        </header>
+            <input type="radio" id="risco_critico" name="risco" value="critico">
+            <label for="risco_critico" class="chip chip--critico">Crítico</label>
+          </div>
+          <p class="dica">Risco crítico: perigo iminente de choque, arco elétrico ou incêndio. Isole a área antes de registrar.</p>
+        </fieldset>
 
+        <div class="campo">
+          <label for="status">Status inicial <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <select id="status" name="status" required>
+            <option value="" selected disabled>Selecione o status</option>
+            <option value="aberta">Aberta</option>
+            <option value="analise">Em análise</option>
+            <option value="tratamento">Em tratamento</option>
+            <option value="aguardando">Aguardando material ou peça</option>
+          </select>
+        </div>
+      </fieldset>
 
-        <main>
+      <!-- Descrição -->
+      <fieldset class="bloco">
+        <legend>Descrição</legend>
 
-            <h2>REGISTRO DE NÃO CONFORMIDADE</h2>
+        <div class="campo campo--cheio">
+          <label for="descricao">Descrição da ocorrência <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <textarea id="descricao" name="descricao" rows="5" placeholder="Descreva o que foi encontrado, onde e em que condição." required></textarea>
+        </div>
 
-            <p class="descricao">
-                Preencha as informações abaixo para registrar uma ocorrência.
-            </p>
+        <div class="campo campo--cheio">
+          <label for="evidencias">Evidências (fotos)</label>
+          <input type="file" id="evidencias" name="evidencias[]" accept="image/*" multiple>
+        </div>
+      </fieldset>
 
-            <?php if ($mensagem != "") { ?>
+      <!-- Tratativa -->
+      <fieldset class="bloco">
+        <legend>Tratativa</legend>
 
-                <div class="mensagem <?php echo $tipoMensagem; ?>">
-                    <?php echo htmlspecialchars($mensagem); ?>
-                </div>
+        <div class="campo campo--cheio">
+          <label for="contencao">Ação imediata de contenção</label>
+          <textarea id="contencao" name="contencao" rows="3" placeholder="Ex.: circuito desenergizado e sinalizado."></textarea>
+        </div>
 
-            <?php } ?>
+        <div class="campo campo--cheio">
+          <label for="acao">Ação recomendada / observações</label>
+          <textarea id="acao" name="acao" rows="4" placeholder="Informe as ações recomendadas para corrigir a causa."></textarea>
+        </div>
 
+        <div class="campo">
+          <label for="responsavel_acao">Responsável pela ação</label>
+          <input type="text" id="responsavel_acao" name="responsavel_acao" placeholder="Nome ou equipe">
+        </div>
 
-            <form method="POST" action="registro.php">
+        <div class="campo">
+          <label for="prazo">Prazo para correção</label>
+          <input type="date" id="prazo" name="prazo">
+        </div>
+      </fieldset>
 
-                <div class="campo">
-                    <label>Data da ocorrência</label>
-                    <input type="date" name="data" required>
-                </div>
+      <div class="acoes">
+        <button type="reset" class="botao botao--secundario">Limpar formulário</button>
+        <button type="submit" class="botao botao--primario">Registrar ocorrência</button>
+      </div>
 
-                <div class="campo">
-                    <label>Responsável pelo registro</label>
-                    <input type="text" name="responsavel" placeholder="Nome do responsável" required>
-                </div>
+    </form>
+  </main>
 
-                <div class="campo">
-                    <label>Local da ocorrência</label>
-                    <input type="text" name="local" placeholder="Ex: Sala de máquinas" required>
-                </div>
-
-                <div class="campo">
-                    <label>Equipamento ou instalação</label>
-                    <input type="text" name="equipamento" placeholder="Ex: Quadro elétrico" required>
-                </div>
-
-                <div class="campo">
-                    <label>Tipo de não conformidade</label>
-
-                    <select name="tipo" required>
-                        <option value="">Selecione uma opção</option>
-                        <option value="Instalação elétrica">Instalação elétrica</option>
-                        <option value="Equipamento danificado">Equipamento danificado</option>
-                        <option value="Falta de proteção">Falta de proteção</option>
-                        <option value="Fiação exposta">Fiação exposta</option>
-                        <option value="Outro">Outro</option>
-                    </select>
-                </div>
-
-                <div class="campo">
-                    <label>Descrição da ocorrência</label>
-                    <textarea name="descricao" rows="4" placeholder="Descreva o problema encontrado..." required></textarea>
-                </div>
-
-                <div class="campo">
-                    <label>Nível de risco</label>
-
-                    <select name="risco" required>
-                        <option value="">Selecione o nível</option>
-                        <option value="Baixo">Baixo</option>
-                        <option value="Médio">Médio</option>
-                        <option value="Alto">Alto</option>
-                        <option value="Crítico">Crítico</option>
-                    </select>
-                </div>
-
-                <div class="campo">
-                    <label>Status inicial</label>
-
-                    <select name="status" required>
-                        <option value="">Selecione o status</option>
-                        <option value="Aberta">Aberta</option>
-                        <option value="Em análise">Em análise</option>
-                        <option value="Resolvida">Resolvida</option>
-                    </select>
-                </div>
-
-                <div class="campo">
-                    <label>Ação recomendada / Observações</label>
-                    <textarea name="acao" rows="4" placeholder="Informe as ações recomendadas..."></textarea>
-                </div>
-
-                <button type="submit">
-                    REGISTRAR OCORRÊNCIA
-                </button>
-
-            </form>
-
-        </main>
-
-
-        <footer>
-            ELECTROSAFE © 2026 - SEGURANÇA E CONFIABILIDADE
-        </footer>
-
-    </div>
-
-        
-    
+  <footer class="rodape">
+    <p>ELECTROSAFE &copy; 2026 &ndash; Segurança e confiabilidade</p>
+  </footer>
 
 </body>
 </html>
