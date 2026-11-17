@@ -1,6 +1,4 @@
 <?php
-
-//Conexão com o servidor
 declare(strict_types=1);
 
 $databaseStatus = 'Conectado';
@@ -9,35 +7,42 @@ try {
     require_once __DIR__ . '/init.php';
     $pdo->query('SELECT 1');
 } catch (Throwable $exception) {
+    error_log($exception->getMessage());
     $databaseStatus = 'Indisponível';
 }
 
-// Mensagem de status pós-envio
 $mensagem = '';
-$sucesso = false;
+$sucesso  = false;
 
-// 1. Processa e salva os dados do formulário (POST)
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'salvar_local') {
-    $ambiente    = filter_input(INPUT_POST, 'ambiente', FILTER_SANITIZE_SPECIAL_CHARS);
-    $responsavel = filter_input(INPUT_POST, 'responsavel', FILTER_SANITIZE_SPECIAL_CHARS);
-    $contato     = filter_input(INPUT_POST, 'contato', FILTER_SANITIZE_SPECIAL_CHARS);
-    $descricao   = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_SPECIAL_CHARS);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'salvar_local') {
+    $departamento    = trim((string)($_POST['departamento'] ?? ''));
+    $responsavel = trim((string)($_POST['responsavel'] ?? ''));
+    $contato     = trim((string)($_POST['contato'] ?? ''));
+    $descricao   = trim((string)($_POST['descricao'] ?? ''));
 
-    if (!empty($ambiente) && !empty($responsavel) && !empty($contato)) {
-        
-          $stmt = $pdo->prepare("INSERT INTO chamados (ambiente, responsavel, contato, descricao) VALUES (?, ?, ?, ?)");
-          $stmt->execute([$ambiente, $responsavel, $contato, $descricao]);
-        
-        $mensagem = "Informações registradas com sucesso para: " . htmlspecialchars($ambiente);
-        $sucesso = true;
+    if ($databaseStatus !== 'Conectado') {
+        $mensagem = 'Banco de dados indisponível. Tente novamente mais tarde.';
+    } elseif ($departamento === '' || $responsavel === '' || $contato === '' || $descricao === '') {
+        $mensagem = 'Preencha todos os campos obrigatórios.';
     } else {
-        $mensagem = "Preencha todos os campos obrigatórios.";
+        try {
+            create($pdo, 'pedidos', [
+                'departamento'    => $departamento,
+                'responsavel' => $responsavel,
+                'contato'     => $contato,
+                'descricao'   => $descricao,
+            ]);
+            $mensagem = 'Informações registradas com sucesso para: ' . $departamento;
+            $sucesso  = true;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            $mensagem = 'Não foi possível salvar. Tente novamente.';
+        }
     }
 }
 
-// 2. Leitura da URL (GET) para saber qual ambiente foi clicado
-$ambiente_selecionado = filter_input(INPUT_GET, 'abrir_form', FILTER_SANITIZE_SPECIAL_CHARS);
-$exibir_formulario = !empty($ambiente_selecionado);
+$departamento_selecionado = trim((string)($_GET['abrir_form'] ?? ''));
+$exibir_formulario    = $departamento_selecionado !== '';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -121,7 +126,7 @@ $exibir_formulario = !empty($ambiente_selecionado);
 
                 <?php if (!empty($mensagem)): ?>
                     <div class="mensagem-status <?= $sucesso ? 'sucesso' : 'erro' ?>" role="status">
-                        <?= $mensagem ?>
+                        <?= htmlspecialchars($mensagem) ?>
                     </div>
                 <?php endif; ?>
             </section>
@@ -164,13 +169,13 @@ $exibir_formulario = !empty($ambiente_selecionado);
                 <a href="index.php" class="btn-fechar" aria-label="Fechar">&times;</a>
 
                 <div class="form-cabecalho">
-                    <h3 id="form-titulo">Novo registro: <?= htmlspecialchars($ambiente_selecionado) ?></h3>
+                    <h3 id="form-titulo">Novo registro: <?= htmlspecialchars($departamento_selecionado) ?></h3>
                     <p>Preencha os detalhes da estrutura elétrica abaixo:</p>
                 </div>
 
                 <form action="index.php" method="POST">
                     <input type="hidden" name="action" value="salvar_local">
-                    <input type="hidden" name="ambiente" value="<?= htmlspecialchars($ambiente_selecionado) ?>">
+                    <input type="hidden" name="departamento" value="<?= htmlspecialchars($departamento_selecionado) ?>">
 
                     <div class="campo-grupo">
                         <label for="responsavel">Nome do solicitante / responsável</label>
