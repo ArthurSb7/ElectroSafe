@@ -1,27 +1,30 @@
-<?php
+ <?php
 
-    require_once __DIR__ . "/app/init.php";
+    // require_once __DIR__ . "/init.php";
 
-    $emailInserido = '';
-    $senhaInserida = '';
+    // $emailInserido = '';
+    // $senhaInserida = '';
+    // $params = '';
+    // $hash = '';
 
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST"){
-        $emailInserido = [$_POST['email']];
-        $senhaInserida = [$_POST['senha']];
+    // if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    //     $emailInserido = $_POST['email'];
+    //     $senhaInserida = $_POST['senha'];
 
-        if ( $emailInserido == readAll($pdo, 'usuarios', $params['email']) && $senhaInserida == readAll($pdo, 'usuarios', $params['senha']) ){
+    //     if ( $emailInserido == readAll($pdo, 'usuarios', $params['email']) ){
+            
+    //         if($senhaInserida, password_verify(readAll($pdo, 'usuarios', $params['senha'])){
+    //             header('Location: index.php');
+    //             exit;}
+    //     }else {
+    //         echo "Tente novamente, E-mail ou Senha incorretos.";
+    //     }
+    // }
+
         
-            header('location: app/Clientes/index.php');
 
-        }else {
-            echo "Tente novamente, E-mail ou Senha incorretos.";
-        }
-    }
-
-        
-
-?>
+?> 
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -29,9 +32,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - ElectroSafe</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylesClientes/styleLogin.css">
 </head>
-<body class ="config-pagina">
+<body >
     <div class="Formulario">
         <img src="imagens/logo.png" alt="Logo-ElectroSafe">
         <h2>Login</h2>
