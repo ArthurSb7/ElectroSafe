@@ -1,5 +1,3 @@
-indicação nova
-
 
 <?php
 
@@ -13,6 +11,10 @@ indicação nova
     <link rel="stylesheet" href="stylesClientes/styleIndicacao.css">
     <title>Indicação | ElectroSafe</title>
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 </head>
 <body>
      <aside class="barra-menu">

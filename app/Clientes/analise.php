@@ -1,5 +1,3 @@
-analise nova
-
 
 <?php
 $mensagem = "";
@@ -46,6 +44,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="stylesClientes/styleAnalise.css">
     <title>Análise e Inspeção | ElectroSafe</title>
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 
 </head>
 <body>
@@ -92,7 +94,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <main>
             <header>
                 <h1>SOLICITAR ANÁLISE TÉCNICA E INSPEÇÃO </h1>
-                <h2>Descreve a avaria e faz uma checagem rápida de segurança para começarmos.</h2>
             </header>
             
 
@@ -128,64 +129,78 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <br>
                     <!-- PRIMEIRA PERGUNTA DO PASSO 2-->
                 <h3 class="perguntas">Você tem acesso livre ao disjuntor / chave geral para desligar a energia?</h3>
-                <input type="radio" 
-                id="disjuntor_sim"
-                name="acesso_disjuntor" 
-                value="sim" 
-                class="escolha" required>
-                <label for="disjuntor_sim" class="resp">Sim, consigo desligar o local com segurança</label>
+                <div class="selecao">
+                    <input type="radio"
+                    id="disjuntor_sim"
+                    name="acesso_disjuntor"
+                    value="sim"
+                    class="escolha" required>
+                    <label for="disjuntor_sim" class="resp">Sim, consigo desligar o local com segurança</label>
+                </div>
                 <br>
 
-                <input type="radio" 
-                id="disjuntor_nao"
-                name="acesso_disjuntor" 
-                value="nao" 
-                class="escolha" required>
-                <label for="disjuntor_nao" class="resp">Não sei onde fica / Não tenho acesso</label>
+                <div class="selecao">
+                    <input type="radio"
+                    id="disjuntor_nao"
+                    name="acesso_disjuntor"
+                    value="nao"
+                    class="escolha" required>
+                    <label for="disjuntor_nao" class="resp">Não sei onde fica / Não tenho acesso</label>
+                </div>
 
                     <!-- SEGUNDA PERGUNTA DO PASSO 2-->
 
                 <h3 class="perguntas">Existe fumo, faíscas visíveis ou água em contacto com a fiação no local?</h3>
-                <input type="radio" 
-                id="fumo_sim"
-                name="fumo_agua" 
-                value="sim" 
-                class="escolha" required>
-                <label for="fumo_sim" class="resp">Sim, há fumo, faíscas ou humidade/água no local</label>
+                <div class="selecao">
+                    <input type="radio"
+                    id="fumo_sim"
+                    name="fumo_agua"
+                    value="sim"
+                    class="escolha" required>
+                    <label for="fumo_sim" class="resp">Sim, há fumo, faíscas ou humidade/água no local</label>
+                </div>
                 <br>
 
-                <input type="radio" 
-                id="fumo_nao"
-                name="fumo_agua" 
-                value="nao" 
-                class="escolha" required>
-                <label for="fumo_nao" class="resp">Não, o local está seco e sem sinais de fogo/faíscas</label>
+                <div class="selecao">
+                    <input type="radio"
+                    id="fumo_nao"
+                    name="fumo_agua"
+                    value="nao"
+                    class="escolha" required>
+                    <label for="fumo_nao" class="resp">Não, o local está seco e sem sinais de fogo/faíscas</label>
+                </div>
 
                 <!-- TERCEIRA PERGUNTA DO PASSO 2-->
 
                 <h3 class="perguntas">Tens ferramentas básicas ou equipamento de proteção?</h3>
-                <input type="radio" 
-                id="ferramenta_chaves"
-                name="ferramentas" 
-                value="chaves" 
-                class="escolha" required>
-                <label for="ferramenta_chaves" class="resp">Chaves manuais ou de teste</label>
+                <div class="selecao">
+                    <input type="radio"
+                    id="ferramenta_chaves"
+                    name="ferramentas"
+                    value="chaves"
+                    class="escolha" required>
+                    <label for="ferramenta_chaves" class="resp">Chaves manuais ou de teste</label>
+                </div>
                 <br>
 
-                <input type="radio" 
-                id="ferramenta_epi"
-                name="ferramentas" 
-                value="epi" 
-                class="escolha" required>
-                <label for="ferramenta_epi" class="resp">Calçado de borracha e luvas</label> 
+                <div class="selecao">
+                    <input type="radio"
+                    id="ferramenta_epi"
+                    name="ferramentas"
+                    value="epi"
+                    class="escolha" required>
+                    <label for="ferramenta_epi" class="resp">Calçado de borracha e luvas</label>
+                </div>
                 <br>
 
-                <input type="radio" 
-                id="ferramenta_nenhuma"
-                name="ferramentas" 
-                value="nenhuma" 
-                class="escolha" required>
-                <label for="ferramenta_nenhuma" class="resp">Nenhuma ferramenta</label>
+                <div class="selecao">
+                    <input type="radio"
+                    id="ferramenta_nenhuma"
+                    name="ferramentas"
+                    value="nenhuma"
+                    class="escolha" required>
+                    <label for="ferramenta_nenhuma" class="resp">Nenhuma ferramenta</label>
+                </div>
                 <br>
                 <!-- BOTAO-->
                 <button type="submit" <?php echo $estadoBotao; ?>>Enviar</button>
