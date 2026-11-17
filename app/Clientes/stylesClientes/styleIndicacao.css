@@ -1,3 +1,6 @@
+style indicação nova
+
+
 :root{
     --cor-fundo-site-clientes:#000000;
     --cor-texto-principal-elementos:#ffffff;
@@ -146,13 +149,19 @@ h2 {
     font-weight: bolder;
 }
 
-.info-ele > p {
+
+.texto-ele > p {
     text-align: center;
     font-weight: 495;
     font-size: 20px;
     color: var(--cor-fundo-site-clientes);
 }
-
+.info-ele{
+    display: flex;                
+    align-items: center;          
+    justify-content: center;
+    gap: 15px;
+}
 .areas {
     border-top: 5px solid var(--cor-pag-selecionada-botes);
     background-color: rgb(244, 244, 244);
@@ -181,4 +190,12 @@ h2 {
     border-radius: 30px;
 }
 
+.foto-ele{
+    margin-left: 45px;
+    border-radius: 15px;
+    height: 120px;
+    width: 155px;
+    object-fit: cover;            
+
+}
 
