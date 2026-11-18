@@ -33,16 +33,53 @@ function tempoRelativo(string $data): string
     return "Há $d dia" . ($d > 1 ? 's' : '');
 }
 
+function renderKanban(array $pedidos, array $colunas): void
+{
+    foreach ($colunas as $status => [$titulo, $classe]): ?>
+        <div class="kanban-column <?= $classe ?>">
+            <h2><?= htmlspecialchars($titulo) ?></h2>
+            <div class="cards-espaço">
+                <?php foreach ($pedidos as $id => $p): ?>
+                    <?php if ($p['status'] === $status): ?>
+                        <div class="card">
+                            <div class="card-header">
+                                <span><?= htmlspecialchars($p['id']) ?></span>
+                                <span><?= htmlspecialchars($p['tempo']) ?></span>
+                            </div>
+                            <div class="card-body">
+                                <p><?= htmlspecialchars($p['cliente']) ?></p>
+                                <br>
+                                <p><?= htmlspecialchars($p['local']) ?></p>
+                            </div>
+                            <div class="espaçamento-card">
+                                <a href="acompanhamento.php?view=detalhes&id=<?= $id ?>" class="detalhes">Ver Detalhes</a>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    <?php endforeach;
+}
+
+$mapaStatus = [
+    'AGUARDANDO' => 'aberto',
+    'ANDAMENTO'  => 'andamento',
+    'FINALIZADO' => 'entregue',
+];
+
 $pedidos = [];
 try {
-    $linhas = $pdo->query('SELECT * FROM chamados ORDER BY criado_em DESC')->fetchAll();
+    $linhas = $pdo->query(
+        "SELECT * FROM pedidos WHERE statusPedido <> 'CANCELADO' ORDER BY criado_em DESC, id DESC"
+    )->fetchAll();
 
     foreach ($linhas as $row) {
         $pedidos[(int) $row['id']] = [
             'id'       => 'Pedido ' . str_pad((string) $row['id'], 2, '0', STR_PAD_LEFT),
-            'cliente'  => (string) $row['responsavel'],
-            'local'    => (string) $row['ambiente'],
-            'status'   => (string) $row['status'],
+            'cliente'  => (string) ($row['responsavel'] ?? 'Não informado'),
+            'local'    => (string) ($row['ambiente'] ?? ucfirst(strtolower((string) $row['categoria']))),
+            'status'   => $mapaStatus[$row['statusPedido']] ?? 'aberto',
             'tempo'    => tempoRelativo((string) $row['criado_em']),
             'detalhes' => (string) $row['descricao'],
         ];
@@ -59,6 +96,7 @@ $colunas = [
     'andamento' => ['Em Andamento', 'col-andamento'],
     'entregue'  => ['Entregue',     'col-entregue'],
 ];
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -66,6 +104,9 @@ $colunas = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ElectroSafe - Acompanhamento</title>
+    <?php if ($view === ''): ?>
+        <meta http-equiv="refresh" content="5">
+    <?php endif; ?>
     <link rel="stylesheet" href="stylesClientes/styleAcompanhamento.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -123,31 +164,7 @@ $colunas = [
             </header>
 
             <section class="kanban-board">
-                <?php foreach ($colunas as $status => [$titulo, $classe]): ?>
-                    <div class="kanban-column <?= $classe ?>">
-                        <h2><?= htmlspecialchars($titulo) ?></h2>
-                        <div class="cards-espaço">
-                            <?php foreach ($pedidos as $id => $p): ?>
-                                <?php if ($p['status'] === $status): ?>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <span><?= htmlspecialchars($p['id']) ?></span>
-                                            <span><?= htmlspecialchars($p['tempo']) ?></span>
-                                        </div>
-                                        <div class="card-body">
-                                            <p><?= htmlspecialchars($p['cliente']) ?></p>
-                                            <br>
-                                            <p><?= htmlspecialchars($p['local']) ?></p>
-                                        </div>
-                                        <div class="espaçamento-card">
-                                            <a href="acompanhamento.php?view=detalhes&id=<?= $id ?>" class="detalhes">Ver Detalhes</a>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
+                <?php renderKanban($pedidos, $colunas); ?>
             </section>
         </main>
     </div>
@@ -214,5 +231,6 @@ $colunas = [
             </div>
         </div>
     <?php endif; ?>
+
 </body>
 </html>
