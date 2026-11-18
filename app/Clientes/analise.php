@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p>Por motivos de segurança, este problema não pode ser orientado à distância.</p>
                 <p>Recomendamos desligar a chave geral e contactar um profissional presencial.</p>
                 <br>
-                <a href='indicacao.php' id='btn-fechar-alerta'>Voltar</a>
+                <a href='indicacao.php' id='btn-fechar-alerta'>Ir para os indicados</a>
             </div>
         </div>";
 
@@ -29,7 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <h2>ENVIADO COM SUCESSO!</h2>
                 <p>SEU FORMULÁRIO FOI MANDADO PARA A GENTE, AGUARDE POR ALGUNS INSTANTES.</p>
                 <br>
-                <a href='checklist.php' id='btn-sucesso'>Ok</a>
+                <p>CASO VOCÊ QUEIRA ESCOLHER SEUS PRODUTOS CLIQUE ABAIXO</p>
+                <br>
+                <a href='analise.php' id='btn-sucesso'>Ok</a>
+                <a href='checklist.php' id='btn-sucesso'>Produtos</a>
             </div>
         </div>";
     }
