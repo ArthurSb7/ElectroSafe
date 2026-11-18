@@ -403,31 +403,40 @@ button{
     font-weight: bolder;
     border-radius: 5px;
     font-size: 25px;
-    transition: background 0.3s;
-}
+    transition: transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 
-#btn-fechar-alerta:hover {
-    background-color: #4a1116;
-    transform: translateY(-5px);
-    text-decoration: underline;
-}
+    &:hover {
+            transform: translateY(-5px);
+            text-decoration: underline;
+            background-color: #4a1116;
+            
+        }
+
+    }
+
 
 #btn-sucesso {
     display: inline-block;
-    padding: 15px 35px;
+    padding: 17px 37px;
+    margin: 10px;
     background-color: #0b3013;
     color: white;
     text-decoration: none;
     font-weight: bolder;
     border-radius: 5px;
     font-size: 25px;
-    transition: background 0.3s;
+    transition: transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+    &:hover {
+            transform: translateY(-5px);
+            text-decoration: underline;
+            background-color: #155724;
+            
+        }
 }
 
-#btn-sucesso:hover {
-    
-    background-color: #155724;
-    transform: translateY(-5px);
-    text-decoration: underline;
-}
 
