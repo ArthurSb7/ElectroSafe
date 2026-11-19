@@ -12,7 +12,7 @@
             "cpf" => $_POST["cpf"],
             "telefone" => $_POST["telefone"]
         ];
-        $id = create($pdo, "clientes", $dados_usuario);
+        $id = create($pdo, "usuarios", $dados_usuario);
         
         echo "Cliente cadastrado com sucesso!";
     }
