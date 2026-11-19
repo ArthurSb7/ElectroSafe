@@ -263,7 +263,7 @@ form > textarea{
 }
 .escolha:checked + .resp {
     color: var(--cor-pag-selecionada-botes);
-    font-weight: normal;
+    font-weight: 555;
 }
 
 .perguntas{
