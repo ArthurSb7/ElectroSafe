@@ -1,6 +1,6 @@
 
 <?php
-    require_once __DIR__ . "/banco/crud.php";
+    require_once __DIR__ . "/app/init.php";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
         
