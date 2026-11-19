@@ -48,13 +48,20 @@ input:focus,textarea{
             rgba(11, 7, 25, .55) 100%);
 }
 
+a{
+    color: #ffb703;
+}
+
+img{
+    margin-left: 90px;
+}
 .formulario-bloco{
-    display: flex;
+    display: block;
     justify-items: center;
     align-items: center;
     margin: auto;
     width: 500px;
-    height: 650px;
+    height: 800px;
     background-color: #0b0719;
     color: #d1c4e9;
 
