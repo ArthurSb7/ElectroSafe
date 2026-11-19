@@ -156,7 +156,7 @@ $colunas = [
 
         <main class="espaço">
             <header class="barra-principal">
-                <h1>Olá Thiago, aqui você verá o status de seus pedidos.</h1>
+                <h1>Olá, aqui você verá o status de seus pedidos.</h1>
                 <div class="header-buttons">
                     <a href="acompanhamento.php?view=historico" class="botao-de-fora">Histórico</a>
                     <a href="novo_pedido.php" class="botao-de-fora">Novo Pedido</a>

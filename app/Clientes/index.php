@@ -9,9 +9,9 @@ try {
 } catch (Throwable $exception) {
     error_log($exception->getMessage());
     $databaseStatus = 'Indisponível';
+    $erroDebug = $exception->getMessage();   
 }
 
-/** Conta caracteres (UTF-8) sem depender da extensão mbstring. */
 function tamanho(string $texto): int
 {
     return (int) preg_match_all('/./su', $texto);
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'salva
     $descricao   = trim((string) ($_POST['descricao'] ?? ''));
 
     if ($databaseStatus !== 'Conectado') {
-        $mensagem = 'Banco de dados indisponível. Tente novamente mais tarde.';
+        $mensagem = 'Banco indisponível: ' . ($erroDebug ?? '');
     } elseif ($ambiente === '' || $responsavel === '' || $contato === '' || $descricao === '') {
         $mensagem = 'Preencha todos os campos obrigatórios.';
     } elseif (!array_key_exists($categoria, CATEGORIAS)) {
@@ -43,21 +43,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'salva
     } elseif (tamanho($responsavel) > 100 || tamanho($contato) > 20 || tamanho($ambiente) > 100) {
         $mensagem = 'Algum campo excedeu o tamanho permitido.';
     } else {
-        try {
-            create($pdo, 'pedidos', [
-                'ambiente'     => $ambiente,
-                'responsavel'  => $responsavel,
-                'contato'      => $contato,
-                'categoria'    => $categoria,
-                'descricao'    => $descricao,
-                'statusPedido' => 'AGUARDANDO',
-            ]);
-            $mensagem = 'Pedido registrado com sucesso para: ' . $ambiente;
-            $sucesso  = true;
-        } catch (PDOException $e) {
-            error_log($e->getMessage());
-           $mensagem = 'Erro: ' . $e->getMessage();
-        }
+       try {
+    create($pdo, 'pedidos', [
+        'ambiente'     => $ambiente,
+        'responsavel'  => $responsavel,
+        'contato'      => $contato,
+        'categoria'    => $categoria,
+        'descricao'    => $descricao,
+        'statusPedido' => 'AGUARDANDO',
+        'criado_em'    => date('Y-m-d H:i:s'),  
+    ]);
+    $mensagem = 'Pedido registrado com sucesso para: ' . $ambiente;
+    $sucesso  = true;
+} catch (PDOException $e) {
+    error_log($e->getMessage());
+    $mensagem = 'Não foi possível salvar. Tente novamente.';
+}
     }
 }
 
