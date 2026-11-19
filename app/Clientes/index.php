@@ -1,4 +1,17 @@
 <?php
+
+//Conexão com o servidor
+declare(strict_types=1);
+
+$databaseStatus = 'Conectado';
+
+try {
+    require_once __DIR__ . '/init.php';
+    $pdo->query('SELECT 1');
+} catch (Throwable $exception) {
+    $databaseStatus = 'Indisponível';
+}
+
 // Mensagem de status pós-envio
 $mensagem = '';
 $sucesso = false;
