@@ -14,6 +14,7 @@ body {
     color: #ffffff;
     min-height: 100vh;
     overflow: hidden;
+    overflow-y: auto;
 }
 
 
@@ -25,7 +26,6 @@ body {
     display: flex;
     min-height: 100vh;
 }
-
 .barra-menu {
     width: 260px;
     background-color: #190538;
@@ -33,6 +33,10 @@ body {
     flex-direction: column;
     padding: 17px 3px;
     flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;            /* ocupa a altura da tela */
+  
 }
 
 .barra-menu-cabeça {
@@ -117,6 +121,13 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
+}
+
+.barra-principal .h1 {
+    justify-content: center;
+    text-align: center;
+    margin: 0;
 }
 
 .botao-de-fora {
