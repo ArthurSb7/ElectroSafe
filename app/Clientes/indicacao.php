@@ -1,5 +1,3 @@
-indicação nova
-
 
 <?php
 
@@ -13,6 +11,10 @@ indicação nova
     <link rel="stylesheet" href="stylesClientes/styleIndicacao.css">
     <title>Indicação | ElectroSafe</title>
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 </head>
 <body>
      <aside class="barra-menu">
@@ -66,27 +68,30 @@ indicação nova
                 <h2>Eletricistas Residenciais disponiveis</h2>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>AAAA</p>
-                        <p>AAAAA</p>
-                        <p>AAAAAA</p>
+                        <p>Nome</p>
+                        <p>Idade</p>
+                        <p>profissionalização</p>
+                        <p>Número para contato</p>
                     </div>
                     <img src="imagens/foto-ele1.png" alt="" class="foto-ele">
                 </div>
                     <hr>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>AAAA</p>
-                        <p>AAAAA</p>
-                        <p>AAAAAA</p>
+                        <p>Nome</p>
+                        <p>Idade</p>
+                        <p>profissionalização</p>
+                        <p>Número para contato</p>
                     </div>
                     <img src="imagens/foto-ele2.png" alt="" class="foto-ele">
                 </div>  
                     <hr>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>AAAA</p>
-                        <p>AAAAA</p>
-                        <p>AAAAAA</p>
+                        <p>Nome</p>
+                        <p>Idade</p>
+                        <p>profissionalização</p>
+                        <p>Número para contato</p>
                     </div>
                     <img src="imagens/foto-ele3.png" alt="" class="foto-ele">
                 </div>
@@ -96,27 +101,30 @@ indicação nova
                 <h2>Eletricistas Comerciais disponiveis</h2>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>AAAA</p>
-                        <p>AAAAA</p>
-                        <p>AAAAAA</p>
+                        <p>Nome</p>
+                        <p>Idade</p>
+                        <p>profissionalização</p>
+                        <p>Número para contato</p>
                     </div>
                     <img src="imagens/foto-ele4.png" alt="" class="foto-ele">
                 </div>
                     <hr>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>AAAA</p>
-                        <p>AAAAA</p>
-                        <p>AAAAAA</p>
+                        <p>Nome</p>
+                        <p>Idade</p>
+                        <p>profissionalização</p>
+                        <p>Número para contato</p>
                     </div>
                     <img src="imagens/foto-ele5.png" alt="" class="foto-ele">
                 </div>  
                     <hr>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>AAAA</p>
-                        <p>AAAAA</p>
-                        <p>AAAAAA</p>
+                        <p>Nome</p>
+                        <p>Idade</p>
+                        <p>profissionalização</p>
+                        <p>Número para contato</p>
                     </div>
                     <img src="imagens/foto-ele6.png" alt="" class="foto-ele">
                 </div>
@@ -127,27 +135,30 @@ indicação nova
                 <h2>Eletricistas Industriais disponiveis</h2>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>AAAA</p>
-                        <p>AAAAA</p>
-                        <p>AAAAAA</p>
+                        <p>Nome</p>
+                        <p>Idade</p>
+                        <p>profissionalização</p>
+                        <p>Número para contato</p>
                     </div>
                     <img src="imagens/foto-ele7.png" alt="" class="foto-ele">
                 </div>
                     <hr>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>AAAA</p>
-                        <p>AAAAA</p>
-                        <p>AAAAAA</p>
+                        <p>Nome</p>
+                        <p>Idade</p>
+                        <p>profissionalização</p>
+                        <p>Número para contato</p>
                     </div>
                     <img src="imagens/foto-ele8.png" alt="" class="foto-ele">
                 </div>  
                     <hr>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>AAAA</p>
-                        <p>AAAAA</p>
-                        <p>AAAAAA</p>
+                        <p>Nome</p>
+                        <p>Idade</p>
+                        <p>profissionalização</p>
+                        <p>Número para contato</p>
                     </div>
                     <img src="imagens/foto-ele9.png" alt="" class="foto-ele">
                 </div>
