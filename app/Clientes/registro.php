@@ -37,7 +37,7 @@
         <span>Análise técnica e inspeção</span>
     </a>
 
-<a href="index.html" class="nav-item active">
+<a href="checklist.html" class="nav-item active">
         <i></i>
         <span>Checklist</span>
     </a>
