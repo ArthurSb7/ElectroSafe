@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 try {
-    require_once __DIR__ . '/init.php';
+    require_once __DIR__ . '/../app/Clientes/init.php';
 } catch (Throwable $e) {
     error_log($e->getMessage());
     $pdo = null;
@@ -106,7 +106,7 @@ $colunas = [
     <?php if ($view === ''): ?>
         <meta http-equiv="refresh" content="5">
     <?php endif; ?>
-    <link rel="stylesheet" href="stylesClientes/styleAcompanhamento.css">
+    <link rel="stylesheet" href="styleAcompanhamentoAdmin.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -115,7 +115,7 @@ $colunas = [
     <div class="layout-principal">
         <aside class="barra-menu">
             <a href="index.php" class="logo.png" title="Ir para a página inicial">
-                <img src="imagens/logo.png" alt="Logo ElectroSafe">
+                <img src="../app/Clientes/imagens/logo.png" alt="Logo ElectroSafe">
             </a>
             <div class="barra-menu-cabeça">
                 <i></i>
@@ -128,18 +128,6 @@ $colunas = [
                 <a href="index.php" class="nav-item">
                     <i></i>
                     <span>Início</span>
-                </a>
-                <a href="registro.php" class="nav-item">
-                    <i></i>
-                    <span>Registro de não conformidades</span>
-                </a>
-                <a href="analise.php" class="nav-item">
-                    <i></i>
-                    <span>Análise técnica e inspeção</span>
-                </a>
-                <a href="checklist.php" class="nav-item">
-                    <i></i>
-                    <span>Checklist</span>
                 </a>
                 <a href="acompanhamento.php" class="nav-item active">
                     <i></i>
@@ -154,10 +142,9 @@ $colunas = [
 
         <main class="espaço">
             <header class="barra-principal">
-                <h1>Olá, aqui você verá o status de seus pedidos.</h1>
+                <h1>Olá Admin, gerencie e acompanhe os pedidos dos clientes em tempo real.</h1>
                 <div class="header-buttons">
                     <a href="acompanhamento.php?view=historico" class="botao-de-fora">Histórico</a>
-                    <a href="novo_pedido.php" class="botao-de-fora">Novo Pedido</a>
                 </div>
             </header>
 
