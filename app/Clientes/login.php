@@ -1,26 +1,26 @@
  <?php
 
-// require_once __DIR__ . "/init.php";
+require_once __DIR__ . "/init.php";
 
-// $erro = '';
+$erro = '';
 
-// //Recebe o que foi inserido no formulário
-// if ($_SERVER["REQUEST_METHOD"] == "POST") {
-//     $emailInserido = trim($_POST['email'] ?? '');
-//     $senhaInserida = $_POST['senha'] ?? '';
+//Recebe o que foi inserido no formulário
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $emailInserido = trim($_POST['email'] ?? '');
+    $senhaInserida = $_POST['senha'] ?? '';
 
-//     $usuario = read($pdo, 'usuarios', 'email = ?', [$emailInserido]);
+    $usuario = read($pdo, 'usuarios', 'email = ?', [$emailInserido]);
 
-//     // Compara com o banco de dados o que foi digitado
-//     if ($usuario && password_verify($senhaInserida, $usuario['senha'])) {
-//         $_SESSION['usuario_id'] = $usuario['id'];
-//         header('Location: index.php');
-//         exit;
-//     }
+    // Compara com o banco de dados o que foi digitado
+    if ($usuario && password_verify($senhaInserida, $usuario['senha'])) {
+        $_SESSION['usuario_id'] = $usuario['id'];
+        header('Location: index.php');
+        exit;
+    }
 
-//     // Mensagem de erro exibida quando e-mail ou senha não conferem
-//     $erro = "Tente novamente, E-mail ou Senha incorretos.";
-// }
+    // Mensagem de erro exibida quando e-mail ou senha não conferem
+    $erro = "Tente novamente, E-mail ou Senha incorretos.";
+}
 
 ?>
 <!DOCTYPE html>
