@@ -1,22 +1,22 @@
 <?php
-    // require_once __DIR__ . "/init.php";
+    require_once __DIR__ . "/init.php";
 
-    // $mensagem = '';
+    $mensagem = '';
 
-    // if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
         
-    //     $dados_usuario =[
-    //         "nome" => $_POST["nome"],
-    //         "email" => $_POST["email"],
-    //         "data_nascimento" => $_POST["data_nascimento"] ?: null,
-    //         "senha" => password_hash($_POST["senha"], PASSWORD_DEFAULT),
-    //         "cpf" => $_POST["cpf"],
-    //         "telefone" => $_POST["telefone"]
-    //     ];
-    //     $id = create($pdo, "usuarios", $dados_usuario);
+        $dados_usuario =[
+            "nome" => $_POST["nome"],
+            "email" => $_POST["email"],
+            "data_nascimento" => $_POST["data_nascimento"] ?: null,
+            "senha" => password_hash($_POST["senha"], PASSWORD_DEFAULT),
+            "cpf" => $_POST["cpf"],
+            "telefone" => $_POST["telefone"]
+        ];
+        $id = create($pdo, "usuarios", $dados_usuario);
         
-    //     $mensagem = "Cliente cadastrado com sucesso!";
-    // }
+        $mensagem = "Cliente cadastrado com sucesso!";
+    }
 
 ?>
 <!DOCTYPE html>
