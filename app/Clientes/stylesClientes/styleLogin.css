@@ -1,6 +1,4 @@
-/* =========================================================
-   ElectroSafe — Login e Cadastro (vídeo de fundo + filtro roxo)
-   ========================================================= */
+/* Configurações iniciais da página (declaração de cores) */
 :root {
     --roxo-900: #0b0719;
     --roxo-800: #190538;
@@ -20,7 +18,7 @@
 }
 
 body {
-    min-height: 100vh;
+    min-height: 100vh; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,13 +32,11 @@ a {
     color: var(--ambar);
 }
 
-/* ---------------------------------------------------------
-   VÍDEO DE FUNDO + FILTRO ROXO
-   --------------------------------------------------------- */
+/* Vídeo e filtro roxo */
 .fundo-video {
     position: fixed;
     inset: 0;
-    z-index: -1;
+    z-index: -1; /* manda o vídeo para trás de tudo */
     background: var(--roxo-900);
 }
 
@@ -64,9 +60,7 @@ a {
             rgba(11, 7, 25, .55) 100%);
 }
 
-/* ---------------------------------------------------------
-   CAIXA DO FORMULÁRIO
-   --------------------------------------------------------- */
+/* Forms */
 .formulario-bloco {
     width: 440px;
     margin: auto;
@@ -105,9 +99,7 @@ a {
     color: var(--texto-suave);
 }
 
-/* ---------------------------------------------------------
-   CAMPOS
-   --------------------------------------------------------- */
+/* Campos de escrever */
 .campo-grupo {
     margin-bottom: 16px;
 }
@@ -146,9 +138,7 @@ a {
     gap: 0 14px;
 }
 
-/* ---------------------------------------------------------
-   BOTÃO
-   --------------------------------------------------------- */
+/* Botão de enviar*/
 .btn-enviar {
     width: 100%;
     padding: 13px;
@@ -179,9 +169,7 @@ a:focus-visible,
     color: var(--texto-suave);
 }
 
-/* ---------------------------------------------------------
-   MENSAGENS
-   --------------------------------------------------------- */
+/* Mensagens Exibidas */
 .mensagem {
     margin-bottom: 16px;
     padding: 10px 14px;
