@@ -8,6 +8,24 @@ try {
     $pdo = null;
 }
 
+if ($pdo instanceof PDO && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $acao   = (string) ($_POST['acao'] ?? '');
+    $idPost = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+    $novo   = (string) ($_POST['novo_status'] ?? '');
+
+    try {
+        if ($acao === 'status' && $idPost
+            && in_array($novo, ['AGUARDANDO', 'ANDAMENTO', 'FINALIZADO', 'CANCELADO'], true)) {
+            update($pdo, 'pedidos', ['statusPedido' => $novo], 'id = ?', [$idPost]);
+        }
+    } catch (Throwable $e) {
+        error_log($e->getMessage());
+    }
+
+    header('Location: acompanhamento.php');   // evita reenviar o formulário ao atualizar
+    exit;
+}
+
 function tempoRelativo(string $data): string
 {
     $timestamp = strtotime($data);
@@ -211,8 +229,14 @@ $colunas = [
                 </div>
 
                 <div class="modal-rodape">
-                    <a href="acompanhamento.php" class="btn-voltar">Fechar</a>
-                </div>
+    <form method="POST" style="display:inline">
+        <input type="hidden" name="acao" value="status">
+        <input type="hidden" name="id" value="<?= $id_detalhe ?>">
+        <button type="submit" name="novo_status" value="AGUARDANDO" class="btn-voltar">Em Aberto</button>
+        <button type="submit" name="novo_status" value="ANDAMENTO"  class="btn-voltar">Em Andamento</button>
+        <button type="submit" name="novo_status" value="FINALIZADO" class="btn-voltar">Finalizar</button>
+    </form>
+</div>
             </div>
         </div>
     <?php endif; ?>
