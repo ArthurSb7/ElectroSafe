@@ -95,7 +95,7 @@ create table if not exists registros(
     responsavel_Imediato int NOT NULL, -- Responsável por executar a ação imediata
     prazo DATETIME, -- Data maxima para conter o erro.
     analise_erro text,
-    acao_corretiva text,
+         text,
     responsavel_acaoFinal int NOT NULL, -- 
     prazo_limite DATETIME,
     data_verificacao DATETIME NULL,

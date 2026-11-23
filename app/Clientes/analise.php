@@ -1,12 +1,33 @@
-
 <?php
+declare(strict_types=1);
+
+$databaseStatus = 'Conectado';
+
+try {
+    require_once __DIR__ . '/init.php';
+    $pdo->query('SELECT 1');
+} catch (Throwable $exception) {
+    error_log($exception->getMessage());
+    $databaseStatus = 'Indisponível';
+}
+
 $mensagem = "";
 $estadoBotao = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $acesso_disjuntor = $_POST['acesso_disjuntor'] ?? null;
-    $fumo_agua = $_POST['fumo_agua'] ?? null;
+    $fumo_agua        = $_POST['fumo_agua'] ?? null;
+    $servico          = trim((string)($_POST['servicos'] ?? ''));
+    $problema         = trim((string)($_POST['problema'] ?? ''));
+
+$servicosEnum = [
+    'conserto'     => 'CONSERTO',
+    'montagem'     => 'MONTAGEM',
+    'avalicacao'   => 'AVALIAÇÃO',
+    'manutencao'   => 'MANUTENÇÃO',
+    'modificacao'  => 'MODIFICAÇÃO',
+];
 
     if ($acesso_disjuntor === "nao" || $fumo_agua === "sim") {
         $mensagem = "
@@ -21,21 +42,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>";
 
         $estadoBotao = "disabled";
-    } 
-    elseif ($acesso_disjuntor === "sim" && $fumo_agua === "nao") {
-        $mensagem = "
-        <div id='fundo'>
-            <div id='sucesso'>
-                <h2>ENVIADO COM SUCESSO!</h2>
-                <p>SEU FORMULÁRIO FOI MANDADO PARA A GENTE, AGUARDE POR ALGUNS INSTANTES.</p>
-                <br>
-                <p>CASO VOCÊ QUEIRA ESCOLHER SEUS PRODUTOS CLIQUE ABAIXO</p>
-                <br>
-                <a href='analise.php' id='btn-sucesso'>Ok</a>
-                <a href='checklist.php' id='btn-sucesso'>Produtos</a>
-            </div>
-        </div>";
     }
+
+elseif ($acesso_disjuntor === "sim" && $fumo_agua === "nao") {
+    if (!isset($servicosEnum[$servico]) || $problema === '') {
+        $mensagem = "<p>Preencha o serviço e descreva o problema.</p>";
+    } else {
+        try {
+            create($pdo, 'analise_tecnica', [
+                'servicos'        => $servicosEnum[$servico],
+                'relatoProblema'  => $problema,
+            ]);
+
+            $mensagem = "
+            <div id='fundo'>
+                <div id='sucesso'>
+                    <h2>ENVIADO COM SUCESSO!</h2>
+                    <p>SEU FORMULÁRIO FOI MANDADO PARA A GENTE, AGUARDE POR ALGUNS INSTANTES.</p>
+                    <br>
+                    <p>CASO VOCÊ QUEIRA ESCOLHER SEUS PRODUTOS CLIQUE ABAIXO</p>
+                    <br>
+                    <a href='analise.php' id='btn-sucesso'>Ok</a>
+                    <a href='checklist.php' id='btn-sucesso'>Produtos</a>
+                </div>
+            </div>";
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            $mensagem = "<p>Não foi possível salvar. Tente novamente.</p>";
+        }
+    }
+}
 }
 ?>
 

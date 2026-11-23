@@ -1,6 +1,32 @@
-
 <?php
+declare(strict_types=1);
 
+$databaseStatus = 'Conectado';
+
+try {
+    require_once __DIR__ . '/init.php';
+    $pdo->query('SELECT 1');
+} catch (Throwable $exception) {
+    error_log($exception->getMessage());
+    $databaseStatus = 'Indisponível';
+}
+
+$porDepartamento = [];
+
+if ($databaseStatus === 'Conectado') {
+    $sql = "SELECT u.nome,
+                   TIMESTAMPDIFF(YEAR, u.data_nascimento, CURDATE()) AS idade,
+                   f.especializacao, f.foto, d.nome AS departamento
+            FROM funcionarios f
+            INNER JOIN usuarios u ON u.id = f.idUsuario
+            INNER JOIN funcionario_departamentos fd ON fd.idFuncionario = f.idUsuario
+            INNER JOIN departamentos d ON d.id = fd.idDepartamento
+            ORDER BY d.nome, u.nome";
+
+    foreach ($pdo->query($sql)->fetchAll() as $linha) {
+        $porDepartamento[$linha['departamento']][] = $linha;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -70,8 +96,7 @@
                     <div class="texto-ele">
                         <p>Nome</p>
                         <p>Idade</p>
-                        <p>profissionalização</p>
-                        <p>Número para contato</p>
+                        <p>especializacao</p>
                     </div>
                     <img src="imagens/foto-ele1.png" alt="" class="foto-ele">
                 </div>
@@ -80,8 +105,7 @@
                     <div class="texto-ele">
                         <p>Nome</p>
                         <p>Idade</p>
-                        <p>profissionalização</p>
-                        <p>Número para contato</p>
+                        <p>especializacao</p>
                     </div>
                     <img src="imagens/foto-ele2.png" alt="" class="foto-ele">
                 </div>  
@@ -90,8 +114,7 @@
                     <div class="texto-ele">
                         <p>Nome</p>
                         <p>Idade</p>
-                        <p>profissionalização</p>
-                        <p>Número para contato</p>
+                        <p>especializacao</p>
                     </div>
                     <img src="imagens/foto-ele3.png" alt="" class="foto-ele">
                 </div>
@@ -103,8 +126,7 @@
                     <div class="texto-ele">
                         <p>Nome</p>
                         <p>Idade</p>
-                        <p>profissionalização</p>
-                        <p>Número para contato</p>
+                        <p>especializacao</p>
                     </div>
                     <img src="imagens/foto-ele4.png" alt="" class="foto-ele">
                 </div>
@@ -113,8 +135,7 @@
                     <div class="texto-ele">
                         <p>Nome</p>
                         <p>Idade</p>
-                        <p>profissionalização</p>
-                        <p>Número para contato</p>
+                        <p>especializacao</p>
                     </div>
                     <img src="imagens/foto-ele5.png" alt="" class="foto-ele">
                 </div>  
@@ -123,8 +144,7 @@
                     <div class="texto-ele">
                         <p>Nome</p>
                         <p>Idade</p>
-                        <p>profissionalização</p>
-                        <p>Número para contato</p>
+                        <p>especializacao</p>
                     </div>
                     <img src="imagens/foto-ele6.png" alt="" class="foto-ele">
                 </div>
@@ -137,8 +157,7 @@
                     <div class="texto-ele">
                         <p>Nome</p>
                         <p>Idade</p>
-                        <p>profissionalização</p>
-                        <p>Número para contato</p>
+                        <p>especializacao</p>
                     </div>
                     <img src="imagens/foto-ele7.png" alt="" class="foto-ele">
                 </div>
@@ -147,8 +166,7 @@
                     <div class="texto-ele">
                         <p>Nome</p>
                         <p>Idade</p>
-                        <p>profissionalização</p>
-                        <p>Número para contato</p>
+                        <p>especializacao</p>
                     </div>
                     <img src="imagens/foto-ele8.png" alt="" class="foto-ele">
                 </div>  
@@ -157,8 +175,7 @@
                     <div class="texto-ele">
                         <p>Nome</p>
                         <p>Idade</p>
-                        <p>profissionalização</p>
-                        <p>Número para contato</p>
+                        <p>especializacao</p>
                     </div>
                     <img src="imagens/foto-ele9.png" alt="" class="foto-ele">
                 </div>
