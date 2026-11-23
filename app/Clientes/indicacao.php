@@ -90,16 +90,29 @@ if ($databaseStatus === 'Conectado') {
         <h1>Nossos Melhores Profissionais ao seu dispor!</h1>
     </header>
         <div id="principal">
-            <div class="areas">
-                <h2>Eletricistas Residenciais disponiveis</h2>
+    <?php if (empty($porDepartamento)): ?>
+        <p>Nenhum profissional cadastrado.</p>
+    <?php endif; ?>
+
+    <?php foreach ($porDepartamento as $departamento => $lista): ?>
+        <div class="areas">
+            <h2>Eletricistas <?= htmlspecialchars($departamento) ?> disponíveis</h2>
+
+            <?php foreach ($lista as $i => $ele): ?>
+                <?php if ($i > 0): ?><hr><?php endif; ?>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>Nome</p>
-                        <p>Idade</p>
-                        <p>especializacao</p>
+                        <p><?= htmlspecialchars($ele['nome']) ?></p>
+                        <p><?= (int)$ele['idade'] ?> anos</p>
+                        <p><?= htmlspecialchars($ele['especializacao']) ?></p>
                     </div>
-                    <img src="imagens/foto-ele1.png" alt="" class="foto-ele">
+                    <img src="imagens/<?= htmlspecialchars($ele['foto'] ?? 'foto-padrao.png') ?>"
+                         alt="Foto de <?= htmlspecialchars($ele['nome']) ?>" class="foto-ele">
                 </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endforeach; ?>
+</div>
                     <hr>
                 <div class="info-ele">
                     <div class="texto-ele">
