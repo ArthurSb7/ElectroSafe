@@ -412,4 +412,27 @@
       transition: none !important;
     }
   }
+
+
+/* ---------- Mensagens do registro ---------- */
+
+.mensagem {
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  border-radius: var(--raio);
+  font-weight: 600;
+}
+
+.mensagem--sucesso {
+  color: #b9f6ca;
+  background: rgba(46, 160, 67, 0.15);
+  border: 1px solid #2ea043;
+}
+
+.mensagem--erro {
+  color: #ffb4b4;
+  background: rgba(229, 72, 77, 0.15);
+  border: 1px solid #e5484d;
+}
+
   

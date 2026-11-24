@@ -1,3 +1,7 @@
+
+
+  
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -69,6 +73,22 @@
 
   <main class="conteudo">
 
+<?php if (isset($_GET['sucesso'])): ?>
+  <div class="mensagem mensagem--sucesso">
+    Registro realizado com sucesso! Número do registro: <?= htmlspecialchars($_GET['sucesso']) ?>
+  </div>
+<?php endif; ?>
+
+<?php if (isset($_GET['erro'])): ?>
+  <div class="mensagem mensagem--erro">
+    Não foi possível realizar o registro.
+    <?php if ($_GET['erro'] !== 'banco'): ?>
+      <?= htmlspecialchars($_GET['erro']) ?>
+    <?php endif; ?>
+  </div>
+<?php endif; ?>
+
+
     <section class="titulo-pagina">
       <h2>Registro de não conformidade</h2>
       <p>Preencha as informações abaixo para registrar uma ocorrência. Campos com <span class="obrigatorio" aria-hidden="true">*</span> são obrigatórios.</p>
@@ -90,10 +110,12 @@
           <input type="time" id="hora_ocorrencia" name="hora_ocorrencia">
         </div>
 
+
         <div class="campo campo--largo">
-          <label for="responsavel">Responsável pelo registro <span class="obrigatorio" aria-hidden="true">*</span></label>
-          <input type="text" id="responsavel" name="responsavel" placeholder="Nome completo" autocomplete="name" required>
+          <label>Responsável pelo registro</label>
+          <input type="text" value="Usuário conectado ao sistema" disabled>
         </div>
+
       </fieldset>
 
       <!-- Localização -->
@@ -115,58 +137,46 @@
       <fieldset class="bloco">
         <legend>Classificação</legend>
 
-        <div class="campo">
-          <label for="tipo">Tipo de não conformidade <span class="obrigatorio" aria-hidden="true">*</span></label>
-          <select id="tipo" name="tipo" required>
-            <option value="" selected disabled>Selecione uma opção</option>
-            <option value="aterramento">Aterramento e equipotencialização</option>
-            <option value="condutores">Condutores e cabeamento</option>
-            <option value="protecao">Dispositivos de proteção (disjuntores, DR, DPS)</option>
-            <option value="quadro">Quadro de distribuição</option>
-            <option value="conexoes">Conexões e terminais</option>
-            <option value="sobrecarga">Sobrecarga ou aquecimento</option>
-            <option value="iluminacao">Iluminação e tomadas</option>
-            <option value="sinalizacao">Sinalização e identificação</option>
-            <option value="epi">EPI, EPC e procedimentos de segurança</option>
-            <option value="documentacao">Documentação e laudos</option>
-            <option value="outro">Outro</option>
-          </select>
-        </div>
+       
+<div class="campo">
+  <label for="norma_violada">Norma ou requisito violado</label>
+  <input type="text" id="norma_violada" name="norma_violada"
+         placeholder="Ex.: ABNT NBR 5410, NR-10">
+</div>
+
 
         <div class="campo">
           <label for="requisito">Norma ou requisito violado</label>
           <input type="text" id="requisito" name="requisito" placeholder="Ex.: ABNT NBR 5410, NR-10">
         </div>
 
-        <fieldset class="campo campo--cheio grupo-risco">
-          <legend>Nível de risco <span class="obrigatorio" aria-hidden="true">*</span></legend>
-          <div class="opcoes-risco">
-            <input type="radio" id="risco_baixo" name="risco" value="baixo" required>
-            <label for="risco_baixo" class="chip chip--baixo">Baixo</label>
+        
+<fieldset class="campo campo--cheio grupo-risco">
+  <legend>Nível de risco <span class="obrigatorio">*</span></legend>
 
-            <input type="radio" id="risco_medio" name="risco" value="medio">
-            <label for="risco_medio" class="chip chip--medio">Médio</label>
+  <div class="opcoes-risco">
+    <input type="radio" id="risco_leve" name="impacto_erro" value="LEVE" required>
+    <label for="risco_leve" class="chip chip--baixo">Leve</label>
 
-            <input type="radio" id="risco_alto" name="risco" value="alto">
-            <label for="risco_alto" class="chip chip--alto">Alto</label>
+    <input type="radio" id="risco_moderado" name="impacto_erro" value="MODERADO">
+    <label for="risco_moderado" class="chip chip--medio">Moderado</label>
 
-            <input type="radio" id="risco_critico" name="risco" value="critico">
-            <label for="risco_critico" class="chip chip--critico">Crítico</label>
-          </div>
-          <p class="dica">Risco crítico: perigo iminente de choque, arco elétrico ou incêndio. Isole a área antes de registrar.</p>
-        </fieldset>
+    <input type="radio" id="risco_critico" name="impacto_erro" value="CRITICO">
+    <label for="risco_critico" class="chip chip--critico">Crítico</label>
+  </div>
+</fieldset>
 
-        <div class="campo">
-          <label for="status">Status inicial <span class="obrigatorio" aria-hidden="true">*</span></label>
-          <select id="status" name="status" required>
-            <option value="" selected disabled>Selecione o status</option>
-            <option value="aberta">Aberta</option>
-            <option value="analise">Em análise</option>
-            <option value="tratamento">Em tratamento</option>
-            <option value="aguardando">Aguardando material ou peça</option>
-          </select>
-        </div>
-      </fieldset>
+        
+<div class="campo">
+  <label for="status_registro">Status inicial</label>
+  <select id="status_registro" name="status_registro" required>
+    <option value="AGUARDANDO">Aguardando</option>
+    <option value="ANDAMENTO">Em andamento</option>
+    <option value="FINALIZADO">Finalizado</option>
+    <option value="CANCELADO">Cancelado</option>
+  </select>
+</div>
+
 
       <!-- Descrição -->
       <fieldset class="bloco">
