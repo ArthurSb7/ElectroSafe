@@ -39,6 +39,10 @@
                     <i></i>
                     <span>Indicação</span>
                 </a>
+                <a href="infoEle.php" class="nav-item">
+                    <i></i>
+                    <span>Informações dos Eletricistas</span>
+                </a>
             </nav>
         </aside>
 
