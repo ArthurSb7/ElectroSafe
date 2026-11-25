@@ -1,6 +1,12 @@
-/* =========================================================
-   ElectroSafe
-   ========================================================= */
+:root{
+    --fundo:        #0b0812;
+    --cor-texto-principal-elementos:#ffffff;
+
+    --cor-fundo-menu:#1f0060;
+    --cor-pag-selecionada-botes:#fdb42e;
+    --cor-fundo-form:#5900ff;
+    --linha:        #3a2a55;
+}
 
 * {
     margin: 0;
@@ -10,11 +16,16 @@
 }
 
 body {
-    background-color: #000000;
+    display: flex;
+    justify-content: center;
+    background-color: var(--fundo);
+    background-image:
+      radial-gradient(ellipse 70% 40% at 0% 12%, rgba(166, 107, 184, 0.55), transparent 70%),
+      linear-gradient(160deg, var(--fundo) 40%, #17100f 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: #ffffff;
     min-height: 100vh;
-    overflow: hidden;
-    overflow-y: auto;
 }
 
 
@@ -24,6 +35,7 @@ body {
 
 .layout-principal {
     display: flex;
+    width: 100%;         
     min-height: 100vh;
 }
 .barra-menu {
@@ -104,3 +116,88 @@ img {
     align-items: center;
     flex-shrink: 0;
 }
+/* ===========CABEÇALHO===========*/
+header{
+    margin-top: 35px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+header > h1 {
+    font-size: 45px;
+    margin-bottom: 40px;
+}
+/* ===========CABEÇALHO===========*/
+
+/*========= CONTEUDO PRINCIPAL =========*/
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+}
+
+/* ===========CARD COM TABELA===========*/
+
+#area-centro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-tabela{
+    width: 110%;
+    max-width: 2500px;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 30px 35px 35px;
+    background: rgba(33, 13, 65, 0.62);
+    border-top: 4px solid rgba(255, 183, 3, .45);         
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.35);
+}
+
+
+
+.tabela-rolagem{
+    overflow-x: auto;
+}
+
+.tabela{
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.tabela th {
+    padding: 20px 25px;
+    font-size: 29px;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #b79cff;
+    border-bottom: 1px solid var(--linha, #3a2a55);
+}
+
+.tabela td{
+    padding: 20px;
+    text-align: center;
+    font-size: 26px;
+    color: #ffffff;
+    border-bottom: 1px solid var(--linha, #3a2a55);
+}
+
+.tabela tbody tr{
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tabela tbody tr:hover{
+    background: rgba(70, 50, 95, 0.6);
+    transform: translateY(-3px);
+}
+
+.tabela-vazia{
+    text-align: center;
+    color: #d1c4e9;
+}
+/* ===========CARD COM TABELA===========*/
