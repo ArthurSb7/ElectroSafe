@@ -20,7 +20,7 @@
             <a href="#quem-somos">Quem Somos?</a>
             <a href="#por-que-nos">Por Que Nós</a>
             <a href="#faq">FAQ</a>
-            <a href="../app/Clientes/login.php" class="botao-entrar">Entrar</a>
+            <a href="../Clientes/login.php" class="botao-entrar">Entrar</a>
         </nav>
     </header>
 
@@ -88,7 +88,7 @@
                     <p>Melhorias na instalação elétrica em geral.</p>
                 </div>
             </div>
-            <a href="../app/Clientes/login.php" class="botao">Solicitar um serviço</a>
+            <a href="../Clientes/login.php" class="botao">Solicitar um serviço</a>
         </section>
 
         <!-- quem somos -->
@@ -135,7 +135,7 @@
                     <p>Suas senhas são guardadas de forma criptografada.</p>
                 </div>
             </div>
-            <a href="../app/Clientes/cadastro.php" class="botao">Criar minha conta</a>
+            <a href="../Clientes/cadastro.php" class="botao">Criar minha conta</a>
         </section>
 
         <!-- FAQ -->
