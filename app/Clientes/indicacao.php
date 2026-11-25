@@ -11,20 +11,20 @@ try {
     $databaseStatus = 'Indisponível';
 }
 
-$porDepartamento = [];
+$eletricistas = [];
 
 if ($databaseStatus === 'Conectado') {
-    $sql = "SELECT u.nome,
-                   TIMESTAMPDIFF(YEAR, u.data_nascimento, CURDATE()) AS idade,
-                   f.especializacao, f.foto, d.nome AS departamento
-            FROM funcionarios f
-            INNER JOIN usuarios u ON u.id = f.idUsuario
-            INNER JOIN funcionario_departamentos fd ON fd.idFuncionario = f.idUsuario
-            INNER JOIN departamentos d ON d.id = fd.idDepartamento
-            ORDER BY d.nome, u.nome";
-
-    foreach ($pdo->query($sql)->fetchAll() as $linha) {
-        $porDepartamento[$linha['departamento']][] = $linha;
+    try {
+        $eletricistas = $pdo->query(
+            "SELECT u.nome,
+                    TIMESTAMPDIFF(YEAR, u.data_nascimento, CURDATE()) AS idade,
+                    f.especializacao
+             FROM funcionarios f
+             INNER JOIN usuarios u ON u.id = f.idUsuario
+             ORDER BY u.nome"
+        )->fetchAll();
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
     }
 }
 ?>
@@ -89,101 +89,24 @@ if ($databaseStatus === 'Conectado') {
         <header>
         <h1>Nossos Melhores Profissionais ao seu dispor!</h1>
         </header>
-    <div id="principal">
-        <div class="areas">
-                <h2>Eletricistas Residenciais disponiveis</h2>
-                <div class="info-ele">
-                    <div class="texto-ele">
-                        <p>Nome</p>
-                        <p>Idade</p>
-                        <p>especializacao</p>
-                    </div>
-                    <img src="imagens/foto-ele1.png" alt="" class="foto-ele">
-                </div>
-                    <hr>
-                <div class="info-ele">
-                    <div class="texto-ele">
-                        <p>Nome</p>
-                        <p>Idade</p>
-                        <p>especializacao</p>
-                    </div>
-                    <img src="imagens/foto-ele2.png" alt="" class="foto-ele">
-                </div>  
-                    <hr>
-                <div class="info-ele">
-                    <div class="texto-ele">
-                        <p>Nome</p>
-                        <p>Idade</p>
-                        <p>especializacao</p>
-                    </div>
-                    <img src="imagens/foto-ele3.png" alt="" class="foto-ele">
-                </div>
-            </div>
+            <div id="principal">
+                <?php if (empty($eletricistas)): ?>
+                    <p id="cadastro">Nenhum profissional ativo.</p>
+                <?php endif; ?>
 
-             <div class="areas">
-                <h2>Eletricistas Comerciais disponiveis</h2>
-                <div class="info-ele">
-                    <div class="texto-ele">
-                        <p>Nome</p>
-                        <p>Idade</p>
-                        <p>especializacao</p>
+                <?php foreach ($eletricistas as $e): ?>
+                    <div class="areas">
+                        <h2>Eletricistas</h2>
+                        <div class="info-ele">
+                            <div class="texto-ele">
+                                <p><?= htmlspecialchars($e['nome']) ?></p>
+                                <p><?= $e['idade'] !== null ? (int)$e['idade'] . ' anos' : '—' ?></p>
+                                <p><?= htmlspecialchars($e['especializacao']) ?></p>
+                            </div>
+                        </div>
                     </div>
-                    <img src="imagens/foto-ele4.png" alt="" class="foto-ele">
-                </div>
-                    <hr>
-                <div class="info-ele">
-                    <div class="texto-ele">
-                        <p>Nome</p>
-                        <p>Idade</p>
-                        <p>especializacao</p>
-                    </div>
-                    <img src="imagens/foto-ele5.png" alt="" class="foto-ele">
-                </div>  
-                    <hr>
-                <div class="info-ele">
-                    <div class="texto-ele">
-                        <p>Nome</p>
-                        <p>Idade</p>
-                        <p>especializacao</p>
-                    </div>
-                    <img src="imagens/foto-ele6.png" alt="" class="foto-ele">
-                </div>
+                <?php endforeach; ?>
             </div>
-
-
-             <div class="areas">
-                <h2>Eletricistas Industriais disponiveis</h2>
-                <div class="info-ele">
-                    <div class="texto-ele">
-                        <p>Nome</p>
-                        <p>Idade</p>
-                        <p>especializacao</p>
-                    </div>
-                    <img src="imagens/foto-ele7.png" alt="" class="foto-ele">
-                </div>
-                    <hr>
-                <div class="info-ele">
-                    <div class="texto-ele">
-                        <p>Nome</p>
-                        <p>Idade</p>
-                        <p>especializacao</p>
-                    </div>
-                    <img src="imagens/foto-ele8.png" alt="" class="foto-ele">
-                </div>  
-                    <hr>
-                <div class="info-ele">
-                    <div class="texto-ele">
-                        <p>Nome</p>
-                        <p>Idade</p>
-                        <p>especializacao</p>
-                    </div>
-                    <img src="imagens/foto-ele9.png" alt="" class="foto-ele">
-                </div>
-            </div>
-        </div>  
-    </main>
-    </div> 
-    
-    
+    </main> 
 </body>
 </html>
