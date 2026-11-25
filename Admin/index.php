@@ -17,7 +17,7 @@
     <div class="layout-principal">
         <aside class="barra-menu">
             <a href="index.php" class="logo.png" title="Ir para a página inicial">
-                <img src="../app/Clientes/imagens/logo.png" alt="Logo ElectroSafe">
+                <img src="imagens/logo.png" alt="Logo ElectroSafe">
             </a>
             <div class="barra-menu-cabeça">
                 <i></i>
@@ -37,7 +37,7 @@
                 </a>
                 <a href="indicacao.php" class="nav-item">
                     <i></i>
-                    <span>Indicação</span>
+                    <span>Novo Eletricista</span>
                 </a>
                 <a href="infoEle.php" class="nav-item">
                     <i></i>
@@ -76,7 +76,7 @@
                 <a href="indicacao.php" class="caixa-principal">
                     <div class="caixa-dados">
                         <strong>3</strong>
-                        <span>Novas indicações</span>
+                        <span>Relatos</span>
                     </div>
                     <i class="seta"></i>
                 </a>
@@ -85,11 +85,7 @@
             <!-- 3) PRÓXIMAS AULAS / DEMANDAS -->
             <section class="caixa-lista">
                 <div class="lista-topo">
-                    <div>
-                        <span class="lista-rotulo">Rotina de hoje</span>
-                        <h3>Próximas demandas</h3>
-                    </div>
-                    <a href="acompanhamento.php" class="lista-link">Ver agenda completa <i class="seta"></i></a>
+                    <h3>Próximas demandas</h3>
                 </div>
 
                 <div class="lista-itens">
@@ -98,7 +94,6 @@
                             <strong>Lorem ipsum dolor</strong>
                             <span>Sit amet consectetur</span>
                         </div>
-                        <span class="item-horario">08:00 - 09:40</span>
                         <i class="seta"></i>
                     </a>
                     <a href="#" class="item-lista">
@@ -106,7 +101,6 @@
                             <strong>Lorem ipsum dolor</strong>
                             <span>Sit amet consectetur</span>
                         </div>
-                        <span class="item-horario">10:00 - 11:40</span>
                         <i class="seta"></i>
                     </a>
                     <a href="#" class="item-lista">
@@ -114,7 +108,6 @@
                             <strong>Lorem ipsum dolor</strong>
                             <span>Sit amet consectetur</span>
                         </div>
-                        <span class="item-horario">13:30 - 15:10</span>
                         <i class="seta"></i>
                     </a>
                 </div>
