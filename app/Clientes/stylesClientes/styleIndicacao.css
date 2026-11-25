@@ -150,7 +150,7 @@ main{
     flex-wrap: wrap;
     display: flex;
     justify-content: center;
-    gap: 35px;
+    align-items: flex-start;
 }
 
 h2 {
@@ -176,7 +176,7 @@ h2 {
 .areas {
     border-top: 5px solid var(--cor-pag-selecionada-botes);
     background-color: rgb(244, 244, 244);
-    min-height: 665px;
+    max-height: 665px;
     width: 460px;
     border-radius: 17px;
     padding: 15px;
@@ -200,13 +200,10 @@ h2 {
     width: 100%; 
     border-radius: 30px;
 }
-
-.foto-ele{
-    margin-left: 45px;
-    border-radius: 15px;
-    height: 120px;
-    width: 155px;
-    object-fit: cover;            
-
+#cadastro{
+    color: var(--cor-texto-principal-elementos);
+    text-align: center;
+    font-size: 25px;
 }
+
 

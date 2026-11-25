@@ -1,7 +1,67 @@
 <?php
+declare(strict_types=1);
 
-// Cadastrar novos funcionarios e ver suas avaliações
+$databaseStatus = 'Conectado';
 
+try {
+    require_once __DIR__ . '/../app/banco/database.php';
+    require_once __DIR__ . '/../app/banco/crud.php';
+
+    $pdo = database();
+    $pdo->query('SELECT 1');
+} catch (Throwable $exception) {
+    error_log($exception->getMessage());
+    $databaseStatus = 'Indisponível';
+}
+
+$mensagem = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nome           = trim((string)($_POST['nome'] ?? ''));
+    $especializacao = trim((string)($_POST['especializacao'] ?? ''));
+    $nascimento     = (string)($_POST['data_nascimento'] ?? '');
+
+    $dataValida = DateTime::createFromFormat('Y-m-d', $nascimento);
+    $maior18    = $dataValida && $dataValida <= new DateTime('-18 years');
+
+    if ($databaseStatus !== 'Conectado') {
+        $mensagem = 'Banco de dados indisponível. Tente novamente mais tarde.';
+    } elseif ($nome === '' || $especializacao === '' || !$dataValida) {
+        $mensagem = 'Preencha todos os campos.';
+    } elseif (!$maior18) {
+        $mensagem = 'O eletricista precisa ter 18 anos ou mais.';
+    } else {
+        try {
+            $pdo->beginTransaction();
+
+            $unico = bin2hex(random_bytes(5));
+
+            $idUsuario = (int)create($pdo, 'usuarios', [
+                'nome'            => $nome,
+                'data_nascimento' => $nascimento,
+                'email'           => $unico . '@electrosafe.local',
+                'cpf'             => substr((string)hexdec(substr($unico, 0, 8)) . '00000000000', 0, 11),
+                'senha'           => password_hash(bin2hex(random_bytes(8)), PASSWORD_DEFAULT),
+            ]);
+
+            create($pdo, 'funcionarios', [
+                'idUsuario'      => $idUsuario,
+                'especializacao' => $especializacao,
+            ]);
+
+            $pdo->commit();
+
+            header('Location: infoEle.php');
+            exit;
+        } catch (PDOException $e) {
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
+            error_log($e->getMessage());
+            $mensagem = 'Não foi possível salvar. Tente novamente.';
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -59,11 +119,16 @@
 
                     <h2>DADOS DO ELETRICISTA</h2>
 
+                    <?php if ($mensagem !== ''): ?>
+                        <p><?= htmlspecialchars($mensagem) ?></p>
+                    <?php endif; ?>
+
+
                     <label for="nome" class="passo-um">Nome:</label>
                     <input type="text" name="nome" id="nome" placeholder="Nome completo" required>
 
-                    <label for="idade" class="passo-um">Idade:</label>
-                    <input type="number" name="idade" id="idade" min="18" max="100" placeholder="Ex.: 30" required>
+                    <label for="data_nascimento" class="passo-um">Data de nascimento:</label>
+                    <input type="date" name="data_nascimento" id="data_nascimento" required>
 
                     <label for="especializacao" class="passo-um">Especialização:</label>
                     <input type="text" name="especializacao" id="especializacao" placeholder="Ex.: Instalações residenciais" required>
@@ -76,3 +141,5 @@
 </body>
 
 </html>
+
+

@@ -1,10 +1,35 @@
 <?php
-// Exemplo: troque pelos dados vindos do seu banco de dados.
-// Cada item precisa ter as chaves: nome, idade, especializacao, avaliacao
-$eletricistas = $eletricistas ?? [
-    ['nome' => 'Carlos Silva', 'idade' => 34, 'especializacao' => 'Instalações residenciais', 'avaliacao' => '4.8'],
-    ['nome' => 'Marina Souza', 'idade' => 29, 'especializacao' => 'Manutenção preventiva', 'avaliacao' => '4.5'],
-];
+declare(strict_types=1);
+
+$databaseStatus = 'Conectado';
+
+try {
+    require_once __DIR__ . '/../app/banco/database.php';
+    require_once __DIR__ . '/../app/banco/crud.php';
+
+    $pdo = database();
+    $pdo->query('SELECT 1');
+} catch (Throwable $exception) {
+    error_log($exception->getMessage());
+    $databaseStatus = 'Indisponível';
+}
+
+$eletricistas = [];
+
+if ($databaseStatus === 'Conectado') {
+    try {
+        $eletricistas = $pdo->query(
+            "SELECT u.nome,
+                    TIMESTAMPDIFF(YEAR, u.data_nascimento, CURDATE()) AS idade,
+                    f.especializacao
+             FROM funcionarios f
+             INNER JOIN usuarios u ON u.id = f.idUsuario
+             ORDER BY f.idUsuario DESC"
+        )->fetchAll();
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -62,22 +87,20 @@ $eletricistas = $eletricistas ?? [
                 <table class="tabela">
                     <thead>
                         <tr>
-                            <th>Nome</th>
-                            <th>Idade</th>
-                            <th>Especialização</th>
-                            
+                    <th>Nome</th>
+                    <th>Especialização</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if (empty($eletricistas)): ?>
                             <tr>
-                                <td colspan="4" class="tabela-vazia">Nenhum eletricista cadastrado.</td>
+                                <td colspan="2" class="tabela-vazia">Nenhum eletricista cadastrado.</td>
                             </tr>
                         <?php else: ?>
                             <?php foreach ($eletricistas as $e): ?>
                                 <tr>
                                     <td><?= htmlspecialchars($e['nome']) ?></td>
-                                    <td><?= (int) $e['idade'] ?></td>
+                                    <td><?= $e['idade'] !== null ? (int)$e['idade'] . ' anos' : '—' ?></td>
                                     <td><?= htmlspecialchars($e['especializacao']) ?></td>
                                 </tr>
                             <?php endforeach; ?>
