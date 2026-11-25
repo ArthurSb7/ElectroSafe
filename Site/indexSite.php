@@ -137,7 +137,7 @@
             </div>
             <a href="../app/Clientes/cadastro.php" class="botao">Criar minha conta</a>
         </section>
-        
+
         <!-- FAQ -->
         <section class="secao secao-escura" id="faq">
             <h2>Perguntas frequentes</h2>
@@ -165,3 +165,18 @@
             </div>
         </section>
     </main>
+
+    <footer>
+        <h3><span class="corElectro">Electro</span><span class="corSafe">Safe</span></h3>
+        <p>Segurança e praticidade para instalações elétricas.</p>
+        <div class="links-rodape">
+            <a href="#home">Home</a>
+            <a href="#servicos">Serviços</a>
+            <a href="#quem-somos">Quem Somos?</a>
+            <a href="#por-que-nos">Por Que Nós</a>
+            <a href="#faq">FAQ</a>
+        </div>
+        <p>&copy; 2026 ElectroSafe. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
