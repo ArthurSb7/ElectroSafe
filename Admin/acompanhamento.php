@@ -133,7 +133,7 @@ $colunas = [
     <div class="layout-principal">
         <aside class="barra-menu">
             <a href="index.php" class="logo.png" title="Ir para a página inicial">
-                <img src="../app/Clientes/imagens/logo.png" alt="Logo ElectroSafe">
+                <img src="imagens/logo.png" alt="Logo ElectroSafe">
             </a>
             <div class="barra-menu-cabeça">
                 <i></i>
@@ -153,7 +153,11 @@ $colunas = [
                 </a>
                 <a href="indicacao.php" class="nav-item">
                     <i></i>
-                    <span>Indicação</span>
+                    <span>Novo Eletricista</span>
+                </a>
+                <a href="infoEle.php" class="nav-item">
+                    <i></i>
+                    <span>Informações dos Eletricistas</span>
                 </a>
             </nav>
         </aside>
