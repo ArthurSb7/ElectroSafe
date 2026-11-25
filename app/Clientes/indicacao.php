@@ -88,9 +88,9 @@ if ($databaseStatus === 'Conectado') {
     <main>
         <header>
         <h1>Nossos Melhores Profissionais ao seu dispor!</h1>
-    </header>
-        <div id="principal">
-            <div class="areas">
+        </header>
+    <div id="principal">
+        <div class="areas">
                 <h2>Eletricistas Residenciais disponiveis</h2>
                 <div class="info-ele">
                     <div class="texto-ele">

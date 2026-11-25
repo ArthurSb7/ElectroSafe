@@ -1,7 +1,6 @@
 /* =========================================================
    ElectroSafe
    ========================================================= */
-
 * {
     margin: 0;
     padding: 0;
@@ -16,12 +15,9 @@ body {
     overflow: hidden;
     overflow-y: auto;
 }
-
-
 /* ---------------------------------------------------------
    MENU LATERAL
    --------------------------------------------------------- */
-
 .layout-principal {
     display: flex;
     min-height: 100vh;
@@ -35,10 +31,9 @@ body {
     flex-shrink: 0;
     position: sticky;
     top: 0;
-    height: 100vh;            /* ocupa a altura da tela */
+    height: 100vh;           
   
 }
-
 .barra-menu-cabeça {
     display: flex;
     align-items: center;
@@ -84,7 +79,6 @@ img {
     transition: background 0.2s;
     width: 100%;
 }
-
 .nav-item:hover, 
 .nav-item.active {
     background-color: #2e086b;
@@ -104,7 +98,6 @@ img {
     align-items: center;
     flex-shrink: 0;
 }
-
 /* ---------------------------------------------------------
    CONTEÚDO PRINCIPAL 
    --------------------------------------------------------- */
@@ -144,7 +137,6 @@ img {
 .botao-de-fora:hover {
     background-color: #ffa000;
 }
-
 /* ---------------------------------------------------------
    QUADRO KANBAN
    --------------------------------------------------------- */
@@ -363,4 +355,3 @@ img {
     font-weight: bold;
     font-size: 18px;
 }
-
