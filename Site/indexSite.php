@@ -137,3 +137,31 @@
             </div>
             <a href="../app/Clientes/cadastro.php" class="botao">Criar minha conta</a>
         </section>
+        
+        <!-- FAQ -->
+        <section class="secao secao-escura" id="faq">
+            <h2>Perguntas frequentes</h2>
+            <div class="faq-lista">
+                <details>
+                    <summary>Preciso criar uma conta para usar?</summary>
+                    <p>Sim. Basta fazer o cadastro com nome, e-mail, CPF, telefone, data de nascimento e uma senha. Depois é só entrar com seu e-mail e senha.</p>
+                </details>
+                <details>
+                    <summary>Como registro um local que precisa de melhorias?</summary>
+                    <p>Na página inicial do sistema, escolha o tipo de ambiente, preencha seus dados de contato, selecione o tipo de serviço e descreva o problema elétrico.</p>
+                </details>
+                <details>
+                    <summary>Quais tipos de serviço posso solicitar?</summary>
+                    <p>Tomadas e pontos de energia, iluminação, disjuntores e quadro elétrico, e instalação elétrica.</p>
+                </details>
+                <details>
+                    <summary>Como acompanho o meu pedido?</summary>
+                    <p>Depois de enviado, o pedido fica com o status "Aguardando". Você pode consultar o andamento na área de acompanhamento do sistema.</p>
+                </details>
+                <details>
+                    <summary>Minha senha fica segura?</summary>
+                    <p>Sim. As senhas são guardadas de forma criptografada, e ninguém consegue ler a senha original.</p>
+                </details>
+            </div>
+        </section>
+    </main>
