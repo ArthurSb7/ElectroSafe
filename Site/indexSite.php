@@ -43,13 +43,50 @@
             </div>
         </section>
 
-        <div>
-            
-        </div>
-    </main>
-
-    <footer>
-
-    </footer>
-</body>
-</html>
+        <!-- serviços -->
+        <section class="secao" id="servicos">
+            <h2>Serviços</h2>
+            <h3 class="subtitulo">Recursos do sistema</h3>
+            <div class="cards">
+                <div class="card">
+                    <h3>Registro de não conformidades</h3>
+                    <p>Informe problemas encontrados na estrutura elétrica.</p>
+                </div>
+                <div class="card">
+                    <h3>Análise técnica e inspeção</h3>
+                    <p>Avaliação dos pedidos para definir a melhor solução.</p>
+                </div>
+                <div class="card">
+                    <h3>Checklist</h3>
+                    <p>Lista de verificação para conferir o ambiente.</p>
+                </div>
+                <div class="card">
+                    <h3>Acompanhamento</h3>
+                    <p>Consulte o andamento de cada pedido.</p>
+                </div>
+                <div class="card">
+                    <h3>Indicação</h3>
+                    <p>Indique o ElectroSafe para outras pessoas.</p>
+                </div>
+            </div>
+            <h3 class="subtitulo">Tipos de serviço</h3>
+            <div class="cards">
+                <div class="card">
+                    <h3>Tomadas e pontos de energia</h3>
+                    <p>Problemas em tomadas e pontos de energia.</p>
+                </div>
+                <div class="card">
+                    <h3>Iluminação</h3>
+                    <p>Ajustes e melhorias na iluminação.</p>
+                </div>
+                <div class="card">
+                    <h3>Disjuntores e quadro elétrico</h3>
+                    <p>Verificação de disjuntores e do quadro.</p>
+                </div>
+                <div class="card">
+                    <h3>Instalação elétrica</h3>
+                    <p>Melhorias na instalação elétrica em geral.</p>
+                </div>
+            </div>
+            <a href="../app/Clientes/login.php" class="botao">Solicitar um serviço</a>
+        </section>
