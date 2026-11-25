@@ -33,6 +33,15 @@
                 </video>
                 <div class="fundo-overlay"></div>
             </div>
+            <div class="home-conteudo">
+                <h1>Praticidade e segurança na palma da sua mão!</h1>
+                <p class="texto-grande">Através dos recursos de fácil acesso e usabilidade, sua segurança é tratada com cuidados especiais pela nossa equipe, garantindo o bom lazer e conforto aos consumidores.</p>
+                <div class="linha"></div>
+                <p>Registre os locais que precisam de melhorias na estrutura elétrica e acompanhe tudo em um só lugar.</p>
+                <a href="../app/Clientes/login.php" class="botao">Fazer login</a>
+                <a href="../app/Clientes/cadastro.php" class="botao-contorno">Criar conta</a>
+            </div>
+        </section>
 
         <div>
             
