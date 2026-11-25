@@ -1,22 +1,26 @@
 <?php ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Site/styles/styleSite.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styleSite.css">
     <title>ElectroSafe - Home</title>
 </head>
 <body>
     <header>
         <h2><span class="corElectro">Electro</span><span class="corSafe">Safe</span></h2>
+        <!-- Cada link leva para a seção que tem o mesmo id (#home, #servicos...) -->
         <nav class="navegacao">
-            <a href="Site/indexSite.php" class="pagina-Atual">Home</a>
-            <a href="Site/FAQ.php">FAQ</a>
-            <a href="Site/PorQueNos.php">Por Que Nós</a>
-            <a href="Site/quemSomos.php">Quem Somos?</a>
-            <a href="Site/servicos.php">Serviços</a>
+            <a href="#home">Home</a>
+            <a href="#servicos">Serviços</a>
+            <a href="#quem-somos">Quem Somos?</a>
+            <a href="#por-que-nos">Por Que Nós</a>
+            <a href="#faq">FAQ</a>
+            <a href="../app/Clientes/login.php" class="botao-entrar">Entrar</a>
         </nav>
     </header>
 
