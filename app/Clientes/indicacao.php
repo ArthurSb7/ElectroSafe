@@ -1,8 +1,32 @@
-indicação nova
-
-
 <?php
+declare(strict_types=1);
 
+$databaseStatus = 'Conectado';
+
+try {
+    require_once __DIR__ . '/init.php';
+    $pdo->query('SELECT 1');
+} catch (Throwable $exception) {
+    error_log($exception->getMessage());
+    $databaseStatus = 'Indisponível';
+}
+
+$porDepartamento = [];
+
+if ($databaseStatus === 'Conectado') {
+    $sql = "SELECT u.nome,
+                   TIMESTAMPDIFF(YEAR, u.data_nascimento, CURDATE()) AS idade,
+                   f.especializacao, f.foto, d.nome AS departamento
+            FROM funcionarios f
+            INNER JOIN usuarios u ON u.id = f.idUsuario
+            INNER JOIN funcionario_departamentos fd ON fd.idFuncionario = f.idUsuario
+            INNER JOIN departamentos d ON d.id = fd.idDepartamento
+            ORDER BY d.nome, u.nome";
+
+    foreach ($pdo->query($sql)->fetchAll() as $linha) {
+        $porDepartamento[$linha['departamento']][] = $linha;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -13,6 +37,10 @@ indicação nova
     <link rel="stylesheet" href="stylesClientes/styleIndicacao.css">
     <title>Indicação | ElectroSafe</title>
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 </head>
 <body>
      <aside class="barra-menu">
@@ -62,31 +90,44 @@ indicação nova
         <h1>Nossos Melhores Profissionais ao seu dispor!</h1>
     </header>
         <div id="principal">
-            <div class="areas">
-                <h2>Eletricistas Residenciais disponiveis</h2>
+    <?php if (empty($porDepartamento)): ?>
+        <p>Nenhum profissional cadastrado.</p>
+    <?php endif; ?>
+
+    <?php foreach ($porDepartamento as $departamento => $lista): ?>
+        <div class="areas">
+            <h2>Eletricistas <?= htmlspecialchars($departamento) ?> disponíveis</h2>
+
+            <?php foreach ($lista as $i => $ele): ?>
+                <?php if ($i > 0): ?><hr><?php endif; ?>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>AAAA</p>
-                        <p>AAAAA</p>
-                        <p>AAAAAA</p>
+                        <p><?= htmlspecialchars($ele['nome']) ?></p>
+                        <p><?= (int)$ele['idade'] ?> anos</p>
+                        <p><?= htmlspecialchars($ele['especializacao']) ?></p>
                     </div>
-                    <img src="imagens/foto-ele1.png" alt="" class="foto-ele">
+                    <img src="imagens/<?= htmlspecialchars($ele['foto'] ?? 'foto-padrao.png') ?>"
+                         alt="Foto de <?= htmlspecialchars($ele['nome']) ?>" class="foto-ele">
                 </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endforeach; ?>
+</div>
                     <hr>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>AAAA</p>
-                        <p>AAAAA</p>
-                        <p>AAAAAA</p>
+                        <p>Nome</p>
+                        <p>Idade</p>
+                        <p>especializacao</p>
                     </div>
                     <img src="imagens/foto-ele2.png" alt="" class="foto-ele">
                 </div>  
                     <hr>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>AAAA</p>
-                        <p>AAAAA</p>
-                        <p>AAAAAA</p>
+                        <p>Nome</p>
+                        <p>Idade</p>
+                        <p>especializacao</p>
                     </div>
                     <img src="imagens/foto-ele3.png" alt="" class="foto-ele">
                 </div>
@@ -96,27 +137,27 @@ indicação nova
                 <h2>Eletricistas Comerciais disponiveis</h2>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>AAAA</p>
-                        <p>AAAAA</p>
-                        <p>AAAAAA</p>
+                        <p>Nome</p>
+                        <p>Idade</p>
+                        <p>especializacao</p>
                     </div>
                     <img src="imagens/foto-ele4.png" alt="" class="foto-ele">
                 </div>
                     <hr>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>AAAA</p>
-                        <p>AAAAA</p>
-                        <p>AAAAAA</p>
+                        <p>Nome</p>
+                        <p>Idade</p>
+                        <p>especializacao</p>
                     </div>
                     <img src="imagens/foto-ele5.png" alt="" class="foto-ele">
                 </div>  
                     <hr>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>AAAA</p>
-                        <p>AAAAA</p>
-                        <p>AAAAAA</p>
+                        <p>Nome</p>
+                        <p>Idade</p>
+                        <p>especializacao</p>
                     </div>
                     <img src="imagens/foto-ele6.png" alt="" class="foto-ele">
                 </div>
@@ -127,27 +168,27 @@ indicação nova
                 <h2>Eletricistas Industriais disponiveis</h2>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>AAAA</p>
-                        <p>AAAAA</p>
-                        <p>AAAAAA</p>
+                        <p>Nome</p>
+                        <p>Idade</p>
+                        <p>especializacao</p>
                     </div>
                     <img src="imagens/foto-ele7.png" alt="" class="foto-ele">
                 </div>
                     <hr>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>AAAA</p>
-                        <p>AAAAA</p>
-                        <p>AAAAAA</p>
+                        <p>Nome</p>
+                        <p>Idade</p>
+                        <p>especializacao</p>
                     </div>
                     <img src="imagens/foto-ele8.png" alt="" class="foto-ele">
                 </div>  
                     <hr>
                 <div class="info-ele">
                     <div class="texto-ele">
-                        <p>AAAA</p>
-                        <p>AAAAA</p>
-                        <p>AAAAAA</p>
+                        <p>Nome</p>
+                        <p>Idade</p>
+                        <p>especializacao</p>
                     </div>
                     <img src="imagens/foto-ele9.png" alt="" class="foto-ele">
                 </div>

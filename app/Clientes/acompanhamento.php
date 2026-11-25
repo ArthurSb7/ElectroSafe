@@ -1,18 +1,102 @@
 <?php
-// Simulação do Banco de Dados de Pedidos
-$pedidos = [
-    1 => ['id' => 'Pedido 01', 'cliente' => 'Thiago Navarro', 'local' => 'Condomínio', 'status' => 'aberto', 'tempo' => 'Há 7 minutos', 'detalhes' => 'Vistoria no quadro geral de distribuição do bloco A.'],
-    2 => ['id' => 'Pedido 01', 'cliente' => 'Thiago Navarro', 'local' => 'Casa', 'status' => 'aberto', 'tempo' => 'Há 43 minutos', 'detalhes' => 'Análise de sobrecarga nas tomadas da cozinha.'],
-    3 => ['id' => 'Pedido 01', 'cliente' => 'Thiago Navarro', 'local' => 'Posto de Gasolina', 'status' => 'aberto', 'tempo' => 'Há 2 horas', 'detalhes' => 'Inspeção de áreas classificadas e laudo de aterramento.'],
-    4 => ['id' => 'Pedido 02', 'cliente' => 'Thiago Oliveira', 'local' => 'Galpão Fabril', 'status' => 'andamento', 'tempo' => 'Há 9 horas', 'detalhes' => 'Adequação dos painéis conforme a norma NR-10.'],
-    5 => ['id' => 'Pedido 02', 'cliente' => 'Thiago Oliveira', 'local' => 'Igreja', 'status' => 'andamento', 'tempo' => 'Há 9 horas', 'detalhes' => 'Revisão do sistema elétrico de iluminação.'],
-    6 => ['id' => 'Pedido 01', 'cliente' => 'Thiago Oliveira Navarro', 'local' => 'Shopping', 'status' => 'entregue', 'tempo' => 'Há 1 dia', 'detalhes' => 'Laudo técnico completo de entrega e liberação emitido.'],
-    7 => ['id' => 'Pedido 03', 'cliente' => 'Thiago Oliveira Navarro', 'local' => 'Supermercado', 'status' => 'entregue', 'tempo' => 'Há 3 dias', 'detalhes' => 'Inspeção termográfica e relatório final entregue com sucesso.']
+declare(strict_types=1);
+
+try {
+    require_once __DIR__ . '/init.php';
+} catch (Throwable $e) {
+    error_log($e->getMessage());
+    $pdo = null;
+}
+
+function tempoRelativo(string $data): string
+{
+    $timestamp = strtotime($data);
+    if ($timestamp === false) {
+        return '';
+    }
+
+    $diff = time() - $timestamp;
+
+    if ($diff < 60) {
+        return 'Agora mesmo';
+    }
+    if ($diff < 3600) {
+        $m = (int) floor($diff / 60);
+        return "Há $m minuto" . ($m > 1 ? 's' : '');
+    }
+    if ($diff < 86400) {
+        $h = (int) floor($diff / 3600);
+        return "Há $h hora" . ($h > 1 ? 's' : '');
+    }
+
+    $d = (int) floor($diff / 86400);
+    return "Há $d dia" . ($d > 1 ? 's' : '');
+}
+
+function renderKanban(array $pedidos, array $colunas): void
+{
+    foreach ($colunas as $status => [$titulo, $classe]): ?>
+        <div class="kanban-column <?= $classe ?>">
+            <h2><?= htmlspecialchars($titulo) ?></h2>
+            <div class="cards-espaço">
+                <?php foreach ($pedidos as $id => $p): ?>
+                    <?php if ($p['status'] === $status): ?>
+                        <div class="card">
+                            <div class="card-header">
+                                <span><?= htmlspecialchars($p['id']) ?></span>
+                                <span><?= htmlspecialchars($p['tempo']) ?></span>
+                            </div>
+                            <div class="card-body">
+                                <p><?= htmlspecialchars($p['cliente']) ?></p>
+                                <br>
+                                <p><?= htmlspecialchars($p['local']) ?></p>
+                            </div>
+                            <div class="espaçamento-card">
+                                <a href="acompanhamento.php?view=detalhes&id=<?= $id ?>" class="detalhes">Ver Detalhes</a>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    <?php endforeach;
+}
+
+$mapaStatus = [
+    'AGUARDANDO' => 'aberto',
+    'ANDAMENTO'  => 'andamento',
+    'FINALIZADO' => 'entregue',
 ];
 
-// Captura a ação vinda do clique via GET
-$view = filter_input(INPUT_GET, 'view', FILTER_SANITIZE_SPECIAL_CHARS);
+$pedidos = [];
+try {
+    $linhas = $pdo->query(
+        "SELECT * FROM pedidos WHERE statusPedido <> 'CANCELADO' ORDER BY criado_em DESC, id DESC"
+    )->fetchAll();
+
+    foreach ($linhas as $row) {
+        $pedidos[(int) $row['id']] = [
+            'id'       => 'Pedido ' . str_pad((string) $row['id'], 2, '0', STR_PAD_LEFT),
+            'cliente'  => (string) ($row['responsavel'] ?? 'Não informado'),
+            'local'    => (string) ($row['ambiente'] ?? ucfirst(strtolower((string) $row['categoria']))),
+            'status'   => $mapaStatus[$row['statusPedido']] ?? 'aberto',
+            'tempo'    => tempoRelativo((string) $row['criado_em']),
+            'detalhes' => (string) $row['descricao'],
+        ];
+    }
+} catch (Throwable $e) {
+    error_log($e->getMessage());
+}
+
+$view       = (string) ($_GET['view'] ?? '');
 $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+$colunas = [
+    'aberto'    => ['Em Aberto',    'col-aberto'],
+    'andamento' => ['Em Andamento', 'col-andamento'],
+    'entregue'  => ['Entregue',     'col-entregue'],
+];
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -20,22 +104,25 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ElectroSafe - Acompanhamento</title>
+    <?php if ($view === ''): ?>
+        <meta http-equiv="refresh" content="5">
+    <?php endif; ?>
     <link rel="stylesheet" href="stylesClientes/styleAcompanhamento.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="layout-principal">
         <aside class="barra-menu">
-               <a href="index.php" class="logo.png" title="Ir para a página inicial">
-            <img src="imagens/logo.png" alt="Logo ElectroSafe">
-             </a>
+            <a href="index.php" class="logo.png" title="Ir para a página inicial">
+                <img src="imagens/logo.png" alt="Logo ElectroSafe">
+            </a>
             <div class="barra-menu-cabeça">
                 <i></i>
                 <div class="logo">
-                      <span><span class="corElectro">Electro</span><strong><span class="corSafe">Safe</span></strong></span>
+                    <span><span class="corElectro">Electro</span><strong><span class="corSafe">Safe</span></strong></span>
                 </div>
             </div>
 
@@ -69,7 +156,7 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
         <main class="espaço">
             <header class="barra-principal">
-                <h1>Olá Thiago, aqui você verá o status de seus pedidos.</h1>
+                <h1>Olá, aqui você verá o status de seus pedidos.</h1>
                 <div class="header-buttons">
                     <a href="acompanhamento.php?view=historico" class="botao-de-fora">Histórico</a>
                     <a href="novo_pedido.php" class="botao-de-fora">Novo Pedido</a>
@@ -77,106 +164,35 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
             </header>
 
             <section class="kanban-board">
-                
-                <div class="kanban-column col-aberto">
-                    <h2>Em Aberto</h2>
-                    <div class="cards-espaço">
-                        <?php foreach ($pedidos as $id => $p): ?>
-                            <?php if ($p['status'] === 'aberto'): ?>
-                                <div class="card">
-                                    <div class="card-header">
-                                        <span><?= htmlspecialchars($p['id']) ?></span>
-                                        <span><?= htmlspecialchars($p['tempo']) ?></span>
-                                    </div>
-                                    <div class="card-body">
-                                        <p><?= htmlspecialchars($p['cliente']) ?></p>
-                                        <br>
-                                        <p><?= htmlspecialchars($p['local']) ?></p>
-                                    </div>
-                                    <div class="espaçamento-card">
-                                        <a href="acompanhamento.php?view=detalhes&id=<?= $id ?>" class="detalhes">Ver Detalhes</a>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-                <div class="kanban-column col-andamento">
-                    <h2>Em Andamento</h2>
-                    <div class="cards-espaço">
-                        <?php foreach ($pedidos as $id => $p): ?>
-                            <?php if ($p['status'] === 'andamento'): ?>
-                                <div class="card">
-                                    <div class="card-header">
-                                        <span><?= htmlspecialchars($p['id']) ?></span>
-                                        <span><?= htmlspecialchars($p['tempo']) ?></span>
-                                    </div>
-                                    <div class="card-body">
-                                        <p><?= htmlspecialchars($p['cliente']) ?></p>
-                                        <br>
-                                        <p><?= htmlspecialchars($p['local']) ?></p>
-                                    </div>
-                                    <div class="espaçamento-card">
-                                        <a href="acompanhamento.php?view=detalhes&id=<?= $id ?>" class="detalhes">Ver Detalhes</a>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-                <div class="kanban-column col-entregue">
-                    <h2>Entregue</h2>
-                    <div class="cards-espaço">
-                        <?php foreach ($pedidos as $id => $p): ?>
-                            <?php if ($p['status'] === 'entregue'): ?>
-                                <div class="card">
-                                    <div class="card-header">
-                                        <span><?= htmlspecialchars($p['id']) ?></span>
-                                        <span><?= htmlspecialchars($p['tempo']) ?></span>
-                                    </div>
-                                    <div class="card-body">
-                                        <p><?= htmlspecialchars($p['cliente']) ?></p>
-                                        <br>
-                                        <p><?= htmlspecialchars($p['local']) ?></p>
-                                    </div>
-                                    <div class="espaçamento-card">
-                                        <a href="acompanhamento.php?view=detalhes&id=<?= $id ?>" class="detalhes">Ver Detalhes</a>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-
+                <?php renderKanban($pedidos, $colunas); ?>
             </section>
         </main>
     </div>
 
-    <!-- Lógica PHP: Exibe o formulário de Histórico -->
     <?php if ($view === 'historico'): ?>
         <div class="modal-overlay">
             <div class="modal-box">
                 <a href="acompanhamento.php" class="btn-fechar">&times;</a>
                 <h2>Histórico de Pedidos Entregues</h2>
-                
+
                 <div class="lista-historico">
-                    <?php 
+                    <?php
                     $temEntregues = false;
-                    foreach ($pedidos as $id => $p): 
-                        if ($p['status'] === 'entregue'): 
+                    foreach ($pedidos as $id => $p):
+                        if ($p['status'] === 'entregue'):
                             $temEntregues = true;
                     ?>
                         <div class="item-historico">
                             <div>
                                 <strong><?= htmlspecialchars($p['id']) ?> - <?= htmlspecialchars($p['local']) ?></strong>
                                 <p>Cliente: <?= htmlspecialchars($p['cliente']) ?></p>
-                                <small>Concluído <?= htmlspecialchars($p['tempo']) ?></small>
+                                <small>Registrado <?= htmlspecialchars(lcfirst($p['tempo'])) ?></small>
                             </div>
                             <a href="acompanhamento.php?view=detalhes&id=<?= $id ?>" class="detalhes">Ver Detalhes</a>
                         </div>
-                    <?php 
-                        endif; 
-                    endforeach; 
+                    <?php
+                        endif;
+                    endforeach;
 
                     if (!$temEntregues):
                     ?>
@@ -187,19 +203,22 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         </div>
     <?php endif; ?>
 
-    <!-- Lógica PHP: Exibe os Detalhes do Pedido Selecionado -->
-    <?php if ($view === 'detalhes' && isset($pedidos[$id_detalhe])): 
+    <?php if ($view === 'detalhes' && is_int($id_detalhe) && isset($pedidos[$id_detalhe])):
         $item = $pedidos[$id_detalhe];
     ?>
         <div class="modal-overlay">
             <div class="modal-box">
                 <a href="acompanhamento.php" class="btn-fechar">&times;</a>
                 <h2>Detalhes do <?= htmlspecialchars($item['id']) ?></h2>
-                
+
                 <div class="detalhes-conteudo">
                     <p><strong>Cliente:</strong> <?= htmlspecialchars($item['cliente']) ?></p>
                     <p><strong>Local / Tipo:</strong> <?= htmlspecialchars($item['local']) ?></p>
-                    <p><strong>Status Atual:</strong> <span class="badge-status status-<?= $item['status'] ?>"><?= strtoupper($item['status']) ?></span></p>
+                    <p><strong>Status Atual:</strong>
+                        <span class="badge-status status-<?= htmlspecialchars($item['status']) ?>">
+                            <?= htmlspecialchars(strtoupper($item['status'])) ?>
+                        </span>
+                    </p>
                     <p><strong>Registro:</strong> <?= htmlspecialchars($item['tempo']) ?></p>
                     <hr class="divisor">
                     <p><strong>Descrição e Observações:</strong></p>
@@ -212,5 +231,6 @@ $id_detalhe = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
             </div>
         </div>
     <?php endif; ?>
+
 </body>
 </html>

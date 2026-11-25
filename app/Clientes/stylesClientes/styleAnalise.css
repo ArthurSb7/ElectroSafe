@@ -1,26 +1,30 @@
-style analise nova
-
 
 :root{
-    --cor-fundo-site-clientes:#000000;
+    --fundo:        #0b0812;
     --cor-texto-principal-elementos:#ffffff;
 
     --cor-fundo-menu:#1f0060;
     --cor-pag-selecionada-botes:#fdb42e;
     --cor-fundo-form:#5900ff;
+    --linha:        #3a2a55;
 }
 
  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Chakra Petch";
+     font-family: "Roboto Condensed", sans-serif;
 }
 
 body {
     display: flex;
     justify-content: center;
-    background-color: #0b0719;
+    background-color: var(--fundo);
+    background-image:
+      radial-gradient(ellipse 70% 40% at 0% 12%, rgba(166, 107, 184, 0.55), transparent 70%),
+      linear-gradient(160deg, var(--fundo) 40%, #17100f 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: #ffffff;
     min-height: 100vh;
 }
@@ -37,14 +41,18 @@ body {
 }
 
 .barra-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 260px;
+    height: 100vh;
     background-color: #190538;
     display: flex;
     flex-direction: column;
     padding: 17px 3px;
-    flex-shrink: 0;
 }
 
+.barra-menu-cabeca,
 .barra-menu-cabeça {
     display: flex;
     align-items: center;
@@ -52,12 +60,23 @@ body {
     padding: 37px;
 }
 
+img {
+    width: 260px;
+    height: auto;
+}
+
 .logo {
     display: flex;
     align-items: center;
-    gap: 17px; 
-    font-size: 32px;
+    font-size: 41px;
     color: #ffffff;
+}
+.corElectro {
+    color: #5c00e6;
+}
+
+.corSafe {
+    color: #ffb703;
 }
 
 .nav {
@@ -73,7 +92,7 @@ body {
     margin-bottom: 14px;
     color: #d1c4e9;
     text-decoration: none;
-    font-size: 25px; 
+    font-size: 27px; 
     padding: 10px; 
     border-radius: 6px;
     transition: background 0.2s;
@@ -99,15 +118,6 @@ body {
     align-items: center;
     flex-shrink: 0;
 }
-.corElectro {
-    color: #5c00e6;
-}
-
-.corSafe {
-    color: #ffb703;
-}
-
-
 
 /* ===========NAVEGAÇÃO===========*/
 
@@ -121,17 +131,14 @@ header{
 header > h1{
     color: var(--cor-texto-principal-elementos);
     font-size: 47px;
-}
-header > h2{
-    color: lightgray;
-    font-size: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 45px;
 }
 /* ===========CABEÇALHO===========*/
 
 
 /* ===========CONTEUDO PRINCIPAL===========*/
 main{
+    margin-left: 260px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -149,7 +156,7 @@ main{
 }
 form{
     border: 1px solid rgba(255, 183, 3, .45);
-    background: #2b0666;
+    background: rgba(33, 13, 65, 0.62);
     height: 1600px;
     width: 800px;
     border-radius: 15px;
@@ -163,7 +170,7 @@ form > h2{
     text-align: center;
     padding: 20px;
     font-weight: bolder;
-    background-color: #7124ff;
+    background: rgba(55, 35, 80, 0.85);
     border-radius: 10px;
     width: 75%;
     align-self: center;
@@ -184,18 +191,21 @@ form > label{
     padding: 20px;
 }
 form > input {
-    border: 2px solid #6529df;
-    background-color: #5e17eb;
-    border-radius: 7pxX;
+    background: rgba(55, 35, 80, 1.85);
+    border-radius: 7px;
     height: 40px;
     width: 400px;
     font-size: 20px;
     color: white;
     font-weight: bolder;
+    
+}
+form input:focus{
+    border-color: var(--cor-pag-selecionada-botes);
 }
 form > select{
-    border: 2px solid #6529df;
-    background-color: #5e17eb;
+        border: 1px solid var(--linha);
+    background: rgba(70, 50, 95, 1.85);
     border-radius: 7px;
     font-size: 24px;
     color: var(--cor-pag-selecionada-botes);
@@ -215,12 +225,13 @@ form > select{
         }
 }
 form > textarea{
-    border: 2px solid #6529df;
-    background-color: #5e17eb;
+        border: 1px solid var(--linha);
+    background: rgba(70, 50, 95, 1.85);
     border-radius: 7px;
     font-size: 20px;
     color: white;
     font-weight: 500;
+    padding: 10px;
     width: 550px;
     height: 220px;
     transition: transform 0.3s ease,
@@ -234,7 +245,11 @@ form > textarea{
             
         }
 }
-
+form textarea:focus,
+form select:focus {
+    outline: none;                               
+    border: 2px solid rgba(255, 183, 3, .45); 
+}
 form > select,
 form > textarea{
     margin-right: auto;
@@ -246,6 +261,11 @@ form > textarea{
     height: 22px;
     width: 110px;
 }
+.escolha:checked + .resp {
+    color: var(--cor-pag-selecionada-botes);
+    font-weight: 555;
+}
+
 .perguntas{
     font-size: 23px;
     margin-top: 10px;
@@ -253,7 +273,7 @@ form > textarea{
     margin-left: auto;
     margin-bottom: 10px;
     text-align: justify;
-    background-color: #5e17eb;
+    background: rgba(70, 50, 95, 1.85);
     padding: 20px;
     border-radius: 10px;
     width: 92%;
@@ -265,6 +285,19 @@ form > textarea{
     text-align: center;
     font-size: 22px;
     align-items: center;
+    
+}
+.selecao{
+    transition: transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+    &:hover {
+            transform: translateY(-3.2px);
+            border-color: var rgba(0, 0, 0, 0.15);
+            box-shadow: 0 10px 30px var rgba(0, 0, 0, 0.555);
+            
+        }
 }
 button{
     display: block;
@@ -370,31 +403,40 @@ button{
     font-weight: bolder;
     border-radius: 5px;
     font-size: 25px;
-    transition: background 0.3s;
-}
+    transition: transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 
-#btn-fechar-alerta:hover {
-    background-color: #4a1116;
-    transform: translateY(-5px);
-    text-decoration: underline;
-}
+    &:hover {
+            transform: translateY(-5px);
+            text-decoration: underline;
+            background-color: #4a1116;
+            
+        }
+
+    }
+
 
 #btn-sucesso {
     display: inline-block;
-    padding: 15px 35px;
+    padding: 17px 37px;
+    margin: 10px;
     background-color: #0b3013;
     color: white;
     text-decoration: none;
     font-weight: bolder;
     border-radius: 5px;
     font-size: 25px;
-    transition: background 0.3s;
+    transition: transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+    &:hover {
+            transform: translateY(-5px);
+            text-decoration: underline;
+            background-color: #155724;
+            
+        }
 }
 
-#btn-sucesso:hover {
-    
-    background-color: #155724;
-    transform: translateY(-5px);
-    text-decoration: underline;
-}
 
