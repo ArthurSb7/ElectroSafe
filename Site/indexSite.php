@@ -113,3 +113,27 @@
                 </div>
             </div>
         </section>
+
+        <!-- por que nós? -->
+        <section class="secao" id="por-que-nos">
+            <h2>Por que nos escolher?</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3>Fácil de usar</h3>
+                    <p>Registre um pedido em poucos passos, direto do computador ou do celular.</p>
+                </div>
+                <div class="card">
+                    <h3>Tudo em um só lugar</h3>
+                    <p>Registro, checklist e acompanhamento reunidos no mesmo sistema.</p>
+                </div>
+                <div class="card">
+                    <h3>Foco em segurança</h3>
+                    <p>Nosso objetivo é reduzir riscos em instalações elétricas.</p>
+                </div>
+                <div class="card">
+                    <h3>Dados protegidos</h3>
+                    <p>Suas senhas são guardadas de forma criptografada.</p>
+                </div>
+            </div>
+            <a href="../app/Clientes/cadastro.php" class="botao">Criar minha conta</a>
+        </section>
