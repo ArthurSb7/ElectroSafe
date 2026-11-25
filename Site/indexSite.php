@@ -90,3 +90,26 @@
             </div>
             <a href="../app/Clientes/login.php" class="botao">Solicitar um serviço</a>
         </section>
+
+        <!-- quem somos -->
+        <section class="secao secao-escura" id="quem-somos">
+            <h2>Quem somos?</h2>
+            <div class="texto-secao">
+                <p>O ElectroSafe é um sistema criado para facilitar o registro e o acompanhamento de melhorias em instalações elétricas. A ideia é simples: quem identifica um problema consegue informar de forma rápida, e a equipe consegue organizar e acompanhar cada pedido.</p>
+                <p>Atendemos diferentes tipos de ambiente, como condomínios, indústrias, locais de grande circulação de público e áreas classificadas.</p>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <h3>Missão</h3>
+                    <p>Tornar a segurança elétrica mais simples e acessível.</p>
+                </div>
+                <div class="card">
+                    <h3>Visão</h3>
+                    <p>Ser referência em praticidade no cuidado com instalações elétricas.</p>
+                </div>
+                <div class="card">
+                    <h3>Valores</h3>
+                    <p>Segurança, clareza, responsabilidade e respeito ao cliente.</p>
+                </div>
+            </div>
+        </section>
