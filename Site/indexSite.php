@@ -26,12 +26,13 @@
 
     <main>
         <!-- Início do site com vídeo de fundo e um botão para redirecionar para a parte de login ou cadastro -->
-        <div class="fundo-video" aria-hidden="true">
-            <video autoplay muted loop playsinline preload="metadata">
-            <source src="imagens/fundo-telaLogin.mp4" type="video/mp4">
-            </video>
-            <div class="fundo-overlay"></div>
-        </div>
+        <section class="home" id="home">
+            <div class="fundo-video" aria-hidden="true">
+                <video autoplay muted loop playsinline preload="metadata">
+                    <source src="imagens/fundo-Index-Site.mp4" type="video/mp4">
+                </video>
+                <div class="fundo-overlay"></div>
+            </div>
 
         <div>
             
