@@ -1,8 +1,12 @@
 <?php
-
-// Cadastrar novos funcionarios e ver suas avaliações
-
+// Exemplo: troque pelos dados vindos do seu banco de dados.
+// Cada item precisa ter as chaves: nome, idade, especializacao, avaliacao
+$eletricistas = $eletricistas ?? [
+    ['nome' => 'Carlos Silva', 'idade' => 34, 'especializacao' => 'Instalações residenciais', 'avaliacao' => '4.8'],
+    ['nome' => 'Marina Souza', 'idade' => 29, 'especializacao' => 'Manutenção preventiva', 'avaliacao' => '4.5'],
+];
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -20,7 +24,7 @@
     <div class="layout-principal">
         <aside class="barra-menu">
             <a href="index.php" class="logo.png" title="Ir para a página inicial">
-                <img src="../app/Clientes/imagens/logo.png" alt="Logo ElectroSafe">
+                <img src="imagens/logo.png" alt="Logo ElectroSafe">
             </a>
             <div class="barra-menu-cabeça">
                 <i></i>
@@ -40,7 +44,7 @@
                 </a>
                 <a href="indicacao.php" class="nav-item">
                     <i></i>
-                    <span>Indicação</span>
+                    <span>Novo Eletricista</span>
                 </a>
                 <a href="infoEle.php" class="nav-item active">
                     <i></i>
@@ -48,13 +52,42 @@
                 </a>
             </nav>
         </aside>
-        <main>
-            <div class="formulario-bloco">
-                <div class="logo"><span class="corElectro">Electro</span><span class="corSafe">Safe</span></div>
-                <h2 class="titulo-form">Login</h2>
-                
+    <main>
+    <header>
+        <h1>DADOS DOS ELETRICISTAS</h1>
+    </header>
+        <div id="area-centro">
+        <div class="card-tabela">
+            <div class="tabela-rolagem">
+                <table class="tabela">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Idade</th>
+                            <th>Especialização</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($eletricistas)): ?>
+                            <tr>
+                                <td colspan="4" class="tabela-vazia">Nenhum eletricista cadastrado.</td>
+                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($eletricistas as $e): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($e['nome']) ?></td>
+                                    <td><?= (int) $e['idade'] ?></td>
+                                    <td><?= htmlspecialchars($e['especializacao']) ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
             </div>
-        </main>
+        </div>
+        </div>
+    </main>
 
 </body>
 </html>
