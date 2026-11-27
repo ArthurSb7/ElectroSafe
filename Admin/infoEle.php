@@ -88,6 +88,7 @@ if ($databaseStatus === 'Conectado') {
                     <thead>
                         <tr>
                     <th>Nome</th>
+                    <th>Idade</th>
                     <th>Especialização</th>
                         </tr>
                     </thead>
