@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 try {
-    require_once __DIR__ . '/../app/Clientes/init.php';
+    require_once __DIR__ . '../Clientes/init.php';
 } catch (Throwable $e) {
     error_log($e->getMessage());
     $pdo = null;
