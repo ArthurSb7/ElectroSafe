@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         //Verifica se o usuário esta cadastrado na tabela administrador
         if($adm){
-            header('Location: ../Admin/index.php');
+            header('Location: /Admin/index.php');
             exit;
         }
         $_SESSION['usuario_id'] = $usuario['id'];
