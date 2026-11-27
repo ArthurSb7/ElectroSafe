@@ -336,19 +336,6 @@ img {
 }
 
 
-/* ===== RESPONSIVO ===== */
-
-@media (max-width: 900px) {
-    .principais-info {
-        grid-template-columns: 1fr;
-    }
-    .caixa-bem-vindo {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-}
-
-
 
 /* ===== GAVETA DE RELATOS (mesmo estilo do cliente) ===== */
 
