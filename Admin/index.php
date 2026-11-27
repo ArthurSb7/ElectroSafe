@@ -8,7 +8,7 @@ try {
     require_once __DIR__ . '/../app/banco/crud.php';
 
     $pdo = database();
-    $pdo->query('SELECT 1');
+    $pdo -> query('SELECT 1');
 } catch (Throwable $exception) {
     error_log($exception->getMessage());
     $databaseStatus = 'Indisponível';
@@ -22,7 +22,7 @@ $totalRelatos = 0;
 
 if ($databaseStatus === 'Conectado') {
     try {
-        $relatos = $pdo->query(
+        $relatos = $pdo -> query(
             "SELECT id, relatoProblema
              FROM analise_tecnica
              WHERE relatoProblema IS NOT NULL AND relatoProblema <> ''
@@ -45,7 +45,7 @@ $proximas         = [];
 
 if ($databaseStatus === 'Conectado') {
     try {
-        $resumo = $pdo->query(
+        $resumo = $pdo -> query(
             "SELECT
                 SUM(DATE(criado_em) = CURDATE() AND statusPedido <> 'CANCELADO') AS hoje,
                 SUM(statusPedido IN ('AGUARDANDO', 'ANDAMENTO'))                 AS ativos
@@ -56,7 +56,7 @@ if ($databaseStatus === 'Conectado') {
         $emAcompanhamento = (int) ($resumo['ativos'] ?? 0);
 
         // as 5 demandas abertas mais antigas (as que mais precisam de atenção)
-        $proximas = $pdo->query(
+        $proximas = $pdo -> query(
             "SELECT id, responsavel, ambiente, categoria, statusPedido, criado_em
              FROM pedidos
              WHERE statusPedido IN ('AGUARDANDO', 'ANDAMENTO')
