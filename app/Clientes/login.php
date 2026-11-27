@@ -11,8 +11,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $usuario = read($pdo, 'usuarios', 'email = ?', [$emailInserido]);
 
+    
     // Compara com o banco de dados o que foi digitado
     if ($usuario && password_verify($senhaInserida, $usuario['senha'])) {
+
+        $adm = read($pdo, 'administrador', 'idUsuario = ?', [$usuario['id']]);
+
+        //Verifica se o usuário esta cadastrado na tabela administrador
+        if($adm){
+            header('Location: ../Admin/index.php');
+            exit;
+        }
         $_SESSION['usuario_id'] = $usuario['id'];
         header('Location: index.php');
         exit;
@@ -21,6 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Mensagem de erro exibida quando e-mail ou senha não conferem
     $erro = "Tente novamente, E-mail ou Senha incorretos.";
 }
+
+   
+
 
 ?>
 <!DOCTYPE html>
