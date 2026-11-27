@@ -101,7 +101,7 @@
                     $senha_confirmada = $_POST["senha_confirmada"];
 
                     if ($senha == $senha_confirmada) {
-                        header("location: Clientes/index.php");
+                        header("location: login.php");
                         exit;
                     } else {
                         echo '<p class="mensagem erro" role="alert">Senha incorreta! Tente novamente.</p>';
