@@ -1,3 +1,47 @@
+<?php
+session_start();
+
+$materiais = [
+    "Alicate Universal",
+    "Chave Phillips",
+    "Multímetro",
+    "Alicate Amperímetro",
+    "Fita Isolante",
+    "Óculos de Proteção",
+    "Luvas de Proteção",
+];
+
+$total = count($materiais);
+$marcados = [];
+$mensagem = "";
+$classeMensagem = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $enviados = $_POST["materiais"] ?? [];
+    foreach ($enviados as $indice) {
+        if (ctype_digit((string) $indice) && (int) $indice < $total) {
+            $marcados[] = (int) $indice;
+        }
+    }
+    $marcados = array_unique($marcados);
+
+    if (count($marcados) === $total) {
+        $_SESSION["flash"] = [
+            "texto"  => "Checklist concluída com sucesso!",
+            "classe" => "sucesso",
+        ];
+        header("Location: checklist.php");
+        exit;
+    }
+
+    $mensagem = "Ainda existem materiais que precisam ser conferidos!";
+    $classeMensagem = "erro";
+} elseif (isset($_SESSION["flash"])) {
+    $mensagem = $_SESSION["flash"]["texto"];
+    $classeMensagem = $_SESSION["flash"]["classe"];
+    unset($_SESSION["flash"]);
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -23,7 +67,6 @@
 
     <div class="layout-principal">
 
-        <!-- MENU LATERAL IDÊNTICO AO INDEX E REGISTRO -->
         <aside class="barra-menu">
             <a href="index.php" class="logo-link" title="Ir para a página inicial">
                 <img src="imagens/logo.png" alt="Logo ElectroSafe">
@@ -45,7 +88,6 @@
             </nav>
         </aside>
 
-        <!-- ÁREA DIREITA -->
         <div class="area-direita">
 
             <header class="topo">
@@ -59,63 +101,34 @@
                 <div class="painel-checklist">
                     <div class="painel-header">
                         <h1>CHECKLIST DE MATERIAIS</h1>
-                        <p>Marque os equipamentos que já foram conferidos e acompanhe o progresso da inspeção.</p>
+                        <p>Marque os equipamentos que já foram conferidos.</p>
                     </div>
 
                     <div class="painel-body">
-                        <div class="progresso">
-                            <div class="progresso-topo">
-                                <h3>PROGRESSO DA INSPEÇÃO</h3>
-                                <span class="contador" id="contador">0 de 7 materiais conferidos</span>
+                        <form method="post" action="checklist.php">
+                            <div class="lista">
+                                <?php foreach ($materiais as $indice => $nome): ?>
+                                    <label class="item">
+                                        <input type="checkbox"
+                                               class="material"
+                                               name="materiais[]"
+                                               value="<?= $indice ?>"
+                                               <?= in_array($indice, $marcados, true) ? "checked" : "" ?>>
+                                        <span><?= htmlspecialchars($nome) ?></span>
+                                    </label>
+                                <?php endforeach; ?>
                             </div>
 
-                            <div class="barra-progresso">
-                                <div class="barra-preenchida" id="barraPreenchida"></div>
+                            <button type="submit" class="btn-finalizar">
+                                FINALIZAR CHECKLIST
+                            </button>
+                        </form>
+
+                        <?php if ($mensagem !== ""): ?>
+                            <div class="mensagem-status <?= $classeMensagem ?>" role="status">
+                                <?= htmlspecialchars($mensagem) ?>
                             </div>
-                        </div>
-
-                        <div class="lista">
-                            <label class="item">
-                                <input type="checkbox" class="material">
-                                <span>Alicate Universal</span>
-                            </label>
-
-                            <label class="item">
-                                <input type="checkbox" class="material">
-                                <span>Chave Phillips</span>
-                            </label>
-
-                            <label class="item">
-                                <input type="checkbox" class="material">
-                                <span>Multímetro</span>
-                            </label>
-
-                            <label class="item">
-                                <input type="checkbox" class="material">
-                                <span>Alicate Amperímetro</span>
-                            </label>
-
-                            <label class="item">
-                                <input type="checkbox" class="material">
-                                <span>Fita Isolante</span>
-                            </label>
-
-                            <label class="item">
-                                <input type="checkbox" class="material">
-                                <span>Óculos de Proteção</span>
-                            </label>
-
-                            <label class="item">
-                                <input type="checkbox" class="material">
-                                <span>Luvas de Proteção</span>
-                            </label>
-                        </div>
-
-                        <button type="button" class="btn-finalizar" onclick="finalizarChecklist()">
-                            FINALIZAR CHECKLIST
-                        </button>
-
-                        <div id="mensagem" class="mensagem-status" role="status"></div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </main>
@@ -126,41 +139,6 @@
 
         </div>
     </div>
-
-    <script>
-        const materiais = document.querySelectorAll(".material");
-        const barra = document.getElementById("barraPreenchida");
-        const contador = document.getElementById("contador");
-        const mensagem = document.getElementById("mensagem");
-
-        function atualizarProgresso() {
-            let marcados = document.querySelectorAll(".material:checked").length;
-            let total = materiais.length;
-            let porcentagem = (marcados / total) * 100;
-
-            barra.style.width = porcentagem + "%";
-            contador.textContent = marcados + " de " + total + " materiais conferidos";
-
-            mensagem.textContent = "";
-            mensagem.className = "mensagem-status";
-        }
-
-        materiais.forEach(function (item) {
-            item.addEventListener("change", atualizarProgresso);
-        });
-
-        function finalizarChecklist() {
-            let marcados = document.querySelectorAll(".material:checked").length;
-
-            if (marcados === materiais.length) {
-                mensagem.textContent = "Checklist concluída com sucesso!";
-                mensagem.className = "mensagem-status sucesso";
-            } else {
-                mensagem.textContent = "Ainda existem materiais que precisam ser conferidos!";
-                mensagem.className = "mensagem-status erro";
-            }
-        }
-    </script>
 
 </body>
 </html>
