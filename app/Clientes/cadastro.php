@@ -1,6 +1,6 @@
 <?php
 
-    require_once __DIR__ . "/init.php";
+    require_once __DIR__ . "../init.php";
 
     $mensagem_erro = '';
 
@@ -52,9 +52,7 @@
 
         <form action="" method="POST">
 
-            <?php if ($mensagem !== ''): ?>
-                <p class="mensagem sucesso" role="status"><?= htmlspecialchars($mensagem) ?></p>
-            <?php endif; ?>
+        
 
             <div class="campo-grupo">
                 <label for="nome">Nome:</label>
