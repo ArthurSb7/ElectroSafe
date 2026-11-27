@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 $databaseStatus = 'Conectado';
+$pdo = null;
 
 try {
     require_once __DIR__ . '../banco/database.php';
@@ -14,12 +15,15 @@ try {
     $databaseStatus = 'Indisponível';
 }
 
+/* ---------------------------------------------------------
+   RELATOS
+   --------------------------------------------------------- */
 $relatos      = [];
 $totalRelatos = 0;
 
 if ($databaseStatus === 'Conectado') {
     try {
-        $relatos = $pdo->query(
+        $relatos = $pdo -> query(
             "SELECT id, relatoProblema
              FROM analise_tecnica
              WHERE relatoProblema IS NOT NULL AND relatoProblema <> ''
@@ -32,6 +36,38 @@ if ($databaseStatus === 'Conectado') {
 }
 
 $exibirRelatos = ($_GET['abrir'] ?? '') === 'relatos';
+
+/* ---------------------------------------------------------
+   ACOMPANHAMENTO (pedidos)
+   --------------------------------------------------------- */
+$demandasHoje     = 0;
+$emAcompanhamento = 0;
+$proximas         = [];
+
+if ($databaseStatus === 'Conectado') {
+    try {
+        $resumo = $pdo -> query(
+            "SELECT
+                SUM(DATE(criado_em) = CURDATE() AND statusPedido <> 'CANCELADO') AS hoje,
+                SUM(statusPedido IN ('AGUARDANDO', 'ANDAMENTO'))                 AS ativos
+             FROM pedidos"
+        )->fetch();
+
+        $demandasHoje     = (int) ($resumo['hoje'] ?? 0);
+        $emAcompanhamento = (int) ($resumo['ativos'] ?? 0);
+
+        // as 5 demandas abertas mais antigas (as que mais precisam de atenção)
+        $proximas = $pdo -> query(
+            "SELECT id, responsavel, ambiente, categoria, statusPedido, criado_em
+             FROM pedidos
+             WHERE statusPedido IN ('AGUARDANDO', 'ANDAMENTO')
+             ORDER BY criado_em ASC, id ASC
+             LIMIT 5"
+        )->fetchAll();
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -92,14 +128,14 @@ $exibirRelatos = ($_GET['abrir'] ?? '') === 'relatos';
             <section class="principais-info">
                 <a href="acompanhamento.php" class="caixa-principal">
                     <div class="caixa-dados">
-                        <strong>6</strong>
+                        <strong><?= $demandasHoje ?></strong>
                         <span>Demandas de hoje</span>
                     </div>
                     <i class="seta"></i>
                 </a>
                 <a href="acompanhamento.php" class="caixa-principal">
                     <div class="caixa-dados">
-                        <strong>18</strong>
+                        <strong><?= $emAcompanhamento ?></strong>
                         <span>Em acompanhamento</span>
                     </div>
                     <i class="seta"></i>
@@ -120,27 +156,22 @@ $exibirRelatos = ($_GET['abrir'] ?? '') === 'relatos';
                 </div>
 
                 <div class="lista-itens">
-                    <a href="#" class="item-lista">
-                        <div class="item-texto">
-                            <strong>Lorem ipsum dolor</strong>
-                            <span>Sit amet consectetur</span>
-                        </div>
-                        <i class="seta"></i>
-                    </a>
-                    <a href="#" class="item-lista">
-                        <div class="item-texto">
-                            <strong>Lorem ipsum dolor</strong>
-                            <span>Sit amet consectetur</span>
-                        </div>
-                        <i class="seta"></i>
-                    </a>
-                    <a href="#" class="item-lista">
-                        <div class="item-texto">
-                            <strong>Lorem ipsum dolor</strong>
-                            <span>Sit amet consectetur</span>
-                        </div>
-                        <i class="seta"></i>
-                    </a>
+                    <?php if (empty($proximas)): ?>
+                        <p class="lista-vazia">Nenhuma demanda em aberto.</p>
+                    <?php endif; ?>
+
+                    <?php foreach ($proximas as $p): ?>
+                        <a href="acompanhamento.php?view=detalhes&id=<?= (int) $p['id'] ?>" class="item-lista">
+                            <div class="item-texto">
+                                <strong>
+                                    Pedido <?= htmlspecialchars(str_pad((string) $p['id'], 2, '0', STR_PAD_LEFT)) ?>
+                                    - <?= htmlspecialchars((string) ($p['ambiente'] ?? ucfirst(strtolower((string) $p['categoria'])))) ?>
+                                </strong>
+                                <span><?= htmlspecialchars((string) ($p['responsavel'] ?? 'Não informado')) ?></span>
+                            </div>
+                            <i class="seta"></i>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
             </section>
 
@@ -166,7 +197,7 @@ $exibirRelatos = ($_GET['abrir'] ?? '') === 'relatos';
 
                 <?php foreach ($relatos as $r): ?>
                     <div class="relato-item">
-                        <p><?= nl2br(htmlspecialchars((string)$r['relatoProblema'])) ?></p>
+                        <p><?= nl2br(htmlspecialchars((string) $r['relatoProblema'])) ?></p>
                     </div>
                 <?php endforeach; ?>
             </div>

@@ -336,19 +336,6 @@ img {
 }
 
 
-/* ===== RESPONSIVO ===== */
-
-@media (max-width: 900px) {
-    .principais-info {
-        grid-template-columns: 1fr;
-    }
-    .caixa-bem-vindo {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-}
-
-
 
 /* ===== GAVETA DE RELATOS (mesmo estilo do cliente) ===== */
 
@@ -419,13 +406,8 @@ img {
     color: #d1c4e9;
     word-break: break-word;
 }
-
-@keyframes surgir {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-@keyframes subir {
-    from { transform: translateY(100%); }
-    to   { transform: translateY(0); }
+.lista-vazia {
+    margin: 0;
+    color: #d1c4e9;
+    font-size: 18px;
 }
