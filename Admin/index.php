@@ -2,13 +2,14 @@
 declare(strict_types=1);
 
 $databaseStatus = 'Conectado';
+$pdo = null;
 
 try {
     require_once __DIR__ . '/../app/banco/database.php';
     require_once __DIR__ . '/../app/banco/crud.php';
 
     $pdo = database();
-    $pdo -> query('SELECT 1');
+    $pdo->query('SELECT 1');
 } catch (Throwable $exception) {
     error_log($exception->getMessage());
     $databaseStatus = 'Indisponível';
