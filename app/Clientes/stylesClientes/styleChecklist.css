@@ -1,7 +1,3 @@
-/* =========================================================
-   ElectroSafe — Checklist (Padrão Visual Unificado)
-   Arquivo: stylesClientes/styleChecklist.css
-   ========================================================= */
 :root {
     --roxo-900: #0b0719;
     --roxo-800: #190538;
@@ -41,9 +37,6 @@ body {
     min-height: 100vh;
 }
 
-/* ---------------------------------------------------------
-   CAMADA 1 — VÍDEO DE FUNDO (Igual ao Index)
-   --------------------------------------------------------- */
 .fundo-video {
     position: fixed;
     inset: 0;
@@ -70,9 +63,6 @@ body {
             rgba(11, 7, 25, .70) 100%);
 }
 
-/* ---------------------------------------------------------
-   MENU LATERAL (Exatamente igual ao Index e Registro)
-   --------------------------------------------------------- */
 .layout-principal {
     display: flex;
     min-height: 100vh;
@@ -161,9 +151,6 @@ body {
     flex-shrink: 0;
 }
 
-/* ---------------------------------------------------------
-   ÁREA DIREITA E CONTEÚDO PRINCIPAL (Padrão Registro/Index)
-   --------------------------------------------------------- */
 .area-direita {
     flex: 1;
     min-width: 0;
@@ -243,9 +230,6 @@ main.content {
     padding: 26px 32px 32px;
 }
 
-/* ---------------------------------------------------------
-   BARRA DE PROGRESSO
-   --------------------------------------------------------- */
 .progresso {
     margin-bottom: 24px;
 }
@@ -288,9 +272,6 @@ main.content {
     transition: width 0.35s ease;
 }
 
-/* ---------------------------------------------------------
-   LISTA DE MATERIAIS
-   --------------------------------------------------------- */
 .lista {
     display: flex;
     flex-direction: column;
@@ -329,9 +310,6 @@ main.content {
     color: var(--texto-suave);
 }
 
-/* ---------------------------------------------------------
-   BOTÃO FINALIZAR E MENSAGENS
-   --------------------------------------------------------- */
 .btn-finalizar {
     width: 100%;
     padding: 14px;
@@ -378,9 +356,6 @@ main.content {
     border: 1px solid var(--perigo);
 }
 
-/* ---------------------------------------------------------
-   RODAPÉ E RESPONSIVIDADE
-   --------------------------------------------------------- */
 .rodape {
     margin-top: auto;
     padding: 20px 40px 32px;
