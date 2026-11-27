@@ -1,31 +1,43 @@
 <?php
+    require_once __DIR__ . "/init.php";
 
-    require_once __DIR__ . "../init.php";
+    $mensagem = '';
 
-    $mensagem_erro = '';
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        
+        $dados_usuario =[
+            "nome" => $_POST["nome"],
+            "email" => $_POST["email"],
+            "data_nascimento" => $_POST["data_nascimento"] ?: null,
+            "senha" => password_hash($_POST["senha"], PASSWORD_DEFAULT),
+            "cpf" => $_POST["cpf"],
+            "telefone" => $_POST["telefone"]
+        ];
+        $id = create($pdo, "usuarios", $dados_usuario);
+        
+        $mensagem = "Cliente cadastrado com sucesso!";
+    }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $nome = $_POST["nome"];
+        $email = $_POST["email"];
+        $data_nascimento = $_POST["data_nascimento"];
+
         $senha = $_POST["senha"];
         $senha_confirmada = $_POST["senha_confirmada"];
 
         if ($senha == $senha_confirmada) {
-            $dados_usuario = [
-                "nome" => $_POST["nome"],
-                "email" => $_POST["email"],
-                "data_nascimento" => $_POST["data_nascimento"] ?: null,
-                "senha" => password_hash($senha, PASSWORD_DEFAULT),
-                "cpf" => $_POST["cpf"],
-                "telefone" => $_POST["telefone"]
-            ];
-            
-            $id = create($pdo, "usuarios", $dados_usuario);
-
             header("Location: login.php");
             exit;
         } else {
-            $mensagem_erro = "Senha incorreta! Tente novamente.";
+            echo '<p class="mensagem erro" role="alert">Senha incorreta! Tente novamente.</p>';
         }
+
     }
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -52,7 +64,9 @@
 
         <form action="" method="POST">
 
-        
+            <?php if ($mensagem !== ''): ?>
+                <p class="mensagem sucesso" role="status"><?= htmlspecialchars($mensagem) ?></p>
+            <?php endif; ?>
 
             <div class="campo-grupo">
                 <label for="nome">Nome:</label>
