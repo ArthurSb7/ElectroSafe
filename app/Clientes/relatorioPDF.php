@@ -29,23 +29,22 @@ function montarRelatorio(array $r): string
     $cssRelatorio = file_exists($caminhoCSS) ? file_get_contents($caminhoCSS) : '';
 
     $esc = function ($valor) {
-        return htmlspecialchars((string)($valor ?? 'Não informado'), ENT_QUOTES, 'UTF-8');
+        if ($valor === null || $valor === '') {
+            $valor = 'Não informado';
+        }
+        return htmlspecialchars((string)$valor, ENT_QUOTES, 'UTF-8');
     };
 
-    $data = !empty($r['data_ocorrencia'])
-        ? date('d/m/Y H:i', strtotime($r['data_ocorrencia']))
-        : 'Não informada';
+    $formatar = function ($valor, string $formato, string $padrao) {
+        return !empty($valor) ? date($formato, strtotime($valor)) : $padrao;
+    };
 
-    $prazo = !empty($r['prazo'])
-        ? date('d/m/Y', strtotime($r['prazo']))
-        : 'Não informado';
+    $data            = $formatar($r['data_ocorrencia'] ?? null, 'd/m/Y H:i', 'Não informada');
+    $prazo           = $formatar($r['prazo'] ?? null, 'd/m/Y', 'Não informado');
+    $prazoLimite     = $formatar($r['prazo_limite'] ?? null, 'd/m/Y', 'Não informado');
+    $dataVerificacao = $formatar($r['data_verificacao'] ?? null, 'd/m/Y', 'Não informada');
 
-    $dataVerificacao = !empty($r['data_verificacao'])
-        ? date('d/m/Y', strtotime($r['data_verificacao']))
-        : 'Não informada';
-
-    $html = '
-    <!DOCTYPE html>
+    $html = '<!DOCTYPE html>
     <html lang="pt-BR">
     <head>
         <meta charset="UTF-8">
@@ -65,17 +64,18 @@ function montarRelatorio(array $r): string
 
         <h2>Descrição da ocorrência</h2>
         <div class="campo"><strong>Descrição</strong>' . nl2br($esc($r['descricao'])) . '</div>
-        <div class="campo"><strong>Local, equipamento e tipo</strong>' . $esc($r['origem_desvio']) . '</div>
+        <div class="campo"><strong>Local e equipamento</strong>' . $esc($r['origem_desvio']) . '</div>
         <div class="campo"><strong>Norma violada</strong>' . $esc($r['norma_violada']) . '</div>
         <div class="campo"><strong>Nível de impacto</strong>' . $esc($r['impacto_erro']) . '</div>
         <div class="campo"><strong>Status</strong>' . $esc($r['status_registro']) . '</div>
 
         <h2>Tratativas</h2>
         <div class="campo"><strong>Ação imediata</strong>' . nl2br($esc($r['acao_imediata'])) . '</div>
-        <div class="campo"><strong>Análise e ação recomendada</strong>' . nl2br($esc($r['analise_erro'])) . '</div>
         <div class="campo"><strong>Responsável pela ação imediata</strong>' . $esc($r['nome_funcionario']) . '</div>
-        <div class="campo"><strong>Responsável pela ação final</strong>' . $esc($r['nome_administrador']) . '</div>
         <div class="campo"><strong>Prazo para correção</strong>' . $esc($prazo) . '</div>
+        <div class="campo"><strong>Análise e ação recomendada</strong>' . nl2br($esc($r['analise_erro'])) . '</div>
+        <div class="campo"><strong>Responsável pela ação final</strong>' . $esc($r['nome_administrador']) . '</div>
+        <div class="campo"><strong>Prazo limite da ação final</strong>' . $esc($prazoLimite) . '</div>
 
         <h2>Verificação e fechamento</h2>
         <div class="campo"><strong>Data de verificação</strong>' . $esc($dataVerificacao) . '</div>
@@ -91,4 +91,3 @@ function montarRelatorio(array $r): string
 
     return str_replace('/*CSS_RELATORIO*/', $cssRelatorio, $html);
 }
-?>

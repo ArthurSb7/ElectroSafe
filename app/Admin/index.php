@@ -5,8 +5,8 @@ $databaseStatus = 'Conectado';
 $pdo = null;
 
 try {
-    require_once __DIR__ . '/../app/banco/database.php';
-    require_once __DIR__ . '/../app/banco/crud.php';
+    require_once __DIR__ . '../banco/database.php';
+    require_once __DIR__ . '../banco/crud.php';
 
     $pdo = database();
     $pdo->query('SELECT 1');

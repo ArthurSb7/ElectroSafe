@@ -18,6 +18,26 @@
         $mensagem = "Cliente cadastrado com sucesso!";
     }
 
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $nome = $_POST["nome"];
+        $email = $_POST["email"];
+        $data_nascimento = $_POST["data_nascimento"];
+
+        $senha = $_POST["senha"];
+        $senha_confirmada = $_POST["senha_confirmada"];
+
+        if ($senha == $senha_confirmada) {
+            header("Location: login.php");
+            exit;
+        } else {
+            echo '<p class="mensagem erro" role="alert">Senha incorreta! Tente novamente.</p>';
+        }
+
+    }
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -89,28 +109,10 @@
                 </div>
             </div>
 
-            <?php
-
-                if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-                    $nome = $_POST["nome"];
-                    $email = $_POST["email"];
-                    $data_nascimento = $_POST["data_nascimento"];
-
-                    $senha = $_POST["senha"];
-                    $senha_confirmada = $_POST["senha_confirmada"];
-
-                    if ($senha == $senha_confirmada) {
-                        header("location: app/Clientes/index.php");
-                        exit;
-                    } else {
-                        echo '<p class="mensagem erro" role="alert">Senha incorreta! Tente novamente.</p>';
-                    }
-
-                }
-
-            ?>
-
+            <?php if ($mensagem_erro !== ''): ?>
+            <p class="mensagem erro" role="alert"><?= htmlspecialchars($mensagem_erro) ?></p>
+            <?php endif; ?>
+                
             <button type="submit" class="btn-enviar">Cadastrar</button>
 
             <p class="link-alternativo">Já possui login? <a href="login.php">Clique aqui</a> para entrar!</p>
