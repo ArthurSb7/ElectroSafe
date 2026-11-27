@@ -1,23 +1,31 @@
 <?php
+
     require_once __DIR__ . "/init.php";
 
-    $mensagem = '';
+    $mensagem_erro = '';
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST"){
-        
-        $dados_usuario =[
-            "nome" => $_POST["nome"],
-            "email" => $_POST["email"],
-            "data_nascimento" => $_POST["data_nascimento"] ?: null,
-            "senha" => password_hash($_POST["senha"], PASSWORD_DEFAULT),
-            "cpf" => $_POST["cpf"],
-            "telefone" => $_POST["telefone"]
-        ];
-        $id = create($pdo, "usuarios", $dados_usuario);
-        
-        $mensagem = "Cliente cadastrado com sucesso!";
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $senha = $_POST["senha"];
+        $senha_confirmada = $_POST["senha_confirmada"];
+
+        if ($senha == $senha_confirmada) {
+            $dados_usuario = [
+                "nome" => $_POST["nome"],
+                "email" => $_POST["email"],
+                "data_nascimento" => $_POST["data_nascimento"] ?: null,
+                "senha" => password_hash($senha, PASSWORD_DEFAULT),
+                "cpf" => $_POST["cpf"],
+                "telefone" => $_POST["telefone"]
+            ];
+            
+            $id = create($pdo, "usuarios", $dados_usuario);
+
+            header("Location: login.php");
+            exit;
+        } else {
+            $mensagem_erro = "Senha incorreta! Tente novamente.";
+        }
     }
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -89,28 +97,10 @@
                 </div>
             </div>
 
-            <?php
-
-                if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-                    $nome = $_POST["nome"];
-                    $email = $_POST["email"];
-                    $data_nascimento = $_POST["data_nascimento"];
-
-                    $senha = $_POST["senha"];
-                    $senha_confirmada = $_POST["senha_confirmada"];
-
-                    if ($senha == $senha_confirmada) {
-                        header("location: login.php");
-                        exit;
-                    } else {
-                        echo '<p class="mensagem erro" role="alert">Senha incorreta! Tente novamente.</p>';
-                    }
-
-                }
-
-            ?>
-
+            <?php if ($mensagem_erro !== ''): ?>
+            <p class="mensagem erro" role="alert"><?= htmlspecialchars($mensagem_erro) ?></p>
+            <?php endif; ?>
+                
             <button type="submit" class="btn-enviar">Cadastrar</button>
 
             <p class="link-alternativo">Já possui login? <a href="login.php">Clique aqui</a> para entrar!</p>
