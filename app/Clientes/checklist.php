@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <a href="analise.php" class="nav-item"><i></i><span>Análise técnica e inspeção</span></a>
                 <a href="checklist.php" class="nav-item active" aria-current="page"><i></i><span>Checklist</span></a>
                 <a href="acompanhamento.php" class="nav-item"><i></i><span>Acompanhamento</span></a>
-                <a href="indicacao.php" class="nav-item"><i></i><span>Indicação</span></a>
+                <a href="indicacao.php" class="nav-item"><i></i><span>Indicações</span></a>
             </nav>
         </aside>
 
