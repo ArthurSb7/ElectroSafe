@@ -2,125 +2,134 @@
 
 create database if not exists ElectroSafe;
 
-use ElectroSafe;
+CREATE DATABASE IF NOT EXISTS ElectroSafe
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
 
+USE ElectroSafe;
 
-create table if not exists  enderecoCliente(
-	id INT PRIMARY KEY auto_increment,
+-- ---------------------------------------------------------------
+-- Endereço
+-- ---------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS enderecoCliente (
+    id INT PRIMARY KEY AUTO_INCREMENT,
     cep VARCHAR(9),
-    numero VARCHAR (10),
-    rua VARCHAR (60),
-    bairro VARCHAR (60),
-    cidade VARCHAR (60),
-    estado VARCHAR (20),
-    complemento VARCHAR (100)
+    numero VARCHAR(10),
+    rua VARCHAR(60),
+    bairro VARCHAR(60),
+    cidade VARCHAR(60),
+    estado VARCHAR(20),
+    complemento VARCHAR(100)
 );
 
-create table if not exists usuarios(
-	id INT PRIMARY KEY auto_increment,
-    nome VARCHAR (100) NOT NULL,
-    email VARCHAR (100) NOT NULL unique ,
-    data_nascimento DATE, 
-    senha VARCHAR (255) NOT NULL,
-    cpf VARCHAR (11) NOT NULL unique,
-    telefone VARCHAR (20)
-);
-    
-
-
-create table if not exists  clientes (
-	idUsuario INT PRIMARY KEY,
-    idEndereco int NOT NULL,
-    -- FK
-    foreign key(idEndereco) references enderecoCliente(id),
-	foreign key(idUsuario) references usuarios(id)
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    data_nascimento DATE,
+    senha VARCHAR(255) NOT NULL,
+    cpf VARCHAR(11) NOT NULL UNIQUE,
+    telefone VARCHAR(20)
 );
 
-create table if not exists  funcionarios (
-	idUsuario INT PRIMARY KEY,
-	especializacao VARCHAR(30) NOT NULL,
-    -- FK
-    foreign key(idUsuario) references usuarios(id)
-);
-
-create table if not exists  departamentos(
-	id int primary key auto_increment,
-    numero INTEGER unique NOT NULL,
-    nome VARCHAR (40) NOT NULL,
-    dataCriacao DATETIME DEFAULT current_timestamp
-    );
-
-create table if not exists   administrador(
+CREATE TABLE IF NOT EXISTS clientes (
     idUsuario INT PRIMARY KEY,
-    id_departamento int,
+    idEndereco INT NOT NULL,
     -- FK
-    foreign key (id_departamento) references departamentos(id),
-	foreign key (idUsuario) references usuarios(id)
+    FOREIGN KEY (idEndereco) REFERENCES enderecoCliente(id),
+    FOREIGN KEY (idUsuario) REFERENCES usuarios(id)
 );
 
-
-
-    
-create table if not exists  funcionario_departamentos(
-	id int primary key auto_increment,
-    idFuncionario int not null,
-    idDepartamento int not null,
+CREATE TABLE IF NOT EXISTS funcionarios (
+    idUsuario INT PRIMARY KEY,
+    especializacao VARCHAR(30) NOT NULL,
     -- FK
-    foreign key (idFuncionario) references funcionarios(idUsuario),
-	foreign key(idDepartamento) references departamentos(id),
-    
-    unique (idFuncionario, idDepartamento)
+    FOREIGN KEY (idUsuario) REFERENCES usuarios(id)
 );
-create table if not exists  pedidos(
-	id int primary key auto_increment,
-    idCliente int NOT NULL,
+
+CREATE TABLE IF NOT EXISTS departamentos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    numero INTEGER UNIQUE NOT NULL,
+    nome VARCHAR(40) NOT NULL,
+    dataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS administrador (
+    idUsuario INT PRIMARY KEY,
+    id_departamento INT,
+    -- FK
+    FOREIGN KEY (id_departamento) REFERENCES departamentos(id),
+    FOREIGN KEY (idUsuario) REFERENCES usuarios(id)
+);
+
+CREATE TABLE IF NOT EXISTS funcionario_departamentos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    idFuncionario INT NOT NULL,
+    idDepartamento INT NOT NULL,
+    -- FK
+    FOREIGN KEY (idFuncionario) REFERENCES funcionarios(idUsuario),
+    FOREIGN KEY (idDepartamento) REFERENCES departamentos(id),
+
+    UNIQUE (idFuncionario, idDepartamento)
+);
+
+--
+CREATE TABLE IF NOT EXISTS pedidos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    idCliente INT NULL,
+    ambiente VARCHAR(100) NOT NULL,
+    responsavel VARCHAR(100) NOT NULL,
+    contato VARCHAR(20) NOT NULL,
     statusPedido ENUM('ANDAMENTO', 'AGUARDANDO', 'FINALIZADO', 'CANCELADO') DEFAULT 'AGUARDANDO' NOT NULL,
-	categoria ENUM('TOMADA', 'ILUMINACAO', 'DISJUNTOR', 'INSTALACAO') NOT NULL,
-    descricao text NOT NULL,
+    categoria ENUM('TOMADA', 'ILUMINACAO', 'DISJUNTOR', 'INSTALACAO') NOT NULL,
+    descricao TEXT NOT NULL,
+    criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
     -- FK
-    foreign key (idCliente) references clientes(idUsuario)
+    FOREIGN KEY (idCliente) REFERENCES clientes(idUsuario)
 );
 
-create table if not exists registros(
-	id int primary key auto_increment,
-    idUsuario int NOT NULL,
-	descricao text,
-    status_registro ENUM ('ANDAMENTO', 'AGUARDANDO', 'FINALIZADO', 'CANCELADO')  DEFAULT 'AGUARDANDO' NOT NULL,
-	data_ocorrencia DATETIME DEFAULT current_timestamp, --
-    idDepartamento int,--
-    impacto_erro ENUM ('LEVE', 'MODERADO', 'CRITICO') NOT NULL, --
-    norma_violada VARCHAR (200), -- 
-    origem_desvio VARCHAR (200), -- 
-    acao_imediata text, -- Contenção do problema para evitar que piore
-    responsavel_Imediato int NOT NULL, -- Responsável por executar a ação imediata
-    prazo DATETIME, -- Data maxima para conter o erro.
-    analise_erro text,
-         text,
-    responsavel_acaoFinal int NOT NULL, -- 
+-
+CREATE TABLE IF NOT EXISTS registros (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    idUsuario INT NOT NULL,
+    descricao TEXT,
+    status_registro ENUM('ANDAMENTO', 'AGUARDANDO', 'FINALIZADO', 'CANCELADO') DEFAULT 'AGUARDANDO' NOT NULL,
+    data_ocorrencia DATETIME DEFAULT CURRENT_TIMESTAMP,
+    idDepartamento INT,
+    impacto_erro ENUM('LEVE', 'MODERADO', 'CRITICO') NOT NULL,
+    norma_violada VARCHAR(200),
+    origem_desvio VARCHAR(200),
+    acao_imediata TEXT,                 -- Contenção do problema para evitar que piore
+    responsavel_Imediato INT NOT NULL,  -- Responsável por executar a ação imediata
+    prazo DATETIME,                     -- Data máxima para conter o erro
+    analise_erro TEXT,
+    acao_final TEXT,                    -- Ação corretiva definitiva (era a linha "text," solta)
+    responsavel_acaoFinal INT NOT NULL, -- Responsável pela ação final
     prazo_limite DATETIME,
     data_verificacao DATETIME NULL,
-    eficacia ENUM ('SIM', 'NÃO') default null,
-    obs_fechamento text,
+    eficacia ENUM('SIM', 'NAO') DEFAULT NULL,
+    obs_fechamento TEXT,
     -- FK
-    foreign key(idUsuario) references usuarios(id),
-    foreign key(idDepartamento) references departamentos(id),
-    foreign key(responsavel_Imediato) references funcionarios(idUsuario),
-	foreign key(responsavel_acaoFinal) references administrador(idUsuario)
+    FOREIGN KEY (idUsuario) REFERENCES usuarios(id),
+    FOREIGN KEY (idDepartamento) REFERENCES departamentos(id),
+    FOREIGN KEY (responsavel_Imediato) REFERENCES funcionarios(idUsuario),
+    FOREIGN KEY (responsavel_acaoFinal) REFERENCES administrador(idUsuario)
 );
 
-create table if not exists analise_tecnica (
-	id int primary key auto_increment,
-    cliente_analise int, -- Busca os dados do cliente que solicitou a analise
-    servicos ENUM ('CONSERTO', 'MONTAGEM', 'AVALIAÇÃO', 'MANUTENÇÃo', 'MODIFICAÇÃO') NOT NULL,
-    relatoProblema text,
+
+CREATE TABLE IF NOT EXISTS analise_tecnica (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    cliente_analise INT,  -- Busca os dados do cliente que solicitou a análise
+    servicos ENUM('CONSERTO', 'MONTAGEM', 'AVALIACAO', 'MANUTENCAO', 'MODIFICACAO') NOT NULL,
+    relatoProblema TEXT,
     -- FK
-    foreign key (cliente_analise) references clientes(idUsuario)
-    
+    FOREIGN KEY (cliente_analise) REFERENCES clientes(idUsuario)
 );
 -- views
 -- uma view é uma query, porem simplificada, com nome amigavel
 CREATE VIEW vw_funcionarios_departamentos AS
 
+CREATE OR REPLACE VIEW vw_funcionarios_departamentos AS
 SELECT
     f.especializacao,
     d.id AS idDepartamento,
@@ -130,11 +139,11 @@ SELECT
 FROM funcionarios f
 
 INNER JOIN usuarios u
-	ON u.id = f.idUsuario
-    
+    ON u.id = f.idUsuario
 INNER JOIN funcionario_departamentos fd
     ON f.idUsuario = fd.idFuncionario
 
 INNER JOIN departamentos d
     ON fd.idDepartamento = d.id;
-    
+
+
