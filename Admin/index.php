@@ -1,8 +1,39 @@
 <?php
+declare(strict_types=1);
 
-// dashboard com o que precisa ser feito no dia(suas demandas)
+$databaseStatus = 'Conectado';
 
-?><!DOCTYPE html>
+try {
+    require_once __DIR__ . '/../app/banco/database.php';
+    require_once __DIR__ . '/../app/banco/crud.php';
+
+    $pdo = database();
+    $pdo->query('SELECT 1');
+} catch (Throwable $exception) {
+    error_log($exception->getMessage());
+    $databaseStatus = 'Indisponível';
+}
+
+$relatos      = [];
+$totalRelatos = 0;
+
+if ($databaseStatus === 'Conectado') {
+    try {
+        $relatos = $pdo->query(
+            "SELECT id, relatoProblema
+             FROM analise_tecnica
+             WHERE relatoProblema IS NOT NULL AND relatoProblema <> ''
+             ORDER BY id DESC"
+        )->fetchAll();
+        $totalRelatos = count($relatos);
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+    }
+}
+
+$exibirRelatos = ($_GET['abrir'] ?? '') === 'relatos';
+?>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -73,16 +104,16 @@
                     </div>
                     <i class="seta"></i>
                 </a>
-                <a href="indicacao.php" class="caixa-principal">
+                <a href="index.php?abrir=relatos" class="caixa-principal">
                     <div class="caixa-dados">
-                        <strong>3</strong>
+                        <strong><?= $totalRelatos ?></strong>
                         <span>Relatos</span>
                     </div>
                     <i class="seta"></i>
                 </a>
             </section>
 
-            <!-- 3) PRÓXIMAS AULAS / DEMANDAS -->
+            <!-- 3) PRÓXIMAS DEMANDAS -->
             <section class="caixa-lista">
                 <div class="lista-topo">
                     <h3>Próximas demandas</h3>
@@ -115,5 +146,31 @@
 
         </div>
     </div>
+
+    <!-- GAVETA DE RELATOS -->
+    <?php if ($exibirRelatos): ?>
+        <a href="index.php" class="overlay" aria-label="Fechar relatos"></a>
+
+        <div class="form-drawer" role="dialog" aria-modal="true" aria-labelledby="relatos-titulo">
+            <div class="form-drawer-content">
+                <a href="index.php" class="btn-fechar" aria-label="Fechar">&times;</a>
+
+                <div class="form-cabecalho">
+                    <h3 id="relatos-titulo">Relatos dos clientes</h3>
+                    <p>Relatos enviados na análise técnica e inspeção:</p>
+                </div>
+
+                <?php if (empty($relatos)): ?>
+                    <p id="mensagem">Nenhum relato registrado.</p>
+                <?php endif; ?>
+
+                <?php foreach ($relatos as $r): ?>
+                    <div class="relato-item">
+                        <p><?= nl2br(htmlspecialchars((string)$r['relatoProblema'])) ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    <?php endif; ?>
 </body>
 </html>
